@@ -1,0 +1,304 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ardshinbank &times; ACA X &middot; Session 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/deck.css"><style>.lockup{position:fixed;top:20px;left:26px;z-index:5;display:flex;align-items:center;gap:14px}.lk-bank{height:26px;width:auto;display:block}.lk-div{width:1px;height:20px;background:#3a3a40}.lk-aca{font-family:var(--h);font-weight:800;font-size:22px;letter-spacing:.02em;text-decoration:none;color:#fff;line-height:1}.lk-aca sup{color:var(--green);font-size:.6em;margin-left:1px}.title-logo{height:46px;width:auto;display:block;margin:0 auto 26px}.fig{margin-top:22px;border:1px solid var(--line);background:#000;padding:18px 16px}.fig svg{display:block;width:100%;height:auto;max-height:52vh}@keyframes fillw{from{transform:scaleX(.03)}to{transform:scaleX(1)}}.mv-grow{transform-origin:left center;animation:fillw 4.6s cubic-bezier(.77,0,.175,1) infinite alternate}@media(prefers-reduced-motion:reduce){.mv-grow{animation:none;transform:scaleX(1)}}@media print{.lockup{position:absolute}}@media (max-width:640px){.lk-bank{height:20px}.lk-aca{font-size:17px}}</style></head><body>
+<div class="lockup"><img src="../assets/ardshinbank-logo-dark.svg" alt="Ardshinbank" class="lk-bank"><span class="lk-div"></span><a class="lk-aca" href="#1">ACA<sup>x</sup></a></div>
+<div class="progress" id="prog"></div><div class="deck" id="deck"></div>
+<div class="nav"><button id="prev">‹</button><button id="next">›</button></div>
+<div class="counter"><b id="cur">1</b> / <span id="tot">42</span></div>
+<div class="hint">← → navigate · N notes · F fullscreen</div>
+<div class="notes" id="notes"><div class="nk">Speaker note</div><div class="nt" id="noteText"></div><div class="vis" id="visText"></div></div>
+<script>
+const DOTS = `<svg viewBox="0 0 260 130" width="260" height="130" aria-hidden="true" style="max-width:70vw"><g fill="#d0f539"><circle cx="28" cy="30" r="5" opacity=".28"/><circle cx="66" cy="86" r="5" opacity=".34"/><circle cx="104" cy="42" r="5" opacity=".26"/><circle cx="150" cy="98" r="5" opacity=".32"/><circle cx="52" cy="58" r="5" opacity=".44"/><circle cx="92" cy="104" r="5" opacity=".30"/><circle cx="188" cy="46" r="5" opacity=".40"/><circle cx="214" cy="92" r="5" opacity=".26"/><circle cx="236" cy="34" r="5" opacity=".33"/><circle cx="176" cy="104" r="5" opacity=".28"/><circle cx="132" cy="68" r="11" opacity="1" style="filter:drop-shadow(0 0 13px rgba(208,245,57,.9))"/></g></svg>`;
+
+window.SLIDES = [
+{sec:`ARDSHINBANK &times; ACA<sup>x</sup> &middot; SESSION 3 OF 6`, title:`DATA WITHOUT <span class="g">SQL</span>`, center:true,
+ body:`<div class="sub">Decisions, experiments, and verifying answers.</div>
+   <div style="margin:24px auto 0;display:flex;justify-content:center">${DOTS}</div>
+   <div class="sub" style="font-size:clamp(18px,2.4vw,30px);color:#fff;margin-top:20px">Answer the question. Verify the number. Own the decision.</div>
+   <div class="tbar" style="margin-left:auto;margin-right:auto"></div>`,
+ note:`Today is the day most PMs quietly dread: data. Good news. You will not write one line of SQL, and neither will I. We treat data as something you ask in plain language, then verify, then decide on. The number is never the point. The decision is. And you are the ones who own it.`,
+ vis:`Neon data-point dot cluster, one dot brightest, plus title bar`},
+
+{sec:`RECAP · SESSION 2`, title:`LAST TIME: RESEARCH TO A <span class="g">PRD</span>`,
+ body:`<div class="rows" style="margin-top:6px">
+   <div class="row"><span class="a">A skill did the drafting</span><span class="arw">→</span><span class="b">You took a messy research set to a PRD and acceptance criteria, fast.</span></div>
+   <div class="row"><span class="a">You kept the judgment</span><span class="arw">→</span><span class="b">Scope, priority, what actually ships. The skill never decided that.</span></div></div>
+   <div class="cap" style="max-width:820px;margin:16px auto 0">Today is the same move, on data. AI does the mechanics. You own the call.</div>`,
+ note:`Quick recap of last session, so today connects. In Session 2 you pointed a skill at a research set and it drafted a PRD and acceptance criteria in minutes. The skill did the typing. You kept the part that matters: what is in scope, what is priority, what ships. Hold that pattern, because today is the exact same shape on data. The AI does the mechanical work. You make the call.`,
+ vis:`Two-row recap, neon arrows: skill drafts, you decide`},
+
+{sec:`OPEN & FRAME`, title:`WHERE THIS SITS IN THE <span class="g">LIFECYCLE</span>`, center:true,
+ body:`<div class="rule"></div>
+   <div class="lifecycle" style="justify-content:center"><span>Research</span><span class="n">→</span><span>Spec</span><span class="n">→</span><span style="color:var(--green);text-shadow:0 0 22px rgba(208,245,57,.6)">Data</span><span class="n">→</span><span>Ship</span></div>
+   <div class="sub">You have made things. Now you defend them with numbers you actually trust.</div>`,
+ note:`Where we are on the map. Somewhere between spec and ship, someone in a review asks, what does the data say. Today you learn to answer that fast, catch when the answer is quietly wrong, and turn it into a decision you can defend in a room full of skeptics.`,
+ vis:`Neon lifecycle flow, DATA highlighted`},
+
+{sec:`OPEN & FRAME · chat`, title:`CALIBRATE THE <span class="g">ROOM</span>`,
+ body:`<div class="sub" style="font-size:clamp(20px,2.6vw,32px);color:#fff;margin-top:0">One line out loud: a time a "confident number" turned out wrong.</div>
+   <div class="sub">What did it cost?</div>`,
+ note:`Before I teach, give me a war story. A dashboard, a board slide, a metric everyone trusted that turned out wrong. What did it cost? Collect four or five. Hold those. By the end you will have a habit that catches exactly that.`,
+ vis:`Pure type, chat prompt`},
+
+{sec:`OPEN & FRAME · the belief`, title:`YOU OWN THE <span class="g">VERDICT</span>`, center:true,
+ body:`<div class="sub" style="margin-top:0">AI gives you the number in seconds.</div>
+   <div class="rule"></div>
+   <div class="sub" style="color:#fff;font-size:clamp(18px,2.2vw,28px)">A wrong number, shipped confidently, is worse than no number.</div>`,
+ note:`One belief for the day. AI hands you an answer in seconds, beautifully formatted, sounding certain. Speed is not truth. Your job is not to produce the number. It is to decide whether the number can be trusted, and what to do about it. In a bank, a wrong number shipped with confidence is worse than no number, because someone acts on it. That verdict is the PM work.`,
+ vis:`Huge neon type: YOU OWN THE VERDICT`},
+
+{sec:`BRING DATA TO AI`, title:`GET THE ANSWER, <span class="g">SKIP THE SYNTAX</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Bring your data to AI. No query language required.</div>`,
+ note:`First, how you even get an answer out of a spreadsheet without knowing SQL.`,
+ vis:`Divider`},
+
+{sec:`BRING DATA TO AI`, title:`WHAT SQL WAS FOR, <span class="g">& WHY YOU CAN SKIP IT</span>`,
+ body:`<div class="sub" style="margin-top:0">SQL is a language for asking a database questions. AI removes the syntax tax: you ask in plain English, it writes and runs the query for you.</div>
+   <img class="shot" src="../assets/img/s4/plain-english-answer.png"><div class="shotcap">A plain-English question typed into Claude with its answer. The user wrote no SQL.</div>`,
+ note:`SQL is just a strict language for asking a table questions like, how many customers churned last month. The barrier was never the thinking. It was the punctuation. AI collapses that. You describe the question in plain English, and the AI does the mechanical part. Your skill moves up to asking the right question and checking the answer, which is where a PM belongs anyway.`,
+ vis:`[SCREENSHOT] plain-English question and answer, no SQL`},
+
+{sec:`BRING DATA TO AI`, title:`THREE WAYS TO <span class="g">GET DATA TO AI</span>`,
+ body:`<ul class="checklist"><li><b style="color:#fff">Upload a file</b> (CSV / Excel) into the chat</li><li><b style="color:#fff">Connect a source</b> (a live connector, where your tool allows it)</li><li><b style="color:#fff">Analysis mode</b>: AI writes and runs code on your file and shows the result</li></ul>
+   <img class="shot" src="../assets/img/s4/csv-drag.png"><div class="shotcap">A CSV file being dragged into the Claude chat (door one: upload a file)</div>`,
+ note:`Three doors, no SQL behind any of them. Drag a CSV straight into the chat. Or connect a live source if your tool allows it. Or use an analysis mode where the AI writes and runs real code on your file and hands you the result. For a quick test we use door one, a tiny CSV. Small file, tight prompt, cheap. But door two, a connector, is worth understanding, so let me name it properly.`,
+ vis:`[SCREENSHOT] CSV dragged into Claude chat`},
+
+{sec:`ANATOMY · MCP + CONNECTORS`, title:`HOW AI REACHES YOUR <span class="g">REAL DATA</span>`,
+ body:`<div class="sub" style="margin-top:0">Instead of exporting a file every time, a connector lets AI read a live source you sign into.</div>
+   <div class="rows" style="margin-top:12px">
+   <div class="row"><span class="a">MCP</span><span class="arw">→</span><span class="b">The standard socket that lets AI reach a tool or a data source.</span></div>
+   <div class="row"><span class="a">Connector</span><span class="arw">→</span><span class="b">That socket, in the cloud: a warehouse, a sheet, a dashboard you already log into.</span></div></div>
+   <div class="cap" style="max-width:820px;margin:14px auto 0">Same idea as uploading a file, but live. You stop copy-pasting exports.</div>`,
+ note:`This is your anatomy slice for today. Remember the map from Session 1. MCP is the socket, the standard plug that lets AI reach a real tool or a real data source. A connector is that same plug living in the cloud: your data warehouse, a Google Sheet, a reporting dashboard you already sign into. Turn it on once and the AI can read from it directly, instead of you exporting a CSV every single time. That is the whole idea. But a live connection into bank data raises one question you must own, so here it is.`,
+ vis:`Two-row anatomy: MCP is the socket, a connector is the cloud version`},
+
+{sec:`ANATOMY · LEAST-PRIVILEGE`, title:`THE RULE YOU <span class="g">OWN</span>: READ-ONLY`,
+ body:`<div class="cards"><div class="card good"><div class="tag">Read-only</div><p>For a data question, AI only needs to read. It never needs to write, move, or delete.</p></div>
+   <div class="card bad"><div class="tag">Write access</div><p>Do not grant it. A reporting agent that can change the ledger is a risk, not a feature.</p></div></div>
+   <div class="cap" style="max-width:820px;margin:12px auto 0">Least privilege: grant only what the job needs. In a bank, this is not optional.</div>`,
+ note:`Here is the rule a PM owns, not the engineer: least privilege. Grant the AI only the access the job needs, and nothing more. A question about churn or transaction volume needs read access. It never needs to write, move, or delete anything. So a reporting connector should be read-only. An agent that can both read your ledger and change it is not more powerful, it is a liability. In a regulated bank, read-only by default is the difference between a tool you can approve and one your risk team will kill. You do not need to configure it. You need to insist on it.`,
+ vis:`Two cards: read-only good, write access bad. Least-privilege rule.`},
+
+{sec:`BRING DATA TO AI · framework`, title:`R·C·T·C, <span class="g">APPLIED TO DATA</span>`,
+ body:`<div class="blocks">
+   <div class="block"><div class="bl">R · Role</div><p>Act as a skeptical data analyst.</p></div>
+   <div class="block"><div class="bl">C · Context</div><p>My CSV, what each column means, and the business question.</p></div>
+   <div class="block"><div class="bl">T · Task</div><p>Answer it, then explain your logic in plain English.</p></div>
+   <div class="block" style="box-shadow:0 0 0 1px rgba(208,245,57,.4),0 0 26px rgba(208,245,57,.25)"><div class="bl">C · Critique</div><p>Now challenge your own answer: what could make this wrong?</p></div></div>`,
+ note:`Remember R, C, T, C from Session 1. It works even harder on data. Give it a skeptical role, not a cheerleader. Context is the file, plus what the columns mean, plus the real question. Task is answer and explain the logic. And the critique loop is the magic move for data: make it attack its own number before you do. We use this exact shape in a moment. First, watch me run it live.`,
+ vis:`Four neon R/C/T/C blocks, critique brightest`},
+
+{sec:`LIVE`, center:true, title:`LIVE: POINT CLAUDE AT A <span class="g">REAL FILE</span>`,
+ body:`<div class="rule" style="margin-left:auto;margin-right:auto"></div>
+   <div class="sub" style="color:#fff">Watch me now. You do it on your own file right after.</div>
+   <div class="mono" style="max-width:760px;margin:14px auto 0;text-align:left">In Claude Code, I open the <b>aca-demo</b> project and point it at <b>examples/social-posts-sample.csv</b>:<ol class="steps2">
+     <li><span class="c">"Which post type has the best engagement rate? Give the number."</span></li>
+     <li><span class="c">"Explain in plain English exactly how you got it. What did you include and exclude?"</span></li></ol></div>
+   <div class="cap" style="max-width:800px;margin:12px auto 0">The demo file is marketing data. The same checks apply to a churn table or a transaction export. One viral post is hiding in here. Watch it distort the average until Claude shows its work.</div>`,
+ note:`Enough slides, let me show you the thing itself. This is Claude Code, open in our demo project. I point it at a small CSV of social posts, that is just the file we ship in the repo, and ask which post type performs best. Then, and this is the whole game, I ask it to explain in plain English exactly how it got the number, what it counted and what it dropped. Watch: one giant viral collaboration post is sitting in that file, and it quietly drags the average up. The number looks clean until Claude shows its work. In your world this file is a churn table or a month of transactions. Same move, same trap. You do this on your own file next.`,
+ vis:`Live: open aca-demo in Claude Code, point at examples CSV, ask a question, then make it explain and catch the outlier`},
+
+{sec:`BRING DATA TO AI · Picsart`, title:`DATA TO ANSWERS, <span class="g">NO QUERIES</span>`,
+ body:`<div class="sub" style="margin-top:0">I run marketing reports across five platforms and a lifecycle dashboard. I ask questions in plain English. I never hand-write the queries.</div>
+   <img class="shot" src="../assets/img/s4/marketing-dashboard.png"><div class="shotcap">Marketing dashboard or monthly report, high-level, no confidential figures</div>`,
+ note:`My own example, kept high-level. I run monthly reports pulling numbers across five platforms, plus a dashboard for messaging experiments. I am not writing database queries. I describe what I want, the system pulls and shapes it, and I spend my time on the part that matters: is this right, and what do we do about it. In your world it is the same picture, a churn report or transaction volumes instead of social posts. Same shift.`,
+ vis:`[SCREENSHOT] marketing dashboard, high-level`},
+
+{sec:`WARM-UP HANDS-ON`, title:`THE <span class="g">DATASET</span>`,
+ body:`<div class="sub" style="margin-top:0">A bank tested a new digital account-opening flow (B) against the old one (A). "activated" = the customer funded the account within 7 days. Did B win? Roll it out? Paste this tiny CSV into Claude:</div>
+   <div class="mono" style="margin-top:14px;font-size:clamp(11px,1.15vw,15px);line-height:1.5">user_id,variant,signup_date,activated<br>1001,A,2026-06-01,yes<br>1002,A,2026-06-02,no<br>1003,A,2026-06-02,yes<br>1004,A,2026-06-03,<br>1005,A,2026-06-04,yes<br>1006,A,2026-06-05,no<br>1007,A,2026-06-07,yes<br>2001,B,2026-06-10,yes<br>2002,B,2026-06-11,yes<br>2003,B,2026-06-12,<br>2004,B,2026-06-13,yes<br>2005,B,2026-06-14,no</div>`,
+ note:`Here is your dataset for the rest of the day, and it is a banking one. A bank tested a new digital account-opening flow, version B, against the old flow, version A. Activated means the customer funded the account within seven days. Twelve rows on purpose: small enough to be free, big enough to hide traps. The question is real: did B beat A, and should we roll it out to every new customer. Copy this exact CSV. We answer it, break the answer, then decide.`,
+ vis:`Mono CSV, 12 rows, banking A/B flow, thin neon border`},
+
+{sec:`WARM-UP HANDS-ON`, title:`YOUR <span class="g">TURN</span>`, center:true,
+ body:`<span class="turn">Your turn</span><div class="sub">Warm-up: get the answer, then make it explain. 1 task, ~8 min.</div><div class="rule"></div>`,
+ note:`Claude open, CSV ready. This first task is just to feel how fast the answer comes, and how it explains itself. No SQL, promise.`,
+ vis:`YOUR TURN label + rule`},
+
+{sec:`WARM-UP HANDS-ON · task`, title:`TASK 1 · <span class="g">ANSWER + EXPLAIN</span>`,
+ body:`<span class="turn">8 min</span>
+   <div class="mono"><ol class="steps2">
+   <li>Paste the CSV. Then: <span class="c">"Act as a skeptical data analyst. Which variant has the higher activation rate? Give the two rates."</span></li>
+   <li>Then: <span class="c">"Explain in plain English exactly how you calculated each rate, step by step."</span></li>
+   <li>Read the logic. Note: <b style="color:#fff">did it count the blank row? did it treat A and B the same?</b></li></ol></div>`,
+ note:`Three steps. Get the two activation rates. Make it explain the logic in plain English. Then read that logic like an auditor: what did it do with the blank activated cell in each variant, and did it treat both variants identically. Do not judge the number yet. Just watch what it silently decided for you. Work for about eight minutes. Keep your notes, we come back to this after the break.`,
+ vis:`Mono task block, neon step numbers`},
+
+{sec:`BREAK`, title:`BREAK · <span class="g">8 MIN</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Back in ~8 min.</div><div class="sub" style="font-size:16px">Next: how to read an experiment, the traps AI falls into, and how to turn all this into a decision you can defend.</div>`,
+ note:`Eight minutes. When we are back: how to read an experiment, the traps AI falls into, and how to turn all this into a decision you can defend.`,
+ vis:`Break timer`},
+
+{sec:`VERIFY WITHOUT SQL`, title:`CATCH THE <span class="g">SILENT WRONG NUMBER</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">The one skill that pays for this whole session.</div>`,
+ note:`This is the heart of the day. If you take one habit home, it is this one.`,
+ vis:`Divider`},
+
+{sec:`VERIFY WITHOUT SQL`, title:`THE SILENT <span class="g">WRONG NUMBER</span>`,
+ body:`<div style="display:flex;gap:48px;align-items:flex-end;flex-wrap:wrap;margin-top:6px">
+   <div><div class="num small" style="font-size:clamp(60px,11vw,140px)">42%</div><div class="barlabel">looks right</div></div>
+   <div><div class="num small" style="font-size:clamp(60px,11vw,140px)">42%</div><div class="barlabel">is wrong</div></div></div>
+   <div class="cap">AI will not warn you. A wrong 42% looks identical to a right one.</div>`,
+ note:`Here is the trap. When AI is wrong about a fact, sometimes you can smell it. When it is wrong about a number, you usually cannot. A wrong forty-two percent looks exactly like a right forty-two percent. It never flags its own mistake. So we do not hope it is right. We make it prove it, in a way anyone in the room can follow.`,
+ vis:`Two identical neon 42%, one right, one wrong`},
+
+{sec:`VERIFY WITHOUT SQL`, title:`EXPLAIN THE LOGIC, <span class="g">NOT THE CODE</span>`,
+ body:`<div class="sub" style="margin-top:0">Do not ask to see the code. Ask: "Explain, in plain English, exactly how you got this number." You verify the logic, not the syntax.</div>
+   <img class="shot" src="../assets/img/s4/explain-rate.png"><div class="shotcap">Claude explaining, in plain English step by step, how it calculated a number</div>`,
+ note:`You do not need to read code to verify data. Ask it to explain its reasoning in plain English: what did you use, what did you leave out, what did you count. If the logic is wrong, the number is wrong, and now you can see it without being technical. This is how a non-SQL PM out-verifies an engineer who only checks that the query runs.`,
+ vis:`[SCREENSHOT] Claude explaining the calculation in plain English`},
+
+{sec:`VERIFY WITHOUT SQL · framework`, title:`THE <span class="g">3 CHECKS</span>`,
+ body:`<div class="blocks" style="grid-template-columns:repeat(3,1fr)">
+   <div class="block"><div class="bl">Source</div><p>Which data, which rows. Is it complete?</p></div>
+   <div class="block"><div class="bl">Filters</div><p>What date range. What is included, what is excluded?</p></div>
+   <div class="block"><div class="bl">What it counted</div><p>People or sessions? Events or customers? The right unit?</p></div></div>`,
+ note:`Three checks, every single number. One, the source: is this even the complete data, or is a chunk missing. Two, the filters: what window, what got included, what got silently dropped. Three, and this is the killer, what did it actually count. Customers or sessions. Applications or funded accounts. Get the unit wrong and every downstream decision is wrong. Memorize these three.`,
+ vis:`Three neon boxes: SOURCE, FILTERS, WHAT IT COUNTED`},
+
+{sec:`VERIFY WITHOUT SQL · the questions`, title:`THE KILLER QUESTIONS <span class="g">(SAY THEM OUT LOUD)</span>`,
+ body:`<div class="sub" style="margin-top:0">Paste after any AI answer:</div>
+   <div class="mono" style="margin-top:16px">"What data and date range did you use?"<br>"What rows did you drop or exclude, and why?"<br>"Did you count people or sessions?"<br><span class="c">"What would make this number wrong?"</span></div>`,
+ note:`These four questions are your seatbelt. Copy them, keep them, paste them after any data answer AI gives you. Notice the last one: what would make this wrong. It flips the AI from defending its answer to stress-testing it. That single question has saved me from shipping bad decisions more than once.`,
+ vis:`Mono block, four killer questions`},
+
+{sec:`VERIFY WITHOUT SQL · try it`, title:`TRY IT: <span class="g">90 SECONDS</span>`, center:true,
+ body:`<div class="sub" style="color:#fff;margin-top:0">Go back to your Task 1 answer.</div>
+   <div class="mono" style="max-width:720px;margin:14px auto 0;text-align:left">Paste the four killer questions under it. Then read one thing: <span class="c">did the activation rate move once it explained what it did with the blank row?</span></div>`,
+ note:`Quick one, ninety seconds, right now. Scroll back to the answer you got in Task 1. Paste the four killer questions under it and send. Watch one thing: does the rate move once it tells you what it did with that blank activated cell. For a lot of you, the number will shift. That shift is the whole point of the session, live, on your own screen.`,
+ vis:`Try it: paste killer questions on the Task 1 answer, watch the rate move`},
+
+{sec:`VERIFY WITHOUT SQL · Picsart`, title:`THE SILENT WRONG NUMBER, <span class="g">FOR REAL</span>`,
+ body:`<ul class="checklist"><li>A viral post was <b style="color:#fff">missing</b> from one report (paid posts were not in that source)</li><li>One platform reported <b style="color:#fff">impressions</b>, another <b style="color:#fff">views</b>. Off by ~20x</li><li>"Reach" counted differently everywhere</li></ul>
+   <img class="shot" src="../assets/img/s4/views-vs-impressions.png"><div class="shotcap">A monthly report missing a high-performing post, plus two platforms labeling the same metric "views" vs "impressions". High-level, no confidential figures.</div>`,
+ note:`This is not theory for me. One of our biggest posts simply did not appear in a report, because that data source never included paid posts. Another time, two platforms both said views, but one meant impressions and one meant real views, off by about twenty times. Same word, different meaning. If I had trusted the raw number I would have made a real, wrong call. In your world it is two teams that both say active customer but count it differently, one at sign-up, one at first transaction. The three checks are what catch it.`,
+ vis:`[SCREENSHOT] report missing a top post, views vs impressions`},
+
+{sec:`VERIFY WITHOUT SQL · the flip`, title:`VERIFICATION IS <span class="g">YOUR MOAT</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Anyone can get a number now. Being the person who knows when to trust it is the rare, promotable skill.</div>`,
+ note:`Here is the optimistic flip, like every session. AI made getting numbers trivial, which means getting numbers is no longer valuable. What is valuable, and rare, is judgment about which numbers to trust. That is you. In an AI world, the verifier is the most senior person in the room.`,
+ vis:`Divider, reframe`},
+
+{sec:`READ EXPERIMENTS`, title:`IS IT REAL, <span class="g">OR IS IT NOISE?</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Significance, confidence, and the traps. No stats degree required.</div>`,
+ note:`Now the experiment layer. Same no-jargon rule. You will understand significance and confidence well enough to call it out, without a stats degree.`,
+ vis:`Divider`},
+
+{sec:`READ EXPERIMENTS`, title:`SIGNIFICANCE, <span class="g">IN PLAIN ENGLISH</span>`,
+ body:`<div class="sub" style="margin-top:0">Significance = "is this difference real, or could it be luck?" Small sample plus small difference = probably luck.</div>
+   <div class="mono" style="margin-top:14px"><span class="c">"Is this difference statistically significant? Explain like I am not a statistician."</span></div>
+   <img class="shot" src="../assets/img/s4/significance.png"><div class="shotcap">Claude answering "is this difference statistically significant?" in plain English</div>`,
+ note:`Significance sounds scary. It just asks: is this gap real, or could random luck explain it. Flip a coin ten times, you might get seven heads. That does not mean the coin is rigged. Same with B beating A by a little on twelve customers. Make the AI tell you, in plain words, whether the difference is real or could just be luck.`,
+ vis:`[SCREENSHOT] Claude answering significance in plain English`},
+
+{sec:`READ EXPERIMENTS`, title:`CONFIDENCE, <span class="g">IN PLAIN ENGLISH</span>`,
+ body:`<div class="sub" style="margin-top:0">Do not trust a single point ("B is 75%"). Trust the range ("B is somewhere between 55% and 90%"). A wide range on a small sample = you do not know yet.</div>
+   <img class="shot" src="../assets/img/s4/confidence-chart.png"><div class="shotcap">A chart Claude made showing a point estimate with its wide confidence range / error bar</div>`,
+ note:`Second idea: confidence. A single number like seventy-five percent pretends to a precision you do not have. The honest version is a range. If the range is huge, say fifty-five to ninety percent, you do not know the real answer yet, you have a guess wearing a suit. Ask AI for the range, not just the point. The width of that range is your honesty meter.`,
+ vis:`[SCREENSHOT] point estimate with a wide confidence range`},
+
+{sec:`READ EXPERIMENTS · traps`, title:`THE <span class="g">3 TRAPS</span> AI FALLS INTO`,
+ body:`<div class="blocks" style="grid-template-columns:repeat(3,1fr)">
+   <div class="block"><div class="bl">Tiny sample</div><p>Declares a winner on 12 customers.</p></div>
+   <div class="block"><div class="bl">Cherry-pick</div><p>Finds a segment that "works" (p-hacking).</p></div>
+   <div class="block"><div class="bl">Correlation ≠ causation</div><p>"Customers who did X keep more money." Did X cause it, or do good customers just do X?</p></div></div>`,
+ note:`Here is where AI itself gets it wrong, so you must lead. One, it will happily crown a winner off twelve customers. Two, if you let it dig, it will find some slice that looks great, which is p-hacking, torturing data until it confesses. Three, the classic: it says customers who use feature X keep higher balances, and calls it causation. Maybe X causes it, or maybe your wealthiest customers just happen to use X. You are the adult in the room on all three.`,
+ vis:`Three trap names in neon: TINY SAMPLE, CHERRY-PICK, CORRELATION ≠ CAUSATION`},
+
+{sec:`READ EXPERIMENTS · red-team`, title:`MAKE AI <span class="g">RED-TEAM</span> THE EXPERIMENT`,
+ body:`<div class="sub" style="margin-top:0">After any experiment read, ask:</div>
+   <div class="mono" style="margin-top:16px">"Is the sample big enough to trust this?"<br>"Are you comparing the same time window and the same audience?"<br><span class="c">"Is this correlation or causation? What else could explain it?"</span></div>`,
+ note:`So you deploy the critique loop again, aimed at the experiment. Is the sample big enough. Are we comparing apples to apples, same window, same audience. And is this cause or just correlation, what else could explain it. Make the AI argue against its own conclusion. If the conclusion survives that, now you believe it.`,
+ vis:`Mono block, three red-team questions`},
+
+{sec:`READ EXPERIMENTS · Picsart`, title:`READ RESULTS, <span class="g">THEN DECIDE</span>`,
+ body:`<div class="sub" style="margin-top:0">We run a weekly loop: ~30 experiment ideas &rarr; leadership picks ~10 &rarr; launch &rarr; measure &rarr; learn. The AI drafts the read. A human makes the call.</div>
+   <img class="shot" src="../assets/img/s4/experiment-ideas.png"><div class="shotcap">Experiment report or ideas sheet, high-level, no confidential figures</div>`,
+ note:`How this looks in real life. We have a weekly experiment loop: the system proposes around thirty test ideas, leadership picks about ten, they launch, and the next week we read what happened. AI drafts the read of the results fast. But the decision, what won, what to keep, what to test next, is always a human call. AI accelerates the loop. It does not close it. A growth or lifecycle team in a bank runs the exact same loop.`,
+ vis:`[SCREENSHOT] experiment report, high-level`},
+
+{sec:`NUMBER TO DECISION`, title:`FROM NUMBER TO <span class="g">VERDICT</span>`,
+ body:`<div class="rows"><div class="row"><span class="a">"B is 75%"</span><span class="arw">→</span><span class="b">"Hold. Sample too small, windows differ. <b>Re-run clean for two weeks.</b>"</span></div></div>
+   <div class="cap">A number just sits there. A decision says what we will do and why.</div>`,
+ note:`The last mile everyone skips. A number just sits there. A decision says what we will do and why. B is at seventy-five percent is a number. Do not ship yet, the sample is too small and the two versions ran in different weeks, re-run it clean for two weeks is a decision. That sentence is what your team actually needs from you.`,
+ vis:`Big neon NUMBER to VERDICT with arrow`},
+
+{sec:`NUMBER TO DECISION · framework`, title:`THE DEFENSIBLE DECISION <span class="g">(4 LINES)</span>`,
+ body:`<div class="blocks">
+   <div class="block"><div class="bl">Decision</div><p>What we will do.</p></div>
+   <div class="block"><div class="bl">Evidence</div><p>The number, and how it was verified.</p></div>
+   <div class="block"><div class="bl">Confidence</div><p>High / medium / low, and why.</p></div>
+   <div class="block" style="box-shadow:0 0 0 1px rgba(208,245,57,.4),0 0 26px rgba(208,245,57,.25)"><div class="bl">What would change my mind</div><p>The result that flips this.</p></div></div>`,
+ note:`Here is the template that makes a decision defensible. Four lines. What we will do. The evidence, including that you verified it. Your honest confidence level. And the one that earns trust: what would change my mind. Naming the result that would flip your decision proves you are reasoning, not defending your ego. Executives trust that instantly.`,
+ vis:`Four neon lines, last brightest`},
+
+{sec:`NUMBER TO DECISION`, title:`PRIORITIZE THE <span class="g">NEXT TEST</span>`,
+ body:`<ul class="checklist"><li>Every decision spawns the next question</li><li>Pick the <b style="color:#fff">ONE</b> test that most reduces your uncertainty</li><li>Pre-register it: metric, audience, duration, win threshold. <b style="color:#fff">Before</b> you run it.</li></ul>`,
+ note:`Data work is a loop, not a full stop. Once you decide, ask: what is the one test that would most shrink what I still do not know. Then pre-register it. Write down the metric, the audience, how long, and what counts as a win, before you run it. Pre-registering is the single best defense against fooling yourself later. It kills p-hacking at the source.`,
+ vis:`Neon arrow forking into two branches`},
+
+{sec:`MAIN HANDS-ON`, title:`YOUR <span class="g">TURN</span>`, center:true,
+ body:`<span class="turn">Your turn</span><div class="sub">Break the answer, then make the call. 2 tasks, ~20 min. This is today's milestone.</div><div class="rule"></div>`,
+ note:`Back to your banking CSV from before the break. Now we do the real work: verify the number until it either holds or breaks, then turn it into a decision you could defend to a VP. This is your milestone, the one thing you walk out with today.`,
+ vis:`YOUR TURN label + rule`},
+
+{sec:`MAIN HANDS-ON · task`, title:`TASK 2 · <span class="g">BREAK THE ANSWER</span>`,
+ body:`<span class="turn">10 min</span>
+   <div class="mono"><ol class="steps2">
+   <li>Paste the four killer questions: source? excluded rows? people or sessions? what would make this wrong?</li>
+   <li>Force it: <span class="c">"How did you handle the blank 'activated' value? Show both rates: blank excluded vs blank counted as 'no'."</span></li>
+   <li>Ask: <span class="c">"A started 2026-06-01, B started 2026-06-10 with fewer customers. Can I declare a winner? Why or why not?"</span></li>
+   <li>Write the <b style="color:#fff">one trap</b> that most changes the answer.</li></ol></div>`,
+ note:`Ten minutes. Run the three checks hard. Make it show the rate both ways for that blank cell, and watch the number move. Then confront it on the sample size and the different start dates. By the end you should be able to say, in one sentence, the biggest reason this experiment cannot be trusted as it stands. Find your trap.`,
+ vis:`Mono task block, neon step numbers`},
+
+{sec:`MAIN HANDS-ON · task`, title:`TASK 3 · <span class="g">MAKE THE CALL</span>`,
+ body:`<span class="turn">10 min</span>
+   <div class="mono"><ol class="steps2">
+   <li><b style="color:#fff">Decision</b> (ship B / hold / re-run?)</li>
+   <li><b style="color:#fff">Evidence</b> (rates + how you verified)</li>
+   <li><b style="color:#fff">Confidence</b> (high / med / low + why)</li>
+   <li><b style="color:#fff">What would change my mind</b></li>
+   <li>Then: <span class="c">the next test, pre-registered</span> (metric · audience · duration · win threshold)</li></ol></div>`,
+ note:`Now the payoff, and your milestone. Four lines plus the next test. Ask Claude to help draft it, then edit it in your own words, because you own this call, not the AI. When you are done you will have taken a raw twelve-row file all the way to a decision a leadership team would respect. That is the artifact you leave with today.`,
+ vis:`Mono task block, 4-line decision + next test. The milestone artifact.`},
+
+{sec:`MAIN HANDS-ON · share`, title:`THE <span class="g">NEAR-MISS</span>`,
+ body:`<div class="sub" style="margin-top:0;font-size:clamp(19px,2.3vw,28px);color:#fff">Share one: your decision in one sentence, plus the one thing you almost got wrong.</div>`,
+ note:`Let us hear four or five. Give me your decision in one sentence, and the trap that almost fooled you. Collect. Notice the pattern: almost everyone's first number was different from their verified number. That gap is exactly the job.`,
+ vis:`Pure type, share prompt`},
+
+{sec:`RECAP & HOMEWORK`, title:`THE THREE <span class="g">THAT MATTER</span>`,
+ body:`<ul class="recaplist">
+   <li><span class="n">1</span><span>No SQL needed: interrogate data in plain English</span></li>
+   <li><span class="n">2</span><span>Verify every number: source, filters, what it counted</span></li>
+   <li><span class="n">3</span><span>A number is not a decision: you write the verdict and the next test</span></li></ul>`,
+ note:`Three to keep. You do not need SQL, you need good questions. Never trust a number until you know its source, its filters, and what it counted. And your job is not the number, it is the decision and the next test. That is the whole day.`,
+ vis:`Big neon 1-2-3`},
+
+{sec:`RECAP & HOMEWORK · capstone`, title:`THE METRIC <span class="g">THAT MATTERS</span>`,
+ body:`<div class="bignum-wrap"><div class="num">1</div>
+   <div style="max-width:540px">
+   <div class="sub" style="margin-top:0;color:#fff">For YOUR capstone: what is the ONE number it lives or dies by?</div>
+   <div class="cap">Activation? Retention? Time saved? And when your product shows data, do not ship a silent wrong number.</div></div></div>`,
+ note:`Tie it to your capstone, the product you ship in Sessions 7 and 8. Every product lives or dies by one number. Start thinking now about what yours is. And remember: the day your capstone shows a metric to a user, you are on the hook for it being right. Today's habit is not just for reports. It is for whatever you build.`,
+ vis:`Single giant neon 1`},
+
+{sec:`RECAP & HOMEWORK · homework`, title:`<span class="g">HOMEWORK</span> · BEFORE SESSION 4`,
+ body:`<div class="sub" style="margin-top:0">One thing. Token-light.</div>
+   <div class="mono" style="margin-top:14px"><span class="c">Bring ONE real data question from your work.</span></div>
+   <div class="cap" style="max-width:760px;margin:16px auto 0">A number someone keeps asking about. Churn, activation, transaction volume, an A/B result. We will not touch confidential data. Just bring the question.</div>`,
+ note:`Homework is one thing, on purpose. Bring one real data question from your actual work. A churn rate someone keeps arguing about, an activation number, a transaction trend, an A/B test that never got a clean read. Do not bring the data, and definitely nothing confidential, just the question. It is the seed we use in future sessions, and it makes today's habit stick to something you actually care about.`,
+ vis:`Mono block, one homework line`},
+
+{sec:`CLOSE`, title:`NEXT: <span class="g">COMMUNICATE & PRESENT</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Stakeholders and visual design. You will leave Session 4 with a real exec update and a designed one-pager.</div>
+   <div style="margin:22px auto 0;display:flex;justify-content:center;opacity:.5">${DOTS}</div>`,
+ note:`Today you learned to trust numbers correctly and decide on them. Next time we make sure the right people believe your decision: exec-ready narratives, clean one-pagers, real design. Bring your one data question. See you then.`,
+ vis:`Divider + faint data-point motif`}
+];
+</script>
+<script src="../assets/deck.js"></script></body></html>

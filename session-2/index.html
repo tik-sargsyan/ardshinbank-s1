@@ -1,0 +1,328 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ardshinbank &times; ACA X &middot; Session 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/deck.css"><style>.lockup{position:fixed;top:20px;left:26px;z-index:5;display:flex;align-items:center;gap:14px}.lk-bank{height:26px;width:auto;display:block}.lk-div{width:1px;height:20px;background:#3a3a40}.lk-aca{font-family:var(--h);font-weight:800;font-size:22px;letter-spacing:.02em;text-decoration:none;color:#fff;line-height:1}.lk-aca sup{color:var(--green);font-size:.6em;margin-left:1px}.title-logo{height:46px;width:auto;display:block;margin:0 auto 26px}.fig{margin-top:22px;border:1px solid var(--line);background:#000;padding:18px 16px}.fig svg{display:block;width:100%;height:auto;max-height:52vh}@keyframes fillw{from{transform:scaleX(.03)}to{transform:scaleX(1)}}.mv-grow{transform-origin:left center;animation:fillw 4.6s cubic-bezier(.77,0,.175,1) infinite alternate}@media(prefers-reduced-motion:reduce){.mv-grow{animation:none;transform:scaleX(1)}}@media print{.lockup{position:absolute}}@media (max-width:640px){.lk-bank{height:20px}.lk-aca{font-size:17px}}</style></head><body>
+<div class="lockup"><img src="../assets/ardshinbank-logo-dark.svg" alt="Ardshinbank" class="lk-bank"><span class="lk-div"></span><a class="lk-aca" href="#1">ACA<sup>x</sup></a></div>
+<div class="progress" id="prog"></div><div class="deck" id="deck"></div>
+<div class="nav"><button id="prev">‹</button><button id="next">›</button></div>
+<div class="counter"><b id="cur">1</b> / <span id="tot">35</span></div>
+<div class="hint">← → navigate · N notes · F fullscreen</div>
+<div class="notes" id="notes"><div class="nk">Speaker note</div><div class="nt" id="noteText"></div><div class="vis" id="visText"></div></div>
+<script>
+/* brand shape: scattered neon fragments resolving into a clean grid */
+const GRID = `<svg viewBox="0 0 360 140" width="360" height="140" style="max-width:min(560px,80vw);height:auto" xmlns="http://www.w3.org/2000/svg">
+<g fill="#d0f539">
+<rect x="6" y="30" width="16" height="16" opacity=".35" transform="rotate(20 14 38)"/>
+<rect x="40" y="12" width="14" height="14" opacity=".55" transform="rotate(-14 47 19)"/>
+<rect x="30" y="72" width="18" height="18" opacity=".4" transform="rotate(32 39 81)"/>
+<rect x="72" y="48" width="13" height="13" opacity=".6" transform="rotate(10 78 54)"/>
+<rect x="66" y="98" width="15" height="15" opacity=".3" transform="rotate(-24 73 105)"/>
+<rect x="100" y="22" width="12" height="12" opacity=".5" transform="rotate(24 106 28)"/>
+<rect x="104" y="76" width="14" height="14" opacity=".45" transform="rotate(-8 111 83)"/>
+</g>
+<g fill="#d0f539">
+<path d="M150 62 l16 8 -16 8 z" opacity=".8"/>
+<path d="M174 62 l16 8 -16 8 z" opacity=".55"/>
+<path d="M198 62 l16 8 -16 8 z" opacity=".3"/>
+</g>
+<g fill="#d0f539">
+<rect x="244" y="24" width="24" height="24"/><rect x="276" y="24" width="24" height="24"/><rect x="308" y="24" width="24" height="24"/>
+<rect x="244" y="56" width="24" height="24"/><rect x="276" y="56" width="24" height="24"/><rect x="308" y="56" width="24" height="24"/>
+<rect x="244" y="88" width="24" height="24"/><rect x="276" y="88" width="24" height="24"/><rect x="308" y="88" width="24" height="24"/>
+</g>
+</svg>`;
+
+window.SLIDES = [
+{sec:`ARDSHINBANK &times; ACA<sup>x</sup> &middot; SESSION 2 OF 6`, title:`FROM RESEARCH <span class="g">TO SPEC</span>`, center:true,
+ body:`<div class="sub">Discovery, PRDs and stories. Messy input in. A buildable spec out.</div>
+   <div style="display:flex;justify-content:center;margin-top:30px">${GRID}</div>
+   <div class="tbar" style="margin-left:auto;margin-right:auto"></div>`,
+ note:"Session 1 was the map. Session 1 was your workspace and your first skill. Today we do the core PM move: take a pile of messy research and turn it into a spec an engineer could pick up and build. We will run it end to end on a real banking example.",
+ vis:"Brand shape: scattered fragments resolving into a clean grid, on black"},
+
+{sec:"OPEN + FRAME · recap", title:`WHERE WE LEFT OFF <span class="g">LAST TIME</span>`,
+ body:`<ul class="checklist" style="max-width:820px;margin:0 auto;text-align:left">
+   <li>You set up your AI-native workspace: Claude Code plus a project folder.</li>
+   <li>You wrote a <b style="color:var(--green)">CLAUDE.md</b> so Claude knows your project.</li>
+   <li>You built your <b style="color:var(--green)">first skill</b> from zero, a saved recipe that fires on request.</li></ul>
+   <div class="cap">So you already know a skill works. Today you point skills at real PM research.</div>`,
+ note:"Quick recap of last session, no reteaching. You set up your workspace, you wrote a CLAUDE.md so Claude understands your project, and you built your first skill from scratch. That last part matters today, because a skill is a saved recipe that fires when you ask in plain words. Today you point ready-made skills at real research and get a spec out.",
+ vis:"Three-item recap of Session 1"},
+
+{sec:"OPEN + FRAME · where today sits", title:`RESEARCH TO SPEC, <span class="g">END TO END</span>`, center:true,
+ body:`<div class="lifecycle" style="justify-content:center">
+   <span>Research</span><span class="n">→</span><span>Themes</span><span class="n">→</span><span>Opportunity</span><span class="n">→</span><span style="color:var(--green)">PRD</span><span class="n">→</span><span>Stories</span></div>
+   <div class="sub">One thread, start to finish, today. The same material flows through every step.</div>`,
+ note:"Here is the whole day on one line. We start from raw research, cluster it into themes, turn themes into opportunities, pick one, and write it up as a PRD with user stories. The same material flows through every step. By the end you have a real spec, not a slide about specs.",
+ vis:"Five-step flow on one line, PRD highlighted"},
+
+{sec:"OPEN + FRAME · recall", title:`R·C·T·C IS YOUR <span class="g">ENGINE TODAY</span>`,
+ body:`<div class="sub">You already have the prompt shape. Today we point it at research and specs.</div>
+   <div class="blocks" style="margin-top:18px">
+   <div class="block"><div class="bl">R · Role</div><p>Who it should be</p></div>
+   <div class="block"><div class="bl">C · Context</div><p>About you and the situation</p></div>
+   <div class="block"><div class="bl">T · Task</div><p>What you want and the format</p></div>
+   <div class="block"><div class="bl">C · Critique</div><p>Make it challenge you, then iterate</p></div></div>`,
+ note:"One tool recall. You learned R·C·T·C: give it a Role, feed it Context, state the Task and format, add a Critique loop so it challenges you instead of flattering you. Then iterate, the third answer is usually the good one. Every prompt today uses this. If your output feels generic, you skipped a letter.",
+ vis:"Four neon R·C·T·C blocks"},
+
+{sec:"OPEN + FRAME · belief", title:`YOUR JOB ISN'T TO HAVE <span class="g">OPINIONS</span>`,
+ body:`<div class="sub">It is to turn evidence into a spec, and keep AI honest while it helps.</div>
+   <img class="shot" src="../assets/img/s3/one-thing-today.png"><div class="shotcap">A product I built from my own pain: a few notes, then a spec, then a shipped app</div>`,
+ note:"One belief for today. A PM's real job is turning fuzzy signals into something a team can build, backed by evidence, not vibes. I built the app on this screen from exactly that: my own pain, a handful of notes, then a spec, then a product. AI makes this much faster. It also invents things confidently, so the second half of your job today is keeping it honest.",
+ vis:"Screenshot: a product built from pain, notes, spec, then shipped"},
+
+{sec:"SYNTHESIS", title:`<span class="g">SYNTHESIS</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">From a pile of quotes to a short list of truths.</div>`,
+ note:"First skill of the craft: synthesis. Turning a mess of interviews, reviews, and tickets into a few themes you can act on.",
+ vis:"Divider"},
+
+{sec:"SYNTHESIS · concept", title:`WHAT YOU <span class="g">SYNTHESIZE</span>`,
+ body:`<div class="rows">
+   <div class="row"><span class="a">applicant interviews · app reviews · support tickets · surveys · branch notes</span><span class="arw">→</span><span class="b"><b>themes · sentiment · pain points</b></span></div></div>
+   <div class="cap">AI reads a hundred loan-app reviews in seconds and clusters them. A real edge, but only if you verify the clusters.</div>`,
+ note:"Synthesis takes many inputs. For a bank that is applicant interviews, app-store reviews, support tickets, survey lines, notes from the branch. It compresses them into three things: the recurring themes, the sentiment behind each, and the sharp pain points. AI is genuinely great at this. It reads a hundred reviews in seconds and clusters them. That is a real edge, but only if you verify the clusters.",
+ vis:"Inputs to outputs; many dots converging into three nodes"},
+
+{sec:"SYNTHESIS · the danger", title:`IT SMOOTHS. <span class="g">IT INVENTS.</span>`,
+ body:`<div class="sub" style="font-size:clamp(20px,2.4vw,30px);color:#fff">AI will invent a clean theme that isn't in the data.</div>
+   <div class="cap">Fluent wrongness, again. A tidy summary is not a true one.</div>`,
+ note:"The trap. AI wants to give you a clean, satisfying answer, so it rounds off the corners and sometimes invents a theme no user actually said. Remember Session 1: the risk is not that it is wrong, it is that it is wrong beautifully. A tidy summary feels true. We are going to force it to prove every claim.",
+ vis:"Bold type, no visual"},
+
+{sec:"SYNTHESIS · demo", title:`A SYNTHESIS <span class="g">PROMPT</span>`,
+ body:`<div class="mono"><span class="c">R</span> senior UX researcher at a bank.<br><span class="c">C</span> [paste research] is real applicant input for our loan-origination flow.<br><span class="c">T</span> cluster into 3-5 themes; per theme give sentiment + top pain + <b>quote the exact supporting line(s)</b>.<br><span class="c">C</span> flag any claim with no quote as ASSUMPTION.</div>
+   <div class="cap">"Quote the line" is what separates a real finding from a hallucination.</div>`,
+ note:"Watch the prompt, not the output. Role: UX researcher at a bank. Context: the raw applicant research. Task: three to five themes, each with sentiment, the pain, and the exact quote that supports it. Critique loop: anything you cannot back with a quote, label it an assumption. That one instruction, quote the line, is what separates a real finding from a hallucination.",
+ vis:"Mono prompt block, R·C·T·C highlighted"},
+
+{sec:"SYNTHESIS · sample", title:`A SMALL <span class="g">RESEARCH SET</span>`,
+ body:`<div class="sub" style="margin-top:6px">Use if you have none. A bank's loan-origination flow. Copy into <b style="color:#fff">research.md</b>.</div>
+   <div class="mono" style="margin-top:16px">• Applicant: "I started the loan application twice. It logs me out and I lose everything. I gave up and called the branch."<br>• Loan officer: "Half my day is chasing missing documents. The upload fails and applicants don't know it failed."<br>• Review 2 stars: "Applied for a personal loan, waited 6 days, no update, no idea if it was approved."<br>• Review 3 stars: "The KYC step asked for the same ID photo three times, then rejected it with no reason."<br>• Tickets: ~35% are "document upload error" or "application status unknown."<br>• Survey: 61% of applicants who dropped off left at the income-verification step.</div>`,
+ note:"This is deliberately tiny, six lines, so it stays token-light. It is a bank's online loan-origination flow. Copy it into a file called research.md. Notice it already hints at real themes: session timeout and lost progress, unreliable document upload, no visible decision status, KYC friction, and a drop-off at income verification. Perfect raw material, and it is the kind of pain every bank in this room has.",
+ vis:"Mono block, 6-line banking research set"},
+
+{sec:"SYNTHESIS · try it", title:`TRY IT · <span class="g">SYNTHESIZE</span>`, center:true,
+ body:`<span class="turn">Try it · 6 min</span>
+   <div class="mono" style="max-width:820px;margin:12px auto 0;text-align:left"><ol class="steps2">
+   <li>Put the sample (or your own research) into <span class="c">research.md</span> in a project folder.</li>
+   <li>Run the synthesis prompt above.</li>
+   <li>Ctrl-F one quote in research.md. Delete any theme with no real quote behind it.</li></ol></div>`,
+ note:"Your turn, right now, inside the theory. Load the research, run the synthesis prompt, then verify. Do the Ctrl-F check on at least one quote. If a theme has no real quote behind it, cut it. Save the clean version. That file is your evidence base for everything after. Two minutes, go.",
+ vis:"Try-it beat inside the theory: synthesize then Ctrl-F verify"},
+
+{sec:"SYNTHESIS · personas", title:`A PERSONA IS A <span class="g">WEAPON</span>`,
+ body:`<div class="sub">Not a poster. Build one from the evidence, then make it attack your idea.</div>
+   <img class="shot" src="../assets/img/s3/persona-attack.png"><div class="shotcap">Claude: a persona built strictly from the research, then told to argue against the idea</div>`,
+ note:"Personas usually die on a wall as decoration. We use one as a pressure test. Build a persona strictly from the research, then tell AI to play that person and poke holes in your idea. If your idea survives your own user arguing against it, it is stronger. If AI invents traits the research never showed, you catch it, same rule as before.",
+ vis:"Screenshot: a persona built from research, then told to attack the idea"},
+
+{sec:"SYNTHESIS · try it", title:`TRY IT · PERSONA, <span class="g">THEN ATTACK</span>`, center:true,
+ body:`<span class="turn">Try it · 5 min</span>
+   <div class="mono" style="max-width:820px;margin:12px auto 0;text-align:left"><ol class="steps2">
+   <li>"<span class="c">R</span> PM. <span class="c">C</span> the themes above. <span class="c">T</span> build ONE loan applicant persona from the evidence only: name, role, 1 goal, 2 frustrations, 1 real quote. <span class="c">C</span> mark anything you had to assume."</li>
+   <li>Then: "Now BE this applicant and give me 3 reasons our new flow would still fail you."</li>
+   <li>Keep the objection that stings most. That is a design constraint you just found.</li></ol></div>`,
+ note:"Second try-it beat. Build one loan-applicant persona strictly from the evidence, then flip it: make AI play that applicant and attack your idea. Write down the objection that actually stings, that is a design constraint you just found for free. Watch for invented traits and call them out.",
+ vis:"Try-it beat: persona from evidence, then attack"},
+
+{sec:"THEMES → OPPORTUNITIES", title:`THEMES → <span class="g">OPPORTUNITIES</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">What is worth building, and what proves it.</div>`,
+ note:"Themes tell you what is happening. An opportunity map tells you what is worth doing about it, and forces the evidence to sit next to each bet.",
+ vis:"Divider"},
+
+{sec:"OPPORTUNITY MAP · concept", title:`THE OPPORTUNITY <span class="g">MAP</span>`,
+ body:`<div class="arc"><span class="st">Problem</span><span class="ar">·</span><span class="st">Who</span><span class="ar">·</span><span class="st final">Evidence (quote)</span><span class="ar">·</span><span class="st">Impact</span><span class="ar">·</span><span class="st">Confidence</span></div>
+   <div class="cap">One row per opportunity. Evidence column empty = not an opportunity yet, just a hunch. Label it honestly.</div>
+   <img class="shot" src="../assets/img/s3/opportunity-map.png" style="max-height:40vh"><div class="shotcap">Claude: an opportunity map table with Problem · Who · Evidence (quote) · Impact · Confidence</div>`,
+ note:"The opportunity map is just a table. Each row: the problem, who has it, the evidence, a quote from the research, the impact if you fix it, and your confidence. The evidence column is the point. If you cannot fill it from real input, it is a hunch, not an opportunity. You can still keep hunches, you just label them honestly.",
+ vis:"Screenshot: opportunity map table, Evidence column highlighted"},
+
+{sec:"OPPORTUNITY MAP · framework", title:`CITE, <span class="g">OR FLAG</span>`,
+ body:`<div class="sub">The rule that makes AI safe to spec with: every claim cites its source line. No source = flagged ASSUMPTION.</div>
+   <div class="blocks" style="grid-template-columns:repeat(3,1fr);margin-top:18px">
+   <div class="block"><div class="bl">Claim</div><p>What AI asserts</p></div>
+   <div class="block"><div class="bl">Source line</div><p>The exact input it quotes</p></div>
+   <div class="block"><div class="bl">Verdict</div><p>Supported, or ASSUMPTION</p></div></div>
+   <div class="cap">Same promise as Session 1: for any fact, you verify or you don't ship it.</div>`,
+ note:"This is the spine of the whole day. For every claim AI makes, it points to the exact line of input that supports it. If it cannot, it flags the claim as an assumption. This turns AI from a confident storyteller into a research assistant that shows its work. Same promise from Session 1: for any fact, you verify or you don't ship it. In a bank, that is not optional.",
+ vis:"Three blocks: Claim · Source line · Verdict"},
+
+{sec:"OPPORTUNITY MAP · demo", title:`THE CITE-YOUR-<span class="g">SOURCE</span> PATTERN`,
+ body:`<div class="mono">After any summary, ask:<br><br>"For each point, <span class="c">quote the exact line(s)</span> from my input that support it. If none, say <span class="c">NO SOURCE</span>."</div>
+   <div class="cap">Then delete every NO SOURCE line. This is how my Book RAG works: it answers, then shows the passages it pulled from.</div>
+   <img class="shot" src="../assets/img/book-rag.png"><div class="shotcap">Book RAG: an Answer plus a Passages panel showing the cited source passages</div>`,
+ note:"Here is the pattern in one move. Whatever AI just told you, ask it to attach the exact source line to each point, and to say NO SOURCE where there isn't one. This is exactly how my Book RAG works: it answers, then shows the passages it pulled from, so I can check it in five seconds. Build that habit and you will never ship an invented stat again.",
+ vis:"Screenshot: Book RAG Answer plus Passages panel"},
+
+{sec:"OPPORTUNITY MAP · verify", title:`CATCH IT IN <span class="g">30 SECONDS</span>`,
+ body:`<ul class="recaplist">
+   <li><span class="n">1</span><span>Does the quote actually appear in my input? Ctrl-F it.</span></li>
+   <li><span class="n">2</span><span>Does the quote actually mean what the claim says?</span></li></ul>
+   <div class="cap">A real quote used wrong is still a hallucination. You just became the fact-checker, the part of the job getting more valuable, not less.</div>`,
+ note:"Two-step check, thirty seconds. One: search your input for the quote it cited. If it is not there, it is fabricated. Two: even if the quote is real, does it actually support the claim? AI will sometimes quote a real line and twist its meaning. Both are hallucinations. You just became the fact-checker, which is the part of the job getting more valuable, not less.",
+ vis:"Two-step check, big neon numerals"},
+
+{sec:"OPPORTUNITY MAP · try it", title:`TRY IT · OPPORTUNITY <span class="g">MAP</span>`, center:true,
+ body:`<span class="turn">Try it · 7 min</span>
+   <div class="mono" style="max-width:820px;margin:12px auto 0;text-align:left"><ol class="steps2">
+   <li>"<span class="c">T</span> turn the themes into a table: Problem · Who · Evidence (quote) · Impact · Confidence. Fill Evidence only from research.md; leave blank if none."</li>
+   <li>Pick the top row by Impact and Confidence.</li>
+   <li>Verify: "Show me the exact source line for row 1." Confirm it is real.</li></ol></div>`,
+ note:"Third try-it beat. Turn your themes into an opportunity table, evidence pulled only from the file. Then verify your top row live: ask for the exact source line and confirm it exists. Quick share in your pod: what is your number-one opportunity, and what quote proves it? Thirty seconds each.",
+ vis:"Try-it beat: opportunity map then verify the top row"},
+
+{sec:"BREAK", title:`<span class="g">BREAK</span> · 8 MIN`, center:true,
+ body:`<div class="rule" style="margin-left:auto;margin-right:auto"></div><div class="sub">Back in ~8 min. Next: turn your top opportunity into a real PRD, using a skill.</div>`,
+ note:"Eight minutes. When we are back, we turn your top opportunity into a real PRD, and we do it with a skill, not a giant prompt.",
+ vis:"Break timer"},
+
+{sec:"YOUR FIRST SKILL", title:`YOU KEEP RETYPING THE <span class="g">SAME PROMPT</span>`, center:true,
+ body:`<div class="sub" style="font-size:clamp(20px,2.4vw,30px);color:#fff">Every week, the same long prompt to score a backlog idea.</div>
+   <div class="sub">A skill saves that prompt once, then runs it on command. Time to build one.</div>`,
+ note:"Here is the pain a skill removes. Every week you write the same careful prompt: score this idea, weigh reach and effort and risk, give me a recommendation. Same shape, over and over. A skill lets you save that prompt once, name it, and run it on command, so you never retype it and it scores the same way every time. This is the main build of the day. Let's do it.",
+ vis:"Hook: the repeated prompt a skill replaces."},
+
+{sec:"YOUR FIRST SKILL", title:`WHAT A <span class="g">SKILL</span> IS`,
+ body:`<div class="sub">A skill is a Markdown recipe: a <b style="color:#fff">name</b>, a <b style="color:#fff">description</b>, and the <b style="color:#fff">steps.</b> The description is the trigger: "use this when...".</div>
+   <div class="cap" style="max-width:840px;margin:14px auto 0">No code, no install. One file: <b style="color:var(--green)">.claude/skills/&lt;name&gt;/SKILL.md</b>. Think of it as a saved R&middot;C&middot;T&middot;C prompt from your Field Kit, now reusable on demand.</div>`,
+ note:"So what is a skill, in plain terms. It is a Markdown recipe with three things: a name, a description, and the steps to follow. The description is the trigger, you write it as use this when, and when your request matches, Claude reaches for the recipe. There is no code and no install, it is literally one file in a skills folder. If you remember the R C T C prompt from your Field Kit, a skill is that good prompt, saved once, and reusable on demand. That is the whole idea.",
+ vis:"Skill anatomy: name, description as trigger, steps, one Markdown file."},
+
+{sec:"YOUR FIRST SKILL", title:`THE EXAMPLE · <span class="g">IDEA-SCORER</span>`,
+ body:`<div class="sub">In our demo project, one skill scores any backlog idea the same way every time: reach, effort, risk, a total, a call.</div>
+   <div class="cap" style="max-width:840px;margin:14px auto 0">So <b>"add instant KYC onboarding"</b> and <b>"redesign the card screen"</b> get judged on the same rubric, not on mood. Consistent scoring is the point.</div>`,
+ note:"Let me show you the one we build. In the demo project there is a skill called idea-scorer. It takes any idea from your backlog and scores it the same way every time: reach, effort, risk, a total, and a ship or hold call. The value is consistency. Add instant KYC onboarding, or redesign the card screen, both get judged on the same rubric instead of on whoever is loudest in the room. That is a small thing that quietly fixes a lot of prioritization arguments.",
+ vis:"The idea-scorer skill: one rubric applied to every backlog idea."},
+
+{sec:"YOUR FIRST SKILL · live", title:`LIVE · BUILD IT FROM <span class="g">ZERO</span>`,
+ body:`<span class="turn">Watch me first</span>
+   <div class="mono"><ol class="steps2">
+   <li>In the demo folder, I tell Claude Code:<br><span class="c">"Create a skill at .claude/skills/idea-scorer/SKILL.md. Name: idea-scorer. Description: use this to score a product idea. Steps: rate reach, effort, and risk 1 to 5, then give a total and a ship or hold call."</span></li>
+   <li>Then: <span class="c">"Score this idea: instant KYC onboarding for new current accounts."</span></li>
+   <li>It writes the file, then uses it. I approve each step.</li></ol></div>
+   <div class="cap" style="max-width:800px;margin:12px auto 0">That is a skill: <b style="color:var(--green)">written once, run forever.</b></div>`,
+ note:"Watch me first, then you do the exact same thing. I am in the demo folder. I tell Claude Code to create a skill file at dot-claude, skills, idea-scorer, SKILL dot md, and I give it the name, the description that triggers it, and the steps: rate reach, effort, and risk one to five, then a total and a ship or hold call. It writes the file, and I approve. Then I say, score this idea, instant KYC onboarding for new current accounts, and it uses the skill I just made. Watch it score reach, effort, risk, and give a verdict. Written once, run forever.",
+ vis:"Live: instructor builds idea-scorer SKILL.md in aca-demo, then scores a banking idea."},
+
+{sec:"YOUR FIRST SKILL · task", title:`NOW YOU · BUILD THE <span class="g">SKILL</span>`,
+ body:`<span class="turn">Your turn · 8 min</span>
+   <div class="mono"><ol class="steps2">
+   <li>Same command I just ran: create <span class="c">.claude/skills/idea-scorer/SKILL.md</span> with a name, a "use this when" description, and the scoring steps.</li>
+   <li>Approve as it writes the file.</li>
+   <li>Confirm the file exists in your folder.</li></ol></div>
+   <img class="shot" src="../assets/img/s2/claude-code-file.png"><div class="shotcap">Claude Code writing your SKILL.md</div>`,
+ note:"Now you, eight minutes. Run the same command I just ran: create the SKILL dot md at that path, with a name, a use-this-when description, and the scoring steps. Approve it as it writes. Then look in your folder and confirm the file is really there. If you get stuck on the path, raise a hand. When your SKILL file exists, thumbs up.",
+ vis:"Screenshot: Claude Code writing the participant's SKILL.md."},
+
+{sec:"YOUR FIRST SKILL · task", title:`WIRE ONE SMALL <span class="g">AUTOMATION</span>`,
+ body:`<span class="turn">Your turn · 6 min</span>
+   <div class="mono"><ol class="steps2">
+   <li>Run your skill on a real idea:<br><span class="c">"Score this idea: [one idea from your own backlog]."</span></li>
+   <li>Then: <span class="c">"Save the idea and its score to ideas.md."</span></li>
+   <li>Next week, one line reruns the whole thing.</li></ol></div>`,
+ note:"Last step, six minutes, and this is your first automation. Take a real idea from your own backlog and run your skill on it. Then ask Claude Code to save the idea and its score to a file called ideas dot md. Now you have a repeatable machine: the skill does the scoring the same way every time, and the file collects the results. Next week you just point it at a new idea, one line, and it runs. Boring and repeatable is exactly where the value is.",
+ vis:"Mono task: run the skill on a real idea, save the result, make it rerunnable."},
+
+{sec:"YOUR FIRST SKILL · checkpoint", title:`CHECKPOINT · YOUR SKILL <span class="g">RUNS</span>`,
+ body:`<ul class="checklist"><li>SKILL.md exists in your folder</li><li>It scored a real idea</li><li>The score saved to ideas.md</li></ul>
+   <div class="sub">That file and that skill are yours. This is tonight's milestone.</div>`,
+ note:"Checkpoint. Three greens: your SKILL file exists, it scored a real idea, and the result saved to a file. If all three are green, stop and notice what you just did. You built your first skill and ran your first automation, on your own machine, in one evening. That is tonight's milestone, and you own it. Raise a hand if any green is missing and we close the gap now.",
+ vis:"Three-green checkpoint: skill built, idea scored, result saved."},
+
+{sec:"THE PRD", title:`THE <span class="g">PRD</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">The one document engineering actually needs.</div>`,
+ note:"Now the centerpiece: the PRD, the product requirements doc. This is where your opportunity becomes something a team can build without reading your mind.",
+ vis:"Divider"},
+
+{sec:"THE PRD · concept", title:`WHAT A GOOD PRD <span class="g">CONTAINS</span>`,
+ body:`<ul class="checklist" style="font-size:clamp(15px,1.6vw,20px);line-height:1.7">
+   <li>Problem</li>
+   <li>Goal plus <b style="color:var(--green)">non-goals</b></li>
+   <li>Target user</li>
+   <li>Core flow (happy path)</li>
+   <li><b style="color:var(--green)">Edge cases</b></li>
+   <li><b style="color:var(--green)">Negative and error flows</b></li>
+   <li><b style="color:var(--green)">Technical constraints</b></li>
+   <li>Success metric</li>
+   <li>Out of scope</li></ul>
+   <div class="cap">Most people write the happy path and stop. The value is in the parts they skip.</div>`,
+ note:"A PRD is not a wall of text. It is these sections. Most people write the happy path and stop. The value is in the parts they skip: non-goals, edge cases, negative flows, technical constraints. In lending, that is where projects die: what happens when the upload fails, when KYC rejects, when the credit check times out. AI is excellent at generating these once you force it to.",
+ vis:"One-page PRD, 9 sections; skipped parts highlighted"},
+
+{sec:"THE PRD · the skill", title:`WHAT PRD-WRITER <span class="g">GUARANTEES</span>`,
+ body:`<ul class="checklist" style="max-width:820px;margin:0 auto;text-align:left">
+   <li>All 9 sections, in one pass, saved to <span class="mono" style="display:inline">prds/</span></li>
+   <li>Every guess logged in an <b style="color:var(--green)">Assumptions</b> list, so you can correct it</li>
+   <li>Requirements written as testable "the system must ..." lines</li>
+   <li>At least one <b style="color:var(--green)">unhappy path</b> in the acceptance criteria</li>
+   <li>Success metrics with a number and a target, not "improve engagement"</li></ul>`,
+ note:"Why use the skill instead of freestyling? Because the recipe enforces the parts you would skip under time pressure. It writes all nine sections in one pass and saves the file. It logs every assumption it made, so nothing hides. It forces testable requirements, at least one unhappy path, and success metrics with an actual number. That is a junior PM who never forgets the boring, important parts.",
+ vis:"What the prd-writer skill enforces"},
+
+{sec:"THE PRD · live", title:`LIVE · RUN THE <span class="g">SKILLS</span>`, center:true,
+ body:`<div class="rule" style="margin-left:auto;margin-right:auto"></div>
+   <div class="sub" style="color:#fff">Watch me in aca-demo. Then you do it.</div>
+   <div class="mono" style="max-width:800px;margin:14px auto 0;text-align:left"><ol class="steps2">
+   <li>In <b>aca-demo</b>, I run <span class="c">claude</span> and drop the loan research into <span class="c">research.md</span>.</li>
+   <li>I type: <span class="c">"Read research.md and write a PRD for a guided loan-origination flow."</span> The <b>prd-writer</b> skill fires and saves <span class="c">prds/loan-origination-flow.md</span>.</li>
+   <li>Then: <span class="c">"Write acceptance criteria for the income-verification step, include one unhappy path."</span> The <b>acceptance-criteria</b> skill fires.</li>
+   <li>I verify: <span class="c">"Quote the exact research line behind the top requirement."</span> Ctrl-F it.</li></ol></div>`,
+ note:"Enough slides, let me show you the thing. This is our demo repo, aca-demo, the one from Session 1 with a CLAUDE.md and skills already inside. I drop the loan research into research.md. Then I ask, in plain words, for a PRD for a guided loan-origination flow. Watch: the prd-writer skill fires on its own, because my request matches its description, and it writes a full PRD to the prds folder. Then I ask for acceptance criteria on the income-verification step with an unhappy path, and the acceptance-criteria skill fires. Last, I make it prove itself: quote the research line behind the top requirement, and I Ctrl-F it. That is the whole loop: ask, the recipe runs, you verify. You do this yourself in two minutes.",
+ vis:"Live: open aca-demo, fire prd-writer then acceptance-criteria, verify a cited line"},
+
+{sec:"THE PRD · push harder", title:`FORCE THE PARTS <span class="g">EVERYONE SKIPS</span>`,
+ body:`<div class="sub">Don't accept the first PRD. Push it harder:</div>
+   <ul class="checklist" style="margin-top:14px">
+   <li>"List 5 edge cases for the document-upload step."</li>
+   <li>"What happens when KYC rejects at each point?"</li>
+   <li>"What technical constraints would an engineer raise?"</li></ul>
+   <div class="cap">Thin PRD in = thin PRD out. Interrogate it. Iterate, the third answer is usually the strong one.</div>`,
+ note:"Do not accept the first PRD, even from a skill. Interrogate it. Ask for five edge cases on the risky step, ask what happens when KYC rejects, ask what an engineer would push back on. Iterate, the third answer is usually the strong one. You are not writing the PRD alone, you are directing a very fast junior PM. The judgment about what matters is still yours.",
+ vis:"Bold type, no visual"},
+
+{sec:"THE PRD · milestone", title:`YOUR MILESTONE · <span class="g">ONE PRD</span>`, center:true,
+ body:`<span class="turn">Milestone · 12 min</span>
+   <div class="mono" style="max-width:820px;margin:12px auto 0;text-align:left"><ol class="steps2">
+   <li>In your project, ask for a PRD from <span class="c">research.md</span> (or your own set). The <b>prd-writer</b> skill runs it.</li>
+   <li>Push once: "Add 5 edge cases plus a negative flow for the document-upload step."</li>
+   <li>Run <b>acceptance-criteria</b> on the core step. Include one unhappy path.</li>
+   <li>Verify one cited claim with Ctrl-F. Keep the PRD to <b>one page.</b></li></ol></div>
+   <div class="cap">One research set, taken all the way to a PRD. This is today's artifact.</div>`,
+ note:"Now you do it, and this is the one thing you leave with today: one research set taken all the way to a PRD. Ask for the PRD, let prd-writer run it, push once for edge cases and a negative flow, then run acceptance-criteria on the core step with an unhappy path. Verify one cited claim. Keep it to a single page, a tight PRD beats a bloated one. When your prds file has a real, verified, one-page PRD in it, you are done.",
+ vis:"The one milestone: a verified one-page PRD via the two skills"},
+
+{sec:"STORIES + AC", title:`STORIES + <span class="g">TESTABLE AC</span>`,
+ body:`<div class="mono">Story: "As a <span class="c">[loan applicant]</span>, I want <span class="c">[to resume a saved application]</span>, so that <span class="c">[I don't re-enter everything]</span>."<br><br>AC in <span class="c">Given / When / Then</span>, each one testable. Include a negative-path AC.</div>
+   <div class="cap">Your PRD already holds these. The test: could a QA tester mark each AC pass or fail with no guessing? Fix the vague ones.</div>`,
+ note:"Your PRD already contains user stories and acceptance criteria, the skill wrote them. Last move: make them bulletproof. A story is one sentence, as this user I want this so that outcome. Then acceptance criteria in Given, When, Then, each one you could literally test pass or fail, plus a negative path for when it goes wrong. Read each criterion in your PRD and ask: could a tester judge this with zero guessing? Rewrite the fuzzy ones. Vague acceptance criteria are the number-one cause of rework.",
+ vis:"A user story with Given/When/Then AC, applied to the applicant"},
+
+{sec:"RECAP", title:`THE THREE THAT <span class="g">MATTER</span>`, center:true,
+ body:`<ul class="recaplist" style="text-align:left;display:inline-block">
+   <li><span class="n">1</span><span>Every finding cites a source line, or it is a labeled assumption.</span></li>
+   <li><span class="n">2</span><span>A PRD is happy path plus edge cases, negative flows, constraints.</span></li>
+   <li><span class="n">3</span><span>A skill runs the recipe. You keep the verdict and verify.</span></li></ul>`,
+ note:"Three to keep. One: no finding without a source line, everything else is an assumption you label. Two: a real PRD includes the parts people skip, edge cases, failure flows, constraints. Three: a skill does the recipe fast and the same way every time, but you keep the verdict and you verify. AI did the volume today. You did the verdict, every time.",
+ vis:"Big neon 1-2-3"},
+
+{sec:"HOMEWORK · before Session 3", title:`HOMEWORK · <span class="g">YOUR OWN PRODUCT</span>`,
+ body:`<span class="turn">Homework · one task, token-light</span>
+   <div class="mono" style="max-width:820px;margin:12px auto 0;text-align:left"><ol class="steps2">
+   <li>Pick one feature from your own product or team.</li>
+   <li>Run <span class="c">prd-writer</span> on it: one plain request, one PRD to <span class="c">prds/</span>.</li>
+   <li>Read the Assumptions list. Fix or note the one that worries you most.</li></ol></div>
+   <div class="cap">One skill, one feature, one page. This also locks the idea you will build in Sessions 7 and 8.</div>`,
+ note:"Homework is one thing, on purpose, and it is light on tokens. Pick one real feature from your own product, and run prd-writer on it. One plain request, one PRD saved to your prds folder. Then read the Assumptions list the skill wrote and act on the one that worries you most. That is it. And it does double duty: the feature you spec tonight is the idea you will build live in Sessions 7 and 8, so choose something you actually want to ship.",
+ vis:"One homework: run prd-writer on your own product feature"},
+
+{sec:"CLOSE", title:`NEXT · <span class="g">DATA</span>`, center:true,
+ body:`<div class="rule" style="margin-left:auto;margin-right:auto"></div>
+   <div class="sub">Decisions, experiments, and verifying answers. You now have a spec. Next we make sure the numbers behind it hold up. No SQL.</div>
+   <div style="display:flex;justify-content:center;margin-top:24px;opacity:.28">${GRID}</div>`,
+ note:"Today you turned noise into a spec with two skills doing the recipe. Next session we bring data into it: getting answers from your files with no SQL, and verifying those answers the same way we verified research today, by making AI show its work. Bring your PRD. See you then.",
+ vis:"Divider plus faint resolving-grid motif"}
+];
+</script>
+<script src="../assets/deck.js"></script></body></html>

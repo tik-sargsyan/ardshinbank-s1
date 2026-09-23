@@ -1,464 +1,51 @@
-<!doctype html><html lang="en"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ardshinbank &times; ACA X &middot; Session 1</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ardshinbank &times; ACA X &middot; AI for Product Managers</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/deck.css"><style>.lockup{position:fixed;top:20px;left:26px;z-index:5;display:flex;align-items:center;gap:14px}.lk-bank{height:26px;width:auto;display:block}.lk-div{width:1px;height:20px;background:#3a3a40}.lk-aca{font-family:var(--h);font-weight:800;font-size:22px;letter-spacing:.02em;text-decoration:none;color:#fff;line-height:1}.lk-aca sup{color:var(--green);font-size:.6em;margin-left:1px}.title-logo{height:46px;width:auto;display:block;margin:0 auto 26px}.fig-amp{margin-top:26px}.fig-amp svg{display:block;width:100%;height:auto;max-height:52vh}.fig{margin-top:22px;border:1px solid #3a3a40;background:#000;padding:18px 16px}.fig svg{display:block;width:100%;height:auto;max-height:52vh}.t-lab{font-family:Barlow,sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.07em}.t-m{font-family:"JetBrains Mono",monospace}.t-b{font-family:Inter,sans-serif}@keyframes fillw{from{transform:scaleX(.03)}to{transform:scaleX(1)}}.mv-grow{transform-origin:left center;animation:fillw 4.6s cubic-bezier(.77,0,.175,1) infinite alternate}@media(prefers-reduced-motion:reduce){.mv-grow{animation:none;transform:scaleX(1)}}@media print{.lockup{position:absolute}}@media (max-width:640px){.lk-bank{height:20px}.lk-aca{font-size:17px}}</style></head><body>
-<div class="lockup"><img src="assets/ardshinbank-logo-dark.svg" alt="Ardshinbank" class="lk-bank"><span class="lk-div"></span><a class="lk-aca" href="#1">ACA<sup>x</sup></a></div>
-<div class="progress" id="prog"></div><div class="deck" id="deck"></div>
-<div class="nav"><button id="prev">‹</button><button id="next">›</button></div>
-<div class="counter"><b id="cur">1</b> / <span id="tot">35</span></div>
-<div class="hint">← → navigate · N notes · F fullscreen</div>
-<div class="notes" id="notes"><div class="nk">Speaker note</div><div class="nt" id="noteText"></div><div class="vis" id="visText"></div></div>
-<script>
-const AST = `<svg class="aster" viewBox="0 0 100 100" fill="currentColor"><path d="M45 5h10v28l20-20 7 7-20 20h28v10H62l20 20-7 7-20-20v28H45V62L25 82l-7-7 20-20H10V45h28L18 25l7-7 20 20z"/></svg>`;
-const UPARROW = `<svg viewBox="0 0 100 100" width="60" height="60" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" style="color:var(--green)"><path d="M50 88V16M22 44 50 16 78 44"/></svg>`;
-
-window.SLIDES = [
-{sec:"ARDSHINBANK &times; ACA<sup>x</sup> &middot; SESSION 1 OF 6", title:`AI FOUNDATIONS: HOW AI <span class="g">REALLY</span> WORKS`, center:true,
- body:`<img src="assets/ardshinbank-logo-dark.svg" alt="Ardshinbank" class="title-logo"><div class="sub">Become AI-native across the PM lifecycle.</div>
-   <div class="cubebox"><div class="cube"><div class="f top"></div><div class="f left"></div><div class="f front"></div></div></div>
-   <div class="tbar" style="margin-left:auto;margin-right:auto"></div>
-   <div class="sub" style="font-size:16px">Tigran Sargsyan · AI for Product Managers · Ardshinbank cohort · 23 September 2026</div>`,
- note:"Welcome to the course. Over 6 sessions you go from AI-curious to AI-native, and you'll ship a real product live. Today is the one day we go slow and build the mental model everything else stands on.",
- vis:"Signature neon green cube (dormant) on a dark reflective floor. Recurs in session 6."},
-
-{sec:"OPEN + FRAME", title:`THE PROMISE OF THE <span class="g">COURSE</span>`, center:true,
- body:`<div class="sub" style="font-size:clamp(20px,2.4vw,30px);color:#fff">In 6 sessions you will build a personal AI system, answer real work with AI, and <span class="g">ship a live product.</span></div>
-   <div class="rule" style="margin-left:auto;margin-right:auto"></div>
-   <div class="sub">Today: the foundation.</div>`,
- note:"Here's where we're going, so today's theory has a purpose. By the end you'll have your own AI setup, you'll run the whole PM lifecycle with AI, and you'll ship something live. Today we make sure you can trust AI in the right places, and never in the wrong ones.",
- vis:"Neon green rule."},
-
-{sec:"OPEN + FRAME", title:`WHAT THIS <span class="g">COURSE</span> IS`,
- body:`<div class="arc" style="justify-content:center"><span class="st">Foundations + workspace</span><span class="ar">→</span><span class="st">Research to spec</span><span class="ar">→</span><span class="st">Data decisions</span><span class="ar">→</span><span class="st">AI features + judge</span><span class="ar">→</span><span class="st">Prototype build</span><span class="ar">→</span><span class="st final">Test, demo, decide</span></div>
-   <div class="cap" style="text-align:center;max-width:820px;margin-left:auto;margin-right:auto">6 hands-on sessions. Every session you make something real. By the end you'll have a <b style="color:var(--green)">personal AI system</b>, the <b style="color:var(--green)">judgment</b> to trust AI in the right places, and a <b style="color:var(--green)">live product</b> you shipped.</div>`,
- note:"The whole course on one line. From foundations today, to setting up your AI workspace, then across the PM lifecycle: discovery and specs, data, communication, building AI features, and we end by shipping a real product live. Every session you build something. By the end you have your own AI system, real judgment, and a product with a public URL.",
- vis:"6-step course arc, final node highlighted, plus outcomes."},
-
-{sec:"WHO AM I", title:`WHO <span class="g">AM I</span>`,
- body:`<div style="display:flex;gap:40px;align-items:center;flex-wrap:wrap;margin-top:8px">
-   <img src="assets/tigran.jpg" alt="Tigran Sargsyan" style="width:220px;height:220px;object-fit:cover;border-radius:16px;border:2px solid var(--green)">
-   <ul class="checklist" style="flex:1;min-width:320px">
-   <li>5+ years running product & marketing <b style="color:var(--green)">AI ops at Picsart (~150M users)</b></li>
-   <li>Built <b style="color:var(--green)">120+ AI agents</b> and <b style="color:var(--green)">20+ websites & products</b>, shipped in production</li>
-   <li>Coached <b style="color:var(--green)">60+ PMs</b> across courses and workshops</li>
-   <li>A PM, <b>not an engineer</b>. All of it by directing AI.</li></ul></div>`,
- note:"Quick credibility so you know why to listen. Five-plus years running AI ops at Picsart, a product with around 150 million users. I've built over 120 agents and 20-plus products in production, and coached 60-plus PMs. And I am a product person, not an engineer. Everything you'll see, I do by directing AI. That's the whole promise: so can you.",
- vis:"Headshot + credibility numbers."},
-
-{sec:"HOW WE WORK", title:`HOW WE <span class="g">RUN TONIGHT</span>`,
- body:`<ul class="checklist" style="max-width:820px;margin:0 auto;text-align:left">
-     <li><b style="color:var(--green)">Be engaged.</b> This is a working session, not a lecture.</li>
-     <li><b style="color:var(--green)">Ask questions</b> any time. Raise a hand, I stop.</li>
-     <li><b style="color:var(--green)">Share what you know</b> with each other. Your neighbour is often the fastest answer.</li>
-     <li><b style="color:var(--green)">We build something</b> in every session. Hands on keyboard, tonight included.</li></ul>`,
- note:"How tonight works, because the first cohort asked for it. We go one idea at a time: I show it, you try it, we confirm you have it, then we move on. Four rules. Be engaged, this is a working session and not a lecture. Ask questions any time, just raise a hand and I stop. Share what you know with the person next to you, they are often the fastest answer in the room. And every session we build something, tonight included, so keep the laptop open. Fair?",
- vis:"Ground rules: engaged, ask, share, build."},
-
-{sec:"THE SHIFT", center:true, title:`WHY <span class="g">NOW</span>`,
- body:`<div class="num">3</div><div class="cap" style="max-width:760px;margin-left:auto;margin-right:auto">Years for AI to reach ~50% of people. The internet took ~7. The PC took ~15. And ChatGPT alone has <b style="color:var(--green)">~900M weekly users.</b></div><div class="src"><b>Source:</b> CCIA / Stanford AI Index 2026 · OpenAI 2026</div>`,
- note:"Why now, in one number. Generative AI reached half the population in three years, versus seven for the internet and fifteen for the PC. ChatGPT alone has nearly a billion weekly users. Fastest-adopted technology in history. Not a wave you wait out.",
- vis:"Giant 3 + adoption comparison."},
-
-{sec:"THE SHIFT", title:`AND IT ALREADY <span class="g">WORKS</span>`,
- body:`<div class="twobars"><div><div class="bar" style="height:60%">+25%</div><div class="barlabel">faster</div></div><div><div class="bar" style="height:92%">+40%</div><div class="barlabel">higher quality</div></div></div>
-   <div class="cap">In a controlled study of 758 professionals, those using AI worked ~25% faster and produced ~40% higher-quality work. It lifts juniors and seniors both.</div><div class="src"><b>Source:</b> Dell'Acqua et al., Harvard / BCG field experiment, 2023</div>`,
- note:"And it is not hype. In a controlled study of 758 professionals, those using AI finished about 25 percent faster and their work was rated 40 percent higher quality. It helps everyone, junior and senior. The catch, which is today's whole point, is knowing where it's strong and where it's not.",
- vis:"Two bars: 25% faster, 40% better."},
-
-{sec:"OPEN + FRAME", center:true, title:`THE <span class="g">THROUGH-LINE</span>`,
- body:`<div class="sub" style="font-size:clamp(22px,2.8vw,36px);color:#fff">AI amplifies <span class="g">who you are.</span></div>
-   <div class="sub">A sharp thinker gets sharper. A lazy one just gets louder. It multiplies your thinking, it doesn't replace it.</div>`,
- note:"One belief for the whole course. AI is an amplifier. A sharp thinker gets sharper, a sloppy one just gets louder, faster. So this course makes you a sharper thinker who knows how to plug in. That's it.",
- vis:"Bold type, the course's core belief."},
-
-{sec:"QUICK ASSESSMENT", center:true, title:`FIRST, <span class="g">WHERE ARE YOU?</span>`,
- body:`<div class="rule" style="margin-left:auto;margin-right:auto"></div><div class="sub">Six fast questions. Hands up, or call it out. It shapes how I teach tonight.</div>`,
- note:"No pre-course form, so we run it live in two minutes. Six quick questions, hands up or call it out. This genuinely changes how deep I go tonight and how I pair you up at the tables.",
- vis:"Assessment intro."},
-
-{sec:"QUICK ASSESSMENT · 1", title:`HOW DO YOU USE <span class="g">AI TODAY?</span>`,
- body:`<div class="sub">Hold up 1, 2, or 3 fingers:</div>
-   <ul class="poll"><li><span class="n">1</span> Beginner: I chat with ChatGPT/Claude sometimes</li>
-   <li><span class="n">2</span> Regular: I use it daily for real work</li>
-   <li><span class="n">3</span> Proficient: I build with AI (automations, agents, apps)</li></ul>`,
- note:"First, your AI level. One if you mostly chat with it, two if you use it daily for real work, three if you build with it. This tells me how deep to go.",
- vis:"Poll 1 of 6: AI level."},
-
-{sec:"QUICK ASSESSMENT · 2", title:`WHAT HAVE YOU <span class="g">DONE</span> WITH AI?`,
- body:`<div class="sub">Hands up for any that apply:</div>
-   <ul class="poll"><li><span class="n">A</span> Written or analyzed docs / data</li>
-   <li><span class="n">B</span> Drafted a PRD, spec, or user stories</li>
-   <li><span class="n">C</span> Built an automation, an app, or a custom GPT / agent</li>
-   <li><span class="n">D</span> None of these yet</li></ul>`,
- note:"Second, what you've actually done. A for written or analyzed things, B for PM docs like PRDs, C if you've built an automation or agent, D if none yet. No judgment, pure calibration.",
- vis:"Poll 2 of 6: what you've built."},
-
-{sec:"QUICK ASSESSMENT · 3", title:`WHICH TOOLS DO YOU <span class="g">HAVE?</span>`,
- body:`<div class="sub">Hands up for each one you have right now:</div>
-   <ul class="poll"><li><span class="n">1</span> ChatGPT / ChatGPT Plus</li>
-   <li><span class="n">2</span> Claude / Claude Pro</li>
-   <li><span class="n">3</span> Claude Code / Cursor / an AI coding tool</li>
-   <li><span class="n">4</span> None yet</li></ul>`,
- note:"Third, what you have access to. This matters because we set up your workspace tonight, after the break, and I need to know who is starting from zero. If you are on 'none yet', we fix that in this room.",
- vis:"Poll 3 of 6: tools you have."},
-
-{sec:"QUICK ASSESSMENT · 4", title:`WHAT'S YOUR <span class="g">ROLE?</span>`,
- body:`<div class="sub">Hold up one number:</div>
-   <ul class="poll"><li><span class="n">1</span> PM / PO / BA (junior or senior)</li>
-   <li><span class="n">2</span> Project or program manager</li>
-   <li><span class="n">3</span> Founder</li>
-   <li><span class="n">4</span> From tech, but not a PM (eng, design, marketing)</li></ul>`,
- note:"Fourth, your role, so I pitch examples at the right altitude. One for PM, PO or BA, two for project or program managers, three for founders, four if you're in tech but not a PM. Everyone is welcome.",
- vis:"Poll 4 of 6: role."},
-
-{sec:"QUICK ASSESSMENT · 5", title:`TECHNICAL OR <span class="g">NOT?</span>`,
- body:`<div class="sub">Be honest, it changes nothing about your welcome here:</div>
-   <ul class="poll"><li><span class="n">1</span> Technical (I read/write code or data)</li>
-   <li><span class="n">2</span> Semi-technical (I read specs/data, not code)</li>
-   <li><span class="n">3</span> Non-technical (business, design, marketing)</li></ul>`,
- note:"Fifth, technical or not. Be honest. This whole course is built so non-technical PMs win, so if you're a three, you are exactly who I designed it for.",
- vis:"Poll 5 of 6: background."},
-
-{sec:"QUICK ASSESSMENT · 6", title:`YOUR BIGGEST <span class="g">OUTCOME?</span>`,
- body:`<div class="sub">Pick the ONE you want most. Hold up the number, then say your goal in one line:</div>
-   <ul class="poll"><li><span class="n">1</span> Do my PM work faster and better</li>
-   <li><span class="n">2</span> Build my own AI system / assistant</li>
-   <li><span class="n">3</span> Learn to build and ship products myself</li>
-   <li><span class="n">4</span> Build AI features & agents into products</li></ul>`,
- note:"Last one, the important one. What's the single biggest outcome you want? One to work faster, two to build your own AI system, three to build and ship products, four to build AI features into products. Then say your goal in one line. I write these down and shape the course around them.",
- vis:"Poll 6 of 6: outcome + one-line goal, said out loud."},
-
-{sec:"WHAT AI ACTUALLY IS", title:`WHAT IS AI, <span class="g">REALLY?</span>`, center:true,
- body:`<div class="rule"></div><div class="sub">An accurate mental model. No CS degree needed.</div>`,
- note:"No CS degree needed. You need a model of what's happening so your instincts are right. But first, thirty seconds of history, because it reframes everything.",
- vis:"Neon green rule."},
-
-{sec:"A SHORT HISTORY", center:true, title:`CAN MACHINES <span class="g">THINK?</span>`,
- body:`<div class="sub" style="font-size:clamp(19px,2.4vw,30px);color:#fff">1950: Alan Turing asks the founding question.</div>
-   <div style="display:flex;gap:16px;justify-content:center;align-items:center;margin:22px 0;flex-wrap:wrap">
-     <div style="border:2px solid #2a2f38;border-radius:14px;padding:14px 20px;min-width:150px;background:#0f1114">
-       <div style="font:700 11px Barlow;letter-spacing:.16em;color:#8a929e">PLAYER A</div>
-       <div style="margin-top:6px;color:#cfd4dc">"Ask me anything."</div></div>
-     <div style="font:900 42px Barlow;color:var(--green)">?</div>
-     <div style="border:2px solid var(--green);border-radius:14px;padding:14px 20px;min-width:150px;background:#0f1114">
-       <div style="font:700 11px Barlow;letter-spacing:.16em;color:var(--green)">PLAYER B</div>
-       <div style="margin-top:6px;color:#cfd4dc">"Ask me anything."</div></div></div>
-   <div class="cap" style="max-width:780px;margin:0 auto">His test wasn't "is it truly thinking?" It was <b style="color:#fff">"can it convince you it is?"</b> If you can't tell which player is the machine, does the difference still matter?</div>
-   <div class="src"><b>1956:</b> the field gets its name at the Dartmouth workshop. John McCarthy coins the term <b style="color:var(--green)">"Artificial Intelligence."</b></div>`,
- note:"AI is not new. In 1950, Alan Turing asked the founding question: can machines think? He turned it into a game. You chat with two hidden players, one human and one machine, and if you genuinely cannot tell which is which, then arguing about whether it really thinks stops mattering. Six years later, in 1956, a summer workshop at Dartmouth gave the field its name. John McCarthy coined the term artificial intelligence. So this idea is seventy-plus years old. What changed recently is not the idea. It is that it finally works.",
- vis:"Imitation Game: two chat panels, human vs machine, a big question mark."},
-
-{sec:"A SHORT HISTORY", title:`NOBODY CAN <span class="g">DEFINE IT</span>`,
- body:`<div class="sub" style="color:#fff">There is still <span class="g">no strict definition</span> of AI.</div>
-   <div class="cap" style="max-width:840px;margin:6px auto 18px">Because there is no strict definition of <b style="color:#fff">human intelligence</b> either. We cannot fully pin down thinking, understanding, or consciousness, so "artificial" intelligence inherits the same blur.</div>
-   <div style="max-width:760px;margin:0 auto;text-align:left;border-left:3px solid var(--green);padding:12px 18px;background:#0f1114;border-radius:0 12px 12px 0">
-     <div style="font:700 11px Barlow;letter-spacing:.16em;color:var(--green);margin-bottom:6px">THE WORKING DEFINITION</div>
-     <div style="color:#eef1f5;font-size:18px">A machine doing something we would call <b style="color:var(--green)">intelligent</b> if a human did it.</div></div>
-   <div class="src"><b>The AI effect:</b> the moment it works, we stop calling it AI. Chess, spam filters, autocomplete, face unlock, all "just software" now.</div>`,
- note:"Here is something that surprises people. There is still no agreed, strict definition of AI. And the reason is humbling: we do not have a strict definition of human intelligence either. We cannot fully say what thinking or understanding or consciousness actually are, so artificial intelligence borrows the same fuzziness. The working definition everyone uses is simply: a machine doing something we would call intelligent if a person did it. And watch the pattern, the AI effect: the moment something works reliably, we stop calling it AI and call it just software. Chess engines, spam filters, autocomplete, face unlock, all of that was AI until it worked. Keep that in mind every time you hear the word.",
- vis:"The blurry definition + the AI effect list."},
-
-{sec:"A SHORT HISTORY", title:`<span class="g">WINTERS</span> AND SUMMERS`,
- body:`<svg viewBox="0 0 1000 340" style="width:100%;max-width:940px;height:auto;display:block;margin:6px auto 0">
-     <rect x="300" y="30" width="85" height="255" fill="#ff5a5a" opacity="0.07"/>
-     <rect x="455" y="30" width="80" height="255" fill="#ff5a5a" opacity="0.07"/>
-     <line x1="40" y1="285" x2="960" y2="285" stroke="#2a2f38" stroke-width="2"/>
-     <polyline points="60,205 130,110 342,240 412,128 495,245 787,155 846,92 905,50" fill="none" stroke="var(--green)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
-     <g fill="var(--green)" stroke="#000" stroke-width="2">
-       <circle cx="60" cy="205" r="6"/><circle cx="130" cy="110" r="7"/><circle cx="412" cy="128" r="7"/><circle cx="787" cy="155" r="6"/><circle cx="846" cy="92" r="6"/><circle cx="905" cy="50" r="8"/></g>
-     <g fill="#ff7a7a" stroke="#000" stroke-width="2"><circle cx="342" cy="240" r="6"/><circle cx="495" cy="245" r="6"/></g>
-     <g font-family="Barlow" font-weight="700" font-size="14" fill="var(--green)" text-anchor="middle">
-       <text x="60" y="195" text-anchor="start">1950 Turing</text>
-       <text x="130" y="96">1956 named</text>
-       <text x="412" y="114">1980s expert systems</text>
-       <text x="787" y="140">2012 deep learning</text>
-       <text x="846" y="78">2017 transformers</text></g>
-     <text x="905" y="38" font-family="Barlow" font-weight="900" font-size="16" fill="#fff" text-anchor="end">2022 ChatGPT</text>
-     <g font-family="Barlow" font-weight="800" font-size="13" fill="#ff7a7a" text-anchor="middle" letter-spacing="1">
-       <text x="342" y="268">AI WINTER</text><text x="495" y="272">AI WINTER</text></g>
-   </svg>
-   <div class="cap" style="max-width:840px;margin:14px auto 0">Two full boom-and-bust cycles before it worked. Hype, then disappointment, then funding dries up. We are now in the biggest summer ever, so keep perspective: the tech is real, and some of the hype still is not.</div>`,
- note:"AI did not go straight up. It went through hype cycles we literally call summers and winters. Big optimism after Dartmouth, then the 1970s winter when it did not deliver and funding collapsed. Then the expert-systems boom of the 1980s, then a second winter. It only truly took off around 2012 with deep learning, then transformers in 2017, then ChatGPT in 2022. So two things are true at once: the technology is genuinely real now, and some of the hype you hear will still not pan out. Hold both.",
- vis:"Timeline chart: neon hype curve with two red AI-winter dips, ending at the 2022 ChatGPT peak."},
-
-{sec:"A SHORT HISTORY", title:`CHESS, <span class="g">THEN GO</span>`,
- body:`<div style="display:flex;gap:46px;justify-content:center;align-items:flex-start;margin:6px 0 16px;flex-wrap:wrap">
-     <div style="text-align:center">
-       <div style="width:150px;height:150px;border:2px solid #2a2f38;border-radius:8px;background-color:#0f1114;background-image:linear-gradient(45deg,#2a2f38 25%,transparent 25%,transparent 75%,#2a2f38 75%),linear-gradient(45deg,#2a2f38 25%,transparent 25%,transparent 75%,#2a2f38 75%);background-size:38px 38px;background-position:0 0,19px 19px"></div>
-       <div style="font:800 15px Barlow;color:#fff;margin-top:10px;letter-spacing:.06em">CHESS</div>
-       <div class="cap" style="margin-top:2px">1997 · Deep Blue beats Kasparov</div></div>
-     <div style="text-align:center">
-       <div style="position:relative;width:150px;height:150px;border:2px solid #2a2f38;border-radius:8px;background-color:#0f1114;background-image:linear-gradient(#2a2f38 1px,transparent 1px),linear-gradient(90deg,#2a2f38 1px,transparent 1px);background-size:25px 25px">
-         <span style="position:absolute;left:43px;top:43px;width:14px;height:14px;border-radius:50%;background:#fff"></span>
-         <span style="position:absolute;left:68px;top:68px;width:14px;height:14px;border-radius:50%;background:var(--green)"></span>
-         <span style="position:absolute;left:93px;top:43px;width:14px;height:14px;border-radius:50%;background:#fff"></span></div>
-       <div style="font:800 15px Barlow;color:#fff;margin-top:10px;letter-spacing:.06em">GO</div>
-       <div class="cap" style="margin-top:2px">2016 · AlphaGo beats Lee Sedol 4-1</div></div></div>
-   <div class="cap" style="max-width:840px;margin:0 auto">Go has more legal positions than there are atoms in the universe. Experts said a machine winning was decades away. Then it did. The lesson: AI can be <b style="color:#fff">superhuman at one task and clueless at the next.</b> That gap has a name, the jagged frontier, and it is coming up.</div>`,
- note:"Two milestones make the point. In 1997, IBM's Deep Blue beat world chess champion Garry Kasparov. People said, fine, chess is just brute-force calculation. Then in 2016, DeepMind's AlphaGo beat Lee Sedol at Go, a game with more positions than atoms in the universe, something experts had said was decades off. Here is the lesson that matters for you: a system can be utterly superhuman at one narrow task and completely clueless at the next. That uneven ability is called the jagged frontier, and we will name it in a few slides. It is the single most useful idea for knowing when to trust AI.",
- vis:"Two boards side by side: a chess checkerboard and a Go grid with stones, with the years and champions beaten."},
-
-{sec:"WHAT AI ACTUALLY IS", title:`<span class="g">TWO</span> KINDS OF AI`,
- body:`<div class="cards"><div class="card"><div class="tag">Predictive AI</div><p>Scores, forecasts, classifies. Recommendations, fraud, churn.</p></div>
-   <div class="card good"><div class="tag">Generative AI</div><p>Creates text, images, code.</p></div></div>
-   <div class="cap">This course = mostly <b>generative + agents.</b></div>`,
- note:"First distinction. Predictive AI has powered products for years: recommendations, fraud detection, churn scores. It predicts a number or a label. Generative AI, the new wave, creates: text, images, code. Most of what you spec as a PM will be generative or agentic. Know the difference so you don't mislabel a feature.",
- vis:"Two-column diagram: Predictive AI vs Generative AI."},
-
-{sec:"WHAT AI ACTUALLY IS", title:`AN LLM PREDICTS THE <span class="g">NEXT WORD</span>`,
- body:`<div class="mono" style="font-size:22px">"The cat sat on the ___"</div>
-   <div style="margin-top:16px;display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap">
-   <span style="font-family:var(--h);font-weight:900;font-size:44px;color:var(--green)">mat</span>
-   <span style="font-family:var(--h);font-weight:800;font-size:30px;color:#cfcfd4">floor</span>
-   <span style="font-family:var(--h);font-weight:700;font-size:22px;color:var(--muted)">keyboard</span>
-   <span style="font-size:16px;color:var(--line)">banana</span></div>`,
- note:"A large language model does one thing, extremely well: predict the next most likely word, again and again. 'The cat sat on the...' and it weighs mat, floor, keyboard, banana. That simple mechanic, at massive scale, produces everything you've seen. Which leads to the single most important consequence.",
- vis:"Speech bubbles sized by probability, 'mat' biggest in neon green."},
-
-{sec:"WHAT AI ACTUALLY IS", title:`<span class="g">PLAUSIBLE,</span> NOT TRUE`, center:true,
- body:`<div class="sub" style="font-size:clamp(22px,2.6vw,34px);color:#fff">It generates what <span class="g">sounds</span> right.</div>
-   <div class="sub">Not necessarily what <span class="g">is</span> right.</div>`,
- note:"It optimizes for plausible. Usually plausible and true overlap. Sometimes they don't, and it will still sound completely confident. Every strength and weakness we'll discuss flows from this one fact.",
- vis:"None. Bold type."},
-
-{sec:"WHAT AI ACTUALLY IS", title:`HOW DID IT <span class="g">LEARN?</span>`,
- body:`<div class="rows">
-     <div class="row"><span class="a">1 · Pre-training</span><span class="arw">→</span><span class="b">Reads a huge slice of the internet, books, and code. Learns the patterns of language.</span></div>
-     <div class="row"><span class="a">2 · Human feedback</span><span class="arw">→</span><span class="b">People rank its answers. It learns to be helpful, and to sound right.</span></div></div>
-   <div class="cap" style="max-width:820px;margin:14px auto 0">This is why it's so fluent, why it inherits human bias, and why it tends to agree with you. It was rewarded for answers people liked.</div>`,
- note:"The question I always get: where does it get all this? Two stages. First, pre-training: it reads an enormous slice of the internet, books, and code, and learns the statistical patterns of language. That's where next-word prediction comes from. Second, human feedback: people rank its answers, and it learns to produce the ones humans prefer. That second stage is why it's so fluent and helpful, and also why it inherits human bias and tends to agree with you. It was literally rewarded for answers people liked. You don't need the math. You need this instinct: it is imitating and pleasing, not looking up truth.",
- vis:"Two-step flow: pre-training on internet-scale text, then human feedback (RLHF)."},
-
-{sec:"WHAT AI ACTUALLY IS", title:`IT CAN NOW <span class="g">REASON</span>`,
- body:`<div class="rows">
-     <div class="row"><span class="a">Older models</span><span class="arw">→</span><span class="b">Blurt the answer in a single pass.</span></div>
-     <div class="row"><span class="a">Reasoning models</span><span class="arw">→</span><span class="b">Think step by step first, then answer. Far better at logic, math, and code.</span></div></div>
-   <div class="cap" style="max-width:820px;margin:14px auto 0">You'll see a "thinking..." moment. It costs more time and tokens, and it's a big reason the jagged frontier keeps moving. It reduces silly mistakes. It does not fully cure hallucination.</div>`,
- note:"One update that matters in 2026. The newest models don't just blurt the most likely next word. They can reason: work through a problem step by step, privately, before answering. You'll literally see a thinking moment. It makes them dramatically better at math, logic, and code, and it's a big reason the jagged frontier keeps shifting outward. The tradeoff is that it's slower and uses more tokens. And to be clear: reasoning reduces dumb mistakes, it does not fully cure hallucination. The same rule holds. Verify anything that matters.",
- vis:"Two paths: older models blurt, reasoning models think step by step first."},
-
-{sec:"WHAT AI ACTUALLY IS", title:`CONTEXT WINDOW = ITS <span class="g">WORKING MEMORY</span>`,
- body:`<div class="sub">What it can see right now. Nothing outside it exists.</div><div class="fig"><svg viewBox="0 0 900 300" role="img" aria-label="The context window drawn to scale: a small fixed block paid on every turn, a conversation that grows, and a compaction threshold."><text x="24" y="26" fill="var(--muted)" font-family="var(--m)" font-size="13" letter-spacing=".12em">DRAWN TO SCALE &#183; 1,000,000 TOKENS</text><line x1="24" y1="50" x2="876" y2="50" stroke="var(--line)" stroke-width="1.5"/><line x1="24" y1="44" x2="24" y2="56" stroke="var(--line)" stroke-width="1.5"/><text x="24" y="38" text-anchor="start" fill="var(--muted)" font-family="var(--m)" font-size="13">0</text><line x1="194" y1="44" x2="194" y2="56" stroke="var(--line)" stroke-width="1.5"/><text x="194" y="38" text-anchor="middle" fill="var(--muted)" font-family="var(--m)" font-size="13">200K</text><line x1="535" y1="44" x2="535" y2="56" stroke="var(--line)" stroke-width="1.5"/><text x="535" y="38" text-anchor="middle" fill="var(--muted)" font-family="var(--m)" font-size="13">600K</text><line x1="876" y1="44" x2="876" y2="56" stroke="var(--line)" stroke-width="1.5"/><text x="876" y="38" text-anchor="end" fill="var(--muted)" font-family="var(--m)" font-size="13">1M</text><rect x="24" y="78" width="852" height="64" fill="none" stroke="var(--line)" stroke-width="1.5"/><rect x="25" y="79" width="20" height="62" fill="var(--muted)"/><rect x="45" y="79" width="12" height="62" fill="var(--line)"/><rect x="57" y="79" width="16" height="62" fill="var(--muted)"/><g class="mv-grow"><rect x="73" y="79" width="656" height="62" fill="var(--green)" opacity=".26"/></g><line x1="729" y1="66" x2="729" y2="154" stroke="var(--green)" stroke-width="2"/><text x="739" y="74" fill="var(--green)" font-family="var(--m)" font-size="13" letter-spacing=".12em">COMPACTION</text><line x1="40" y1="142" x2="40" y2="176" stroke="var(--line)" stroke-width="1.5"/><line x1="65" y1="142" x2="65" y2="204" stroke="var(--line)" stroke-width="1.5"/><line x1="300" y1="142" x2="300" y2="176" stroke="var(--line)" stroke-width="1.5"/><text x="50" y="172" fill="var(--muted)" font-family="var(--m)" font-size="13">system prompt &#183; fixed</text><text x="75" y="200" fill="var(--muted)" font-family="var(--m)" font-size="13">CLAUDE.md &#183; fixed</text><text x="310" y="172" fill="var(--green)" font-family="var(--m)" font-size="13">conversation and files &#183; grows every turn</text><text x="24" y="252" fill="var(--white)" font-family="var(--b)" font-size="15">The fixed block is small, but you pay for it on every single turn.</text><text x="24" y="278" fill="var(--muted)" font-family="var(--b)" font-size="15">What is not in the window did not happen.</text></svg></div>`,
- note:"Second mechanic: the context window. It's the model's short-term memory, everything you've put in this conversation. It has no memory of you outside it unless you give it. The whole skill of context engineering, which we do next session, is feeding it the right things. Garbage or thin context in, generic out.",
- vis:"Animated figure: the context window drawn to scale, fixed block small but paid every turn."},
-
-{sec:"WHAT AI ACTUALLY IS", title:`<span class="g">TOKENS</span> (WHY IT'S NOT FREE)`,
- body:`<div class="sub">Tokens are the units AI reads and writes. Long chats plus big files mean more tokens: slower, costlier, and it can lose the thread.</div>
-   <img class="shot" src="assets/img/s1/tokenizer.png"><div class="shotcap">A tokenizer view showing a sentence split into highlighted token pieces</div>`,
- note:"It reads and writes in tokens, roughly word-pieces. Two practical takeaways: long rambling chats cost more and can make it forget the start, and in this course you have limited Claude Code tokens, so we'll keep prompts tight and purposeful. Precision is a feature, not just a virtue.",
- vis:"Tokenizer view: a sentence split into highlighted token pieces."},
-
-{sec:"WHAT AI ACTUALLY IS", title:`THE <span class="g">AMPLIFICATION,</span> CONCRETELY`,
- body:`<div class="sub">One PM. Many agents. Real products.</div><div class="fig"><svg viewBox="0 0 900 300" role="img" aria-label="One person directs a group of AI agents, which together produce several finished products."><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs><rect x="24" y="112" width="128" height="76" fill="none" stroke="var(--green)" stroke-width="2"/><text x="88" y="150" text-anchor="middle" fill="var(--green)" font-family="var(--h)" font-weight="900" font-size="30" letter-spacing=".06em">YOU</text><text x="88" y="174" text-anchor="middle" fill="var(--muted)" font-family="var(--m)" font-size="13">one PM</text><line x1="152" y1="150" x2="218" y2="150" stroke="var(--muted)" stroke-width="2" marker-end="url(#ah)"/><text x="185" y="136" text-anchor="middle" fill="var(--green)" font-family="var(--m)" font-size="13" letter-spacing=".12em">DIRECT</text><rect x="226" y="60" width="356" height="180" fill="none" stroke="var(--line)" stroke-width="1.5"/><text x="226" y="46" fill="var(--muted)" font-family="var(--m)" font-size="13" letter-spacing=".12em">AGENTS YOU DIRECT</text><rect x="244" y="74" width="150" height="40" fill="var(--surface)" stroke="var(--muted)" stroke-width="1.5"/><text x="319" y="100" text-anchor="middle" fill="var(--white)" font-family="var(--h)" font-weight="800" font-size="18" letter-spacing=".06em">RESEARCH</text><rect x="416" y="74" width="150" height="40" fill="var(--surface)" stroke="var(--muted)" stroke-width="1.5"/><text x="491" y="100" text-anchor="middle" fill="var(--white)" font-family="var(--h)" font-weight="800" font-size="18" letter-spacing=".06em">WRITE</text><rect x="244" y="128" width="150" height="40" fill="var(--surface)" stroke="var(--muted)" stroke-width="1.5"/><text x="319" y="154" text-anchor="middle" fill="var(--white)" font-family="var(--h)" font-weight="800" font-size="18" letter-spacing=".06em">ANALYSE</text><rect x="416" y="128" width="150" height="40" fill="var(--surface)" stroke="var(--muted)" stroke-width="1.5"/><text x="491" y="154" text-anchor="middle" fill="var(--white)" font-family="var(--h)" font-weight="800" font-size="18" letter-spacing=".06em">BUILD</text><rect x="244" y="182" width="150" height="40" fill="var(--surface)" stroke="var(--muted)" stroke-width="1.5"/><text x="319" y="208" text-anchor="middle" fill="var(--white)" font-family="var(--h)" font-weight="800" font-size="18" letter-spacing=".06em">TEST</text><rect x="416" y="182" width="150" height="40" fill="var(--surface)" stroke="var(--muted)" stroke-width="1.5"/><text x="491" y="208" text-anchor="middle" fill="var(--white)" font-family="var(--h)" font-weight="800" font-size="18" letter-spacing=".06em">SHIP</text><line x1="582" y1="150" x2="648" y2="150" stroke="var(--green)" stroke-width="2" marker-end="url(#ah)"/><rect x="656" y="72" width="220" height="40" fill="none" stroke="var(--green)" stroke-width="1.5"/><text x="766" y="98" text-anchor="middle" fill="var(--green)" font-family="var(--h)" font-weight="800" font-size="15" letter-spacing=".06em">A COMMAND CENTER</text><rect x="656" y="130" width="220" height="40" fill="none" stroke="var(--green)" stroke-width="1.5"/><text x="766" y="156" text-anchor="middle" fill="var(--green)" font-family="var(--h)" font-weight="800" font-size="15" letter-spacing=".06em">A TREND-TO-VIDEO ENGINE</text><rect x="656" y="188" width="220" height="40" fill="none" stroke="var(--green)" stroke-width="1.5"/><text x="766" y="214" text-anchor="middle" fill="var(--green)" font-family="var(--h)" font-weight="800" font-size="15" letter-spacing=".06em">A FULL GAME</text><text x="656" y="278" fill="var(--muted)" font-family="var(--b)" font-size="15">No hand-written code.</text></svg></div>`,
- note:"A quick real example. I am a product person, not an engineer. I direct a set of agents, and they build. A command center that runs my work, an engine that turns trends into videos, even a full strategy game. The point is not the projects. The point is that the ceiling moved. That ceiling is what this course raises for you.",
- vis:"Diagram: one PM directs six agents, which produce three finished products."},
-
-{sec:"HOW AI FAILS", title:`WHERE IT <span class="g">BREAKS</span>`, center:true,
- body:`<div class="rule"></div><div class="sub">How AI fails, so you catch it. Three failure modes.</div>`,
- note:"An amplifier with blind spots. If you can't see the blind spots, it amplifies your mistakes too. Three failure modes.",
- vis:"Neon green rule."},
-
-{sec:"HOW AI FAILS", title:`<span class="g">HALLUCINATION</span>`,
- body:`<div class="sub" style="color:#fff">A confident, wrong answer. It's not lying. It's predicting plausible text.</div>
-   <img class="shot" src="assets/img/s1/hallucination.png"><div class="shotcap">An AI chat confidently stating a made-up fact or citation, a real hallucination</div>`,
- note:"Hallucination. It will invent a statistic, a citation, a feature, and present it with total confidence, because plausible-sounding is exactly what it's built to produce. Rule for the course: for any fact, number, or claim, you verify or you don't ship it.",
- vis:"Screenshot of a real hallucination."},
-
-{sec:"HOW AI FAILS", title:`BRILLIANT, THEN <span class="g">USELESS</span>`,
- body:`<div class="cards"><div class="card good"><div class="tag">Superhuman</div><p>Wins a gold medal at the Maths Olympiad</p></div>
-   <div class="card bad"><div class="tag">Clueless</div><p>Cannot reliably read a clock face</p></div></div>
-   <div class="cap" style="max-width:820px;margin:12px auto 0">Same model, same day. It can write a strong credit-policy summary, then miscount a month of transactions. <b style="color:var(--green)">It will not warn you which one you are getting.</b></div>
-   <div class="src"><b>Source:</b> Stanford AI Index 2026</div>`,
- note:"What it can do is not a smooth line. The same model wins a maths olympiad and then cannot read a clock face. In your work it might write a strong credit-policy summary, then miscount a month of transactions. It will not warn you which one you are getting. Finding that edge for your own tasks is a real skill, and you build it all course.",
- vis:"Two cards: brilliant on one task, useless on the next."},
-
-{sec:"HOW AI FAILS", title:`BIAS AND THE <span class="g">CONFIDENCE TRAP</span>`, center:true,
- body:`<div class="sub" style="font-size:clamp(20px,2.4vw,30px);color:#fff">It mirrors its training data, and your prompt.</div>
-   <div class="sub">The danger isn't wrongness. It's <span class="g">fluent</span> wrongness.</div>`,
- note:"It reflects patterns and biases in its data, and it'll happily agree with a leading question. The real trap for a PM isn't that it's sometimes wrong, it's that it's wrong beautifully, in fluent, structured prose that feels authoritative. Fluency is not accuracy. Keep your skepticism.",
- vis:"None. Bold type."},
-
-{sec:"HOW AI FAILS", title:`THIS IS WHY <span class="g">YOU MATTER</span>`, center:true,
- body:`<div class="rule" style="margin-left:auto;margin-right:auto"></div>
-   <div class="sub" style="font-size:clamp(20px,2.4vw,30px);color:#fff">The blind spots are exactly why judgment is the job.</div>
-   <div class="sub">AI does the volume. You do the verdict.</div>`,
- note:"Here's the optimistic flip. Every failure mode is a place where a thinking human is required. AI gives you volume and speed. You give the verdict: is this right, does it fit our users, should we ship it. That verdict is what you're paid for, and it's about to matter more, not less.",
- vis:"Neon green rule."},
-
-{sec:"BREAK", title:`<span class="g">BREAK</span> · 8 MIN`, center:true,
- body:`<div class="num small">8</div><div class="cap">Minutes. Back in ~8 min.</div>`,
- note:"Eight minutes. When we're back: the myths worth dropping, and where this is all heading.",
- vis:"Break timer. Back in ~8 min."},
-
-{sec:"MYTHS + WHERE IT'S HEADING", title:`MYTHS VS <span class="g">REALITY</span>`, center:true,
- body:`<div class="rule"></div><div class="sub">What to stop believing.</div>`,
- note:"Quick myth-busting, because the wrong beliefs quietly cap how you use it.",
- vis:"Neon green rule."},
-
-{sec:"MYTHS + WHERE IT'S HEADING", title:`THREE <span class="g">MYTHS</span>`,
- body:`<div class="rows">
-   <div class="row"><span class="a">"AI will replace me"</span><span class="arw">→</span><span class="b">replaces <b>tasks</b>, not people</span></div>
-   <div class="row"><span class="a">"AI is always right"</span><span class="arw">→</span><span class="b">confident, <b>often wrong</b></span></div>
-   <div class="row"><span class="a">"AI is only for engineers"</span><span class="arw">→</span><span class="b">for <b>anyone who thinks</b></span></div></div>`,
- note:"It replaces tasks, not roles, and the PMs who deliberately hand tasks to AI get more done. It's not always right, you know that now. And it is not just for engineers, it rewards clear thinking and clear writing, which is literally the PM job.",
- vis:"Two-column table, neon green arrows."},
-
-{sec:"MYTHS + WHERE IT'S HEADING", title:`AGENTS: FROM ANSWERING TO <span class="g">DOING</span>`,
- body:`<div class="sub">A chatbot answers. An agent <span class="g">acts</span>: it uses tools, runs steps, and finishes multi-step work. This is where the work is heading.</div>
-   <img class="shot" src="assets/img/s1/agent-workflow.png"><div class="shotcap">A real agent workflow (an n8n graph or Claude Code invoking tools) branching into tool steps</div>`,
- note:"One word you'll hear all course: agents. A chatbot answers you. An agent acts, it can use tools, browse, run steps, and finish a task while you watch. That's the shift from AI helps me to AI does this for me. We build one in Session 6.",
- vis:"Screenshot of a real agent workflow branching into tool steps."},
-
-{sec:"SET UP YOUR WORKSPACE", title:`YOUR <span class="g">WORKSPACE</span>`, center:true,
- body:`<div class="rule" style="margin-left:auto;margin-right:auto"></div>
-   <div class="sub">Accounts. IDE. Claude. Claude Code. Everyone to the same green line.</div>`,
- note:"First block is pure setup. The goal is simple: get every person in this room to the same green line, an IDE open, Claude ready, and Claude Code running one command. If something breaks, raise a hand and we pair you up. Nobody leaves this block stuck.",
- vis:"Section divider."},
-
-{sec:"SET UP YOUR WORKSPACE", title:`THE STACK YOU ARE <span class="g">BUILDING</span>`,
- body:`<div class="blocks">
-   <div class="block"><div class="bl">Claude</div><p>Chat and Projects. Where you think and ask.</p></div>
-   <div class="block"><div class="bl">Claude Code</div><p>The terminal operator. Reads and writes real files.</p></div>
-   <div class="block"><div class="bl">AI IDE</div><p>VS Code or Cursor. Where your project lives.</p></div>
-   <div class="block"><div class="bl">Node</div><p>The plumbing that installs Claude Code.</p></div></div>`,
- note:"Four pieces. Claude in the browser is where you think and ask. Claude Code is the same intelligence in your terminal, and it can read and write real files on your machine, which is what today is about. The IDE is your workshop, it holds your project folder. Node is just the plumbing that lets Claude Code install. You may also use ChatGPT or Gemini, and I will point out where they fit, but Claude Code is our home base tonight.",
- vis:"Four neon-edged tiles: Claude, Claude Code, IDE, Node."},
-
-{sec:"SET UP YOUR WORKSPACE", title:`CLAUDE CODE IS THE <span class="g">OPERATOR</span>`,
- body:`<div class="sub">Not a chatbot that answers. An operator that acts.</div>
-   <div class="rows">
-   <div class="row"><span class="a">Reads your files</span><span class="arw">&rarr;</span><span class="b">proposes a change</span></div>
-   <div class="row"><span class="a">Runs the step</span><span class="arw">&rarr;</span><span class="b">checks the result, repeats</span></div></div>
-   <div class="cap" style="max-width:820px;margin:14px auto 0">The loop from Session 1: <b style="color:var(--green)">read the context, act, check, repeat.</b> You approve each step. That is the whole tool.</div>`,
- note:"One idea before we install it. Claude Code is not a chatbot that answers you, it is an operator that acts. It reads your files, proposes a change, runs the step, checks the result, and repeats until the task is done, and you approve each step along the way. You saw me run this loop last session. Tonight you run it yourself. Read, act, check, repeat. That is the whole tool.",
- vis:"The operator loop: read, act, check, repeat."},
-
-{sec:"SET UP YOUR WORKSPACE · task", title:`TASK 1 · GET TO <span class="g">GREEN</span>`,
- body:`<span class="turn">Your turn · 3 min</span>
-   <div class="mono"><ol class="steps2">
-   <li>Sign in at <span class="c">claude.ai</span>, or open the Claude desktop app.</li>
-   <li>Send one message: <span class="c">"Reply with OK if you can read this."</span></li>
-   <li>See the reply. Your account is live.</li></ol></div>`,
- note:"Task one, quick. Sign in, send one throwaway message, see it reply. That confirms your account. If you have no account yet, buddy up with your neighbor while yours sets up. Thumbs up when you see OK.",
- vis:"Mono task block, your-turn label."},
-
-{sec:"SET UP YOUR WORKSPACE · task", title:`TASK 2 · OPEN YOUR <span class="g">IDE</span>`,
- body:`<span class="turn">Your turn · 5 min</span>
-   <div class="mono"><ol class="steps2">
-   <li>Install <span class="c">VS Code</span> or <span class="c">Cursor</span> if you have not.</li>
-   <li>File &rarr; Open Folder &rarr; make a new folder <span class="c">ai-pm-course</span>.</li>
-   <li>Open the built-in terminal: View &rarr; Terminal.</li></ol></div>
-   <img class="shot" src="assets/img/s2/vscode-terminal.png"><div class="shotcap">VS Code with the ai-pm-course folder open and the terminal panel</div>`,
- note:"Task two. Open your IDE with one project folder called ai-pm-course. This is your home for the whole course. Then open the built-in terminal, that bottom panel, because that is where Claude Code will live. VS Code and Cursor are almost identical here, pick either. Green check when your terminal is open.",
- vis:"Screenshot: VS Code with ai-pm-course folder and the terminal panel."},
-
-{sec:"SET UP YOUR WORKSPACE · task", title:`TASK 3 · FIRST <span class="g">CLAUDE CODE</span> RUN`,
- body:`<span class="turn">Your turn · 6 min · token-light</span>
-   <div class="mono"><ol class="steps2">
-   <li>In the terminal: <span class="c">npm install -g @anthropic-ai/claude-code</span></li>
-   <li>Run <span class="c">claude</span> and log in when prompted.</li>
-   <li>One small command: <span class="c">"Create notes.md with the heading: My AI PM workspace."</span></li></ol></div>
-   <img class="shot" src="assets/img/s2/claude-code-file.png"><div class="shotcap">Claude Code creating a real file on your machine</div>`,
- note:"Task three, your first time driving Claude Code. Install it with that one npm line, run claude, and log in. Then give it one tiny command, create a small file. Notice two things. It made a real file on your machine, and it cost almost nothing because the command was small. That is the operator loop you just met, working for you.",
- vis:"Screenshot: Claude Code creating a real file."},
-
-{sec:"SET UP YOUR WORKSPACE · checkpoint", title:`CHECKPOINT · <span class="g">EVERYONE GREEN</span>`,
- body:`<ul class="checklist"><li>IDE open with your folder</li><li>Claude replies</li><li>Claude Code made a file</li></ul>
-   <div class="sub">Stuck on any one? Pair up now. Nobody moves on stuck.</div>`,
- note:"Stop and level the room. You should have three greens: your IDE open with the folder, Claude replying, and one file made by Claude Code. If any is red, raise a hand and we pair you right now. If the Claude Code install fought you, we fix it at the break, and you can still follow along in the browser. Nobody moves on stuck.",
- vis:"Three-green checkpoint, no graphic."},
-
-{sec:"SET UP YOUR WORKSPACE · task", title:`TASK 4 &middot; <span class="g">GET A GITHUB ACCOUNT</span>`,
- body:`<div class="sub" style="color:#fff;font-size:clamp(20px,2.4vw,30px)">It records every change, so nothing the AI does is invisible.</div>
-   <div class="mono" style="max-width:620px;margin:26px auto 0;text-align:left">github.com/signup
-
-Personal email. Any username. Free.</div>
-   <div class="cap" style="margin-top:20px;text-align:center">Hand up when you are in.</div>`,
- note:"Last setup step. GitHub records every change to a project, with who made it and when. That gives you an audit trail for free, you can roll back to any earlier version, and because Claude Code works inside it, every edit the AI makes is visible rather than hidden. That is the whole argument for a bank. So do it now, four minutes. github dot com slash signup, use a personal email and not your work one, pick any username because it is public, it is free and needs no card. Hand up when you are in, and walk the room before moving on."},
-
-{sec:"CLAUDE.MD + CONTEXT", title:`A NEW HIRE WITH <span class="g">NO ONBOARDING</span>`, center:true,
- body:`<div class="sub" style="font-size:clamp(20px,2.4vw,30px);color:#fff">A blank Claude Code is a sharp new hire on day one.</div>
-   <div class="sub">It knows a lot in general, and nothing about your bank, your product, or your rules. The fix is one file.</div>`,
- note:"Now the thing that makes the operator actually useful. A blank Claude Code is like a sharp new hire on their first morning. Brilliant in general, but it knows nothing about your bank, your product, your backlog, or the lines it must never cross. You would not let a new hire touch customer data with no onboarding. Same here. The fix is one plain file.",
- vis:"Hook for CLAUDE.md: the un-onboarded new hire."},
-
-{sec:"CLAUDE.MD + CONTEXT", title:`CLAUDE.md · THE <span class="g">RULES</span>`,
- body:`<div class="sub">A plain Markdown file at the top of a project. Claude Code reads it every time, automatically.</div>
-   <ul class="checklist"><li>What this project is</li><li>How to run it</li><li>The conventions to follow</li><li>The safety lines it must not cross</li></ul>
-   <div class="cap" style="max-width:840px;margin:12px auto 0">At a bank: <b>"This is the cards backlog. Never paste real card or KYC data. Keep answers short and cite the source."</b> Good CLAUDE.md, good behavior. Thin or missing, generic behavior.</div>`,
- note:"CLAUDE.md is the onboarding doc you give the project. A plain Markdown file at the top of the folder, and Claude Code reads it automatically every single time, you never have to remind it. It says what the project is, how to run it, the conventions, and the safety lines. In a bank that last part matters most: never paste real card or KYC data, keep it short, cite the source. A good CLAUDE.md gives you good behavior. A thin or missing one gives you generic behavior. This file is where your judgment lives.",
- vis:"CLAUDE.md contents: what, how, conventions, safety lines, with a banking example."},
-
-{sec:"CLAUDE.MD + CONTEXT · task", title:`TRY IT · YOUR FIRST <span class="g">CLAUDE.md</span>`,
- body:`<span class="turn">Your turn · 5 min</span>
-   <div class="mono"><ol class="steps2">
-   <li>In your <span class="c">ai-pm-course</span> folder, tell Claude Code:<br><span class="c">"Create a CLAUDE.md. This folder is my AI-for-PM course workspace. I am a PM at a bank. Keep answers short. Never invent facts. Never use real customer data."</span></li>
-   <li>Then ask: <span class="c">"What is this project?"</span></li>
-   <li>Watch it answer from the file you just wrote.</li></ol></div>`,
- note:"Try it, five minutes. Ask Claude Code to create a CLAUDE.md for your course folder with a few lines about who you are and your red-lines from last session. Then ask it, what is this project, and watch it answer using the file you just wrote, not a guess. You just onboarded your workspace. From now on it starts every task already knowing this.",
- vis:"Mono task block: write and read back your first CLAUDE.md."},
-
-{sec:"WHERE IT ALL LIVES", title:`TWO HOMES · <span class="g">GLOBAL VS PROJECT</span>`,
- body:`<div class="blocks">
-   <div class="block"><div class="bl">Global</div><p><span class="c" style="font-family:var(--m)">~/.claude/</span> Loads in every project. Your defaults: your voice, your always-on rules.</p></div>
-   <div class="block"><div class="bl">Project</div><p><span class="c" style="font-family:var(--m)">.claude/</span> in the folder. Loads only here. Travels with the repo when you share it.</p></div></div>
-   <div class="cap" style="max-width:840px;margin:12px auto 0">Skills, CLAUDE.md rules, and hooks can each sit in either home. Same file, different reach.</div>`,
- note:"Two homes. Global is a folder called dot-claude in your home directory, and anything there loads in every project you open. That is where your defaults go, your writing voice, your always-verify rule. Project is a dot-claude folder inside one project, and it loads only in that project, and it travels with the repo if you share it with your team. Skills, rules, and hooks can each live in either home. Same file, the only difference is reach.",
- vis:"Two tiles: global (~/.claude, everywhere) and project (.claude, here only)."},
-
-{sec:"WHERE IT ALL LIVES", title:`WHICH GOES <span class="g">WHERE</span>`,
- body:`<div class="rows">
-   <div class="row"><span class="a">Personal, always true</span><span class="arw">&rarr;</span><span class="b"><b>global</b> · your writing voice, your verify-facts rule</span></div>
-   <div class="row"><span class="a">Product or team specific</span><span class="arw">&rarr;</span><span class="b"><b>project</b> · a payments compliance check, this repo's build steps</span></div></div>
-   <div class="cap" style="max-width:840px;margin:14px auto 0">Rule of thumb: if it should follow <b>you</b> everywhere, global. If it belongs to one product or one team, project.</div>`,
- note:"So which goes where. If it is personal and always true, put it global, your writing voice, your rule to verify facts, the way you like updates formatted. If it belongs to one product or one team, put it in the project, a compliance check for a payments backlog, the build steps for one repo, a rule your whole squad shares. The test is simple: should this follow you everywhere, or does it belong to one place. Follow you, global. Belongs to a place, project.",
- vis:"Two-row rule: personal to global, product or team to project."},
-
-{sec:"MYTHS + WHERE IT'S HEADING", title:`WHAT AN <span class="g">AI-NATIVE PM</span> LOOKS LIKE`, center:true,
- body:`<div class="sub" style="font-size:clamp(20px,2.4vw,30px);color:#fff">Not "a PM who uses ChatGPT."</div>
-   <div class="sub">A PM with a personal AI system, sharp judgment, and the ability to <span class="g">build.</span></div>`,
- note:"So what's the target? Not someone who occasionally asks ChatGPT a question. Someone with a system: their own setup, their own prompts and agents, the judgment to trust it correctly, and enough building ability to make real things. That's who walks out of Session 8.",
- vis:"None. Bold type."},
-
-{sec:"WORKING SAFELY", title:`YOUR DATA <span class="g">RED-LINES</span>`,
- body:`<div class="rule"></div>
-   <div class="sub">A public AI tool may keep what you type. In a bank, that is the whole risk.</div><div class="two" style="display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:20px"><div><div class="tag">Never paste</div><ul class="checklist"><li>Customer names, account, card or transaction data</li><li>Passport and ID scans, KYC and AML documents</li><li>Internal risk, credit or pricing models</li><li>Regulatory filings under embargo</li><li>Credentials, passwords, API keys</li></ul></div><div><div class="tag">Safe to use</div><ul class="checklist"><li>Invented examples and synthetic data</li><li>Public documents and published figures</li><li>Your own wording and your own drafts</li><li>Anything with every identifier removed</li></ul></div></div><div class="cap" style="max-width:860px;margin:18px auto 0;text-align:center">One question before you paste: <b style="color:var(--green)">could this identify a real person?</b> If it could, invent it instead.</div>`,
- note:"One safety rule, and in a banking room it is the rule. A public AI tool may store and reuse what you paste. Left column, never: customer names, account, card or transaction data, passport and KYC files, internal risk or credit models, anything under embargo, any credential. Right column, safe: invented examples, public documents, your own wording, anything with every identifier stripped out. And one question before you paste anything. Could this identify a real person? If it could, invent it instead. That is why every case in this course is invented.",
- vis:"Two columns, never versus safe, with the one question underneath."},
-
-{sec:"WORKING SAFELY", title:`<span class="g">SAFE</span> BY DEFAULT`,
- body:`<ul class="checklist"><li>Anonymize: strip names and specifics before pasting</li><li>Use enterprise or private modes for work data</li><li>Keep personal experiments separate from real work data</li></ul>`,
- note:"Practical habits: strip names and specifics before pasting, use enterprise or private modes when your company provides them, and keep a clean line between personal experiments and real work data. Do this from day one and it becomes automatic.",
- vis:"None."},
-
-{sec:"RECAP + HOMEWORK", title:`THE THREE THAT <span class="g">MATTER</span>`, center:true,
- body:`<div style="max-width:660px;margin:0 auto;text-align:left"><ul class="recaplist">
-   <li><span class="n">1</span><span>It sounds sure. Check the facts.</span></li><li><span class="n">2</span><span>Brilliant, then useless. Know which one you have.</span></li><li><span class="n">3</span><span>It amplifies you. Bring your thinking.</span></li></ul></div>`,
- note:"Three to keep. It sounds sure, so check the facts. It is brilliant on one task and useless on the next, so learn which one you are getting. And it amplifies you, so bring your thinking. Everything else in this course stands on these three.",
- vis:"Big neon green numerals 1 to 3."},
-
-{sec:"RECAP + HOMEWORK", title:`BEFORE <span class="g">SESSION 2</span>`,
- body:`<div class="sub">Everything we started tonight, finished and working:</div><div class="mono" style="max-width:620px;margin:22px auto 0;text-align:left">1  Claude Code runs, and creates a file
-
-2  VS Code opens your course folder
-
-3  GitHub account, verified
-
-4  A CLAUDE.md in that folder</div><div class="cap" style="max-width:760px;margin:18px auto 0;text-align:center">If one is not working, message me before the session, not during it.</div>`,
- note:"Homework is the setup, finished. Four things, and all four must work before session two: Claude Code runs and can create a file, VS Code opens your course folder, your GitHub account is verified, and you have a CLAUDE.md in that folder. We started all four tonight. If one of them is not working when you get home, message me before the session rather than during it, because session two starts with hands on the keyboard.",
- vis:"Mono checklist, neon green checks."},
-
-{sec:"CLOSE", title:`NEXT TIME: <span class="g">SESSION 2</span>`, center:true,
- body:`<div class="rule" style="margin-left:auto;margin-right:auto"></div>
-   <div class="sub" style="color:#fff;font-size:clamp(20px,2.4vw,30px)">Your first skill. One automation. Research turned into a spec.</div>
-   
-   <div class="sub" style="color:var(--green);font-weight:800;margin-top:22px">Bring the laptop you set up tonight.</div>
-   <div class="cap" style="margin-top:14px">Take home: <a href="assets/resource-pack.pdf" target="_blank" rel="noopener" style="color:var(--green);text-decoration:underline">the Field Kit (PDF)</a>.</div>
-   <div class="cubebox"><div class="cube"><div class="f top"></div><div class="f left"></div><div class="f front"></div></div></div>`,
- note:"Tonight was the map and the vehicle. Next time we drive it. You build your first skill, wire one small automation, and turn research into a spec. One thing to remember: bring the laptop you set up tonight. The Field Kit PDF is yours to take home, skim it if you have ten minutes. See you then.",
- vis:"Neon green rule + setup checklist + faint cube motif."}
-];
-</script>
-<script src="assets/deck.js"></script></body></html>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{--ink:#000;--surface:#0e0e10;--line:#242426;--green:#d0f539;--white:#fff;--muted:#8a8a90;
+ --h:'Barlow',system-ui,sans-serif;--b:'Inter',system-ui,sans-serif;--m:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);color:var(--white);font-family:var(--b);padding:56px 24px 90px;line-height:1.5}
+.wrap{max-width:1000px;margin:0 auto}
+.lockup{display:flex;align-items:center;gap:14px;margin-bottom:54px}
+.lockup img{height:26px}
+.lk-div{width:1px;height:20px;background:#3a3a40}
+.lk-aca{font-family:var(--h);font-weight:800;font-size:22px;color:#fff}
+.lk-aca sup{color:var(--green);font-size:.6em}
+h1{font-family:var(--h);font-weight:900;text-transform:uppercase;font-size:clamp(34px,6vw,72px);line-height:.96;letter-spacing:-.02em}
+h1 .g{color:var(--green)}
+.sub{color:var(--muted);font-size:clamp(16px,1.8vw,21px);margin-top:18px;max-width:660px}
+.meta{font-family:var(--m);font-size:13px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:30px}
+.list{margin-top:48px;border-top:1px solid var(--line)}
+a.row{display:grid;grid-template-columns:62px 1fr auto;gap:22px;align-items:baseline;padding:24px 8px;
+ border-bottom:1px solid var(--line);text-decoration:none;color:inherit;transition:background .18s ease,padding .18s ease}
+a.row:hover{background:var(--surface);padding-left:16px}
+a.row:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
+.n{font-family:var(--h);font-weight:900;font-size:34px;color:var(--green);line-height:1}
+.t{font-family:var(--h);font-weight:800;text-transform:uppercase;font-size:clamp(17px,2vw,23px);letter-spacing:.01em}
+.d{color:var(--muted);font-size:15px;margin-top:6px;max-width:620px}
+.c{font-family:var(--m);font-size:12px;color:var(--muted);white-space:nowrap}
+a.row:hover .c{color:var(--green)}
+.foot{margin-top:46px;font-family:var(--m);font-size:12px;color:var(--muted);line-height:1.9}
+.foot b{color:var(--green);font-weight:600}
+@media(max-width:620px){a.row{grid-template-columns:44px 1fr;}.c{grid-column:2;margin-top:8px}}
+</style></head><body><div class="wrap">
+<div class="lockup"><img src="assets/ardshinbank-logo-dark.svg" alt="Ardshinbank"><span class="lk-div"></span><span class="lk-aca">ACA<sup>x</sup></span></div>
+<h1>AI FOR <span class="g">PRODUCT MANAGERS</span></h1>
+<div class="sub">Six sessions, two hours each, in person. Adapted from the eight-session ACA X course. Every case is invented for teaching.</div>
+<div class="meta">Ardshinbank cohort &middot; slides in English &middot; delivery in Armenian</div>
+<div class="list">
+<a class="row" href="session-1/"><span class="n">1</span><span><span class="t">Foundations and your AI workspace</span><span class="d">How it really works, where it fails, your data red-lines, then Claude Code, VS Code and GitHub running on your own laptop.</span></span><span class="c">56 slides</span></a>
+<a class="row" href="session-2/"><span class="n">2</span><span><span class="t">Research to a product spec</span><span class="d">Skills so you stop retyping prompts, synthesis without invention, the opportunity map, then one evidence-backed PRD.</span></span><span class="c">37 slides</span></a>
+<a class="row" href="session-3/"><span class="n">3</span><span><span class="t">Data to a decision, without SQL</span><span class="d">Point AI at a real file, catch the silent wrong number, read an experiment honestly, then make the call.</span></span><span class="c">42 slides</span></a>
+<a class="row" href="session-4/"><span class="n">4</span><span><span class="t">Communicating and presenting</span><span class="d">One truth for three audiences, lead with the answer, strip the generic AI tone, ship a one-pager that prints clean.</span></span><span class="c">42 slides</span></a>
+<a class="row" href="session-5/"><span class="n">5</span><span><span class="t">AI features and the judge</span><span class="d">Spec an AI feature in five fields, weigh quality against cost and latency, then build a judge that scores the output.</span></span><span class="c">47 slides</span></a>
+<a class="row" href="session-6/"><span class="n">6</span><span><span class="t">Build it, then ship it live</span><span class="d">Scope to one feature, build the magic moment, QA it, deploy it, and demo it to the room with a real URL.</span></span><span class="c">51 slides</span></a>
+</div>
+<div class="foot">
+Controls: <b>&larr; &rarr;</b> move &middot; <b>N</b> speaker notes &middot; <b>F</b> fullscreen<br>
+275 slides total &middot; every case synthetic &middot; no customer data anywhere in this course
+</div>
+</div></body></html>

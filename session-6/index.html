@@ -1,0 +1,434 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ardshinbank &times; ACA X &middot; Session 6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/deck.css"><style>.lockup{position:fixed;top:20px;left:26px;z-index:5;display:flex;align-items:center;gap:14px}.lk-bank{height:26px;width:auto;display:block}.lk-div{width:1px;height:20px;background:#3a3a40}.lk-aca{font-family:var(--h);font-weight:800;font-size:22px;letter-spacing:.02em;text-decoration:none;color:#fff;line-height:1}.lk-aca sup{color:var(--green);font-size:.6em;margin-left:1px}.title-logo{height:46px;width:auto;display:block;margin:0 auto 26px}.fig{margin-top:22px;border:1px solid var(--line);background:#000;padding:18px 16px}.fig svg{display:block;width:100%;height:auto;max-height:52vh}@keyframes fillw{from{transform:scaleX(.03)}to{transform:scaleX(1)}}.mv-grow{transform-origin:left center;animation:fillw 4.6s cubic-bezier(.77,0,.175,1) infinite alternate}@media(prefers-reduced-motion:reduce){.mv-grow{animation:none;transform:scaleX(1)}}@media print{.lockup{position:absolute}}@media (max-width:640px){.lk-bank{height:20px}.lk-aca{font-size:17px}}</style></head><body>
+<div class="lockup"><img src="../assets/ardshinbank-logo-dark.svg" alt="Ardshinbank" class="lk-bank"><span class="lk-div"></span><a class="lk-aca" href="#1">ACA<sup>x</sup></a></div>
+<div class="progress" id="prog"></div><div class="deck" id="deck"></div>
+<div class="nav"><button id="prev">‹</button><button id="next">›</button></div>
+<div class="counter"><b id="cur">1</b> / <span id="tot">35</span></div>
+<div class="hint">← → navigate · N notes · F fullscreen</div>
+<div class="notes" id="notes"><div class="nk">Speaker note</div><div class="nt" id="noteText"></div><div class="vis" id="visText"></div></div>
+<script>
+const AST = `<svg class="aster" viewBox="0 0 100 100" fill="currentColor"><path d="M45 5h10v28l20-20 7 7-20 20h28v10H62l20 20-7 7-20-20v28H45V62L25 82l-7-7 20-20H10V45h28L18 25l7-7 20 20z"/></svg>`;
+
+window.SLIDES = [
+{sec:`ARDSHINBANK &times; ACA<sup>x</sup> &middot; SESSION 6 OF 6`, title:`VIBE-CODE A WORKING <span class="g">PROTOTYPE OR MVP</span>`, center:true,
+ body:`<div class="sub">Today it stops being an idea and starts running.</div>
+   <div style="display:flex;justify-content:center;transform:scale(1.7);margin:34px 0">${AST}</div>
+   <div class="tbar" style="margin-left:auto;margin-right:auto"></div>`,
+ note:"This is the day the whole course has been pointing at. Six sessions of thinking. Today you build. By the end you have a real thing running on your laptop, not a slide about a thing. Let's go.",
+ vis:"Brand shape: large neon asterisk assembling from fragments, bottom-left on black + the ACAx title bar"},
+
+{sec:`OPEN · THE LINE`, title:`THE LINE YOU <span class="g">CROSS TODAY</span>`, center:true,
+ body:`<div class="sub" style="font-size:clamp(20px,2.4vw,30px);color:#fff">"Works on my machine" becomes <span class="g">a URL anyone on earth can open.</span></div>
+   <div class="cap" style="margin-left:auto;margin-right:auto">That gap is everything. Today we close it.</div>`,
+ note:`There is a canyon between a thing that runs on your machine and a thing a stranger can use. Most people never cross it. Ideas die on localhost. Today you cross it, and once you have done it once, you can do it forever.`,
+ vis:`Pure type on black, neon green on the payoff line`},
+
+{sec:"OPEN & FRAME · milestone", title:`DONE TODAY = <span class="g">3 THINGS</span>`,
+ body:`<ul class="checklist"><li>It runs locally. You can click it.</li><li>One core feature works end to end.</li><li>It passes your own judge (from Session 5).</li></ul>
+   <div class="cap" style="margin-top:12px">Today's milestone: <b style="color:var(--green)">a working prototype or MVP</b> you can put in front of a user.</div>`,
+ note:"Define done before we start, or we never feel finished. This is today's milestone: a working prototype or MVP. Three signs it is done. It runs and you can click it. The one core feature works start to finish. And it passes the little judge you'll write, the eval from Session 5. Not pretty. Not full. Running, core, checked.",
+ vis:"Three neon-green checkmarks stacked on black, minimal"},
+
+{sec:"OPEN & FRAME · two habits", title:`THE DAY IS <span class="g">TWO HABITS</span>`,
+ body:`<div class="arc"><span class="st">Describe</span><span class="ar">→</span><span class="st">Generate</span><span class="ar">→</span><span class="st">Run</span><span class="ar">→</span><span class="st final">Fix</span></div>
+   <div class="cap"><b>R·C·T·C prompts:</b> Role · Context · Task · Critique. Keep every prompt small and iterative.</div>`,
+ note:"Two habits carry the whole day. One, the build loop: you describe what you want, Claude Code generates it, you run it, you fix what broke, repeat. Two, how you talk to it: R·C·T·C from the workshop, give it a role, context, a precise task, and make it critique. Keep every prompt small. Small prompts, small diffs, cheap tokens, fast fixes.",
+ vis:"Neon circular loop arrow (describe, generate, run, fix) on black, minimal"},
+
+{sec:"RUTHLESS SCOPING", title:`SCOPE LIKE A <span class="g">KNIFE</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Cut until it hurts, then cut once more.</div>`,
+ note:"Most builds fail here, not in the code. Too big. Today we cut ruthlessly to one feature. This is the most important eighteen minutes of the day, so lean in.",
+ vis:"Divider, neon rule"},
+
+{sec:"RUTHLESS SCOPING", title:`PROTOTYPE <span class="g">OR</span> MVP`,
+ body:`<div class="cards"><div class="card"><div class="tag">Prototype</div><p>Proves the idea feels right. Can be faked underneath.</p></div><div class="card good"><div class="tag">MVP</div><p>The smallest version a real user could actually use.</p></div></div>
+   <div class="cap">Pick ONE today. Neither is a full product. Choose the smaller of your two instincts.</div>`,
+ note:"Two honest targets. A prototype proves the experience, it can be smoke and mirrors underneath. An MVP is the smallest thing a real person could actually use. Pick one today. Neither is a full product, and a full product is exactly what will sink you. Choose the smaller of your two instincts.",
+ vis:"Two outlined boxes: left dashed (prototype), right solid (MVP), minimal"},
+
+{sec:"RUTHLESS SCOPING", title:`EVERY PRODUCT HAS ONE <span class="g">MAGIC MOMENT</span>`,
+ body:`<div class="sub">The single action where the user goes "oh, nice." Build only that. Everything else is later.</div>
+   <img class="shot" src="../assets/img/s7/magic-moment.png"><div class="shotcap">A running local prototype at its magic moment: an idea pasted in, a score + verdict appearing below</div>`,
+ note:"Find your magic moment. The one action where the user feels the value. A loan pre-check: paste an applicant's income and loan amount, see approve, refer, or decline with a reason. A spend categorizer: paste a month of transactions, watch them sort into buckets. An idea scorer: paste an idea, see a score. That one moment is your feature today. Login, settings, dashboards, accounts, all of it is later. Later is Session 6 and beyond.",
+ vis:"Screenshot: a running prototype at its magic moment, an input in and a verdict out."},
+
+{sec:"RUTHLESS SCOPING", title:`THE <span class="g">FOUR CUTS</span>`,
+ body:`<div class="blocks">
+   <div class="block"><div class="bl">1 · Auth</div><p>Skip. Nobody logs in today.</p></div>
+   <div class="block"><div class="bl">2 · Real data</div><p>Mock it with fake JSON.</p></div>
+   <div class="block"><div class="bl">3 · Backend / DB</div><p>Skip. Keep it in the page.</p></div>
+   <div class="block"><div class="bl">4 · Polish</div><p>Last. Only if time.</p></div></div>`,
+ note:"Four cuts to get there. No login, nobody signs in today. No real data, you fake it with a little JSON. No backend or database, everything lives in the page. And polish is last, only if you have time to spare. Every cut you resist is an hour you don't have. Cut all four.",
+ vis:"Four neon dashed lines slicing a dark block down to one small glowing core, minimal"},
+
+{sec:"RUTHLESS SCOPING · your turn", title:`TASK 1 · <span class="g">SCOPE TO ONE FEATURE</span>`,
+ body:`<span class="turn">Your turn · 8 min</span>
+   <div class="mono">Fill this in a note:
+   <ol class="steps2">
+   <li>User + problem (one line each).</li>
+   <li>The ONE core feature (one sentence).</li>
+   <li>The magic moment (the exact click that delivers value).</li>
+   <li>Prototype or MVP? (circle one).</li>
+   <li>Cut list: what you are NOT building today.</li>
+   <li>Mock data: what fake data the feature needs.</li>
+   </ol></div>
+   <div class="cap">Finance starters: a loan-eligibility pre-check, a KYC document checklist, a transaction spend-categorizer, a branch wait-time estimator.</div>`,
+ note:"Your turn, eight minutes, on paper or in a note. Six lines. This is a contract with yourself. Be brutal on line five, the cut list, and specific on line three, the magic moment. If you can't name the magic moment in one sentence, you're still too big. I'll walk the room.",
+ vis:"Mono worksheet block, neon numerals + neon YOUR TURN label"},
+
+{sec:"RUTHLESS SCOPING · checkpoint", title:`CHECKPOINT <span class="g">✓</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Can you build the CORE in about 70 minutes? If unsure, cut again. Half of a working feature beats all of a broken one.</div>`,
+ note:"Gut check. Look at your one feature and ask: can I get just that running in about seventy minutes? If you hesitate, cut again. I would rather you finish half of a small thing than start all of a big thing. Hands up if you just cut something. Good, that's the right instinct.",
+ vis:"Divider, neon rule"},
+
+{sec:"BUILD STACK", title:`YOUR <span class="g">BUILD STACK</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Three tools, that's it.</div>`,
+ note:"Now we stand up the tools. You met these in Session 1, so this is quick, then straight into building.",
+ vis:"Divider, neon rule"},
+
+{sec:"BUILD STACK", title:`THE <span class="g">STACK</span>`,
+ body:`<div class="blocks">
+   <div class="block"><div class="bl">1 · VS Code</div><p>Where the files live. Your editor.</p></div>
+   <div class="block"><div class="bl">2 · Claude Code</div><p>The AI that writes and runs code, in the terminal.</p></div>
+   <div class="block"><div class="bl">3 · Browser</div><p>Where your app runs, locally.</p></div></div>`,
+ note:"Three tools. VS Code is the folder your project lives in. Claude Code runs in the terminal inside it, that's your builder, it writes files and runs commands for you. And your browser is where the thing actually shows up, at a local address like localhost. That's the whole stack. Nothing to rent, nothing to configure today.",
+ vis:"Three labeled blocks side by side: VS Code, Claude Code terminal, browser on localhost."},
+
+{sec:"BUILD STACK · live", title:`LIVE: WATCH ME <span class="g">SCAFFOLD ONE</span>`, center:true,
+ body:`<div class="rule" style="margin-left:auto;margin-right:auto"></div>
+   <div class="sub" style="color:#fff">Watch me now. Then you do the same with your idea.</div>
+   <div class="mono" style="max-width:760px;margin:14px auto 0;text-align:left">In VS Code plus Claude Code, I scaffold a loan pre-check:<ol class="steps2">
+     <li>New folder, open it in VS Code, open the terminal, type <span class="c">claude</span>.</li>
+     <li>Prompt: "Create one <span class="c">index.html</span>: a title 'Loan Pre-Check', one input for loan amount, one Check button. Nothing else yet."</li>
+     <li>Open it in the browser. A heading and a button appear. That is the skeleton.</li></ol></div>
+   <div class="cap">One tiny prompt, one file, one thing on screen. No feature yet. That is the target of your next 10 minutes.</div>`,
+ note:"Enough setup talk, watch the thing itself. I make a folder, open it in VS Code, open the terminal, and type claude. Then one tiny prompt: a single page, a title, one input, one button. I run it, and there it is in the browser, just a heading and a button. No logic yet, on purpose. This is the whole move: the smallest thing that opens in a browser, then we grow it. Now you do exactly this with your own idea.",
+ vis:"Live: instructor scaffolds a loan pre-check page in VS Code plus Claude Code, then it opens in the browser."},
+
+{sec:"BUILD STACK · your turn", title:`TASK 2 · <span class="g">STAND UP YOUR PROJECT</span>`,
+ body:`<span class="turn">Your turn · 10 min</span>
+   <div class="mono">
+   <ol class="steps2">
+   <li>Make a folder: <span class="c">capstone-&lt;yourname&gt;</span>.</li>
+   <li>Open it in VS Code (File → Open Folder).</li>
+   <li>Open the terminal (View → Terminal).</li>
+   <li>Start Claude Code: type <span class="c">claude</span>.</li>
+   <li>First prompt (small): "Create a single-page app: one <span class="c">index.html</span> with a title and a heading that says [your app name]. Nothing else yet."</li>
+   <li>Run it: open <span class="c">index.html</span> in the browser (or ask Claude Code to serve it locally).</li>
+   </ol></div>`,
+ note:"Ten minutes. Folder, open in VS Code, open the terminal, type claude. Then one tiny first prompt, just a page with your app's name. Resist asking for the whole app. We want the smallest thing that opens in a browser first. When you see your heading render, you have a running skeleton. Raise a hand if claude won't start, a mentor comes to you.",
+ vis:"Mono block, neon numerals + neon YOUR TURN label"},
+
+{sec:"BUILD STACK", title:`PROMPT IT LIKE A <span class="g">SHARP JUNIOR DEV</span>`,
+ body:`<div class="sub">Role + Context + Task + Critique. The same R·C·T·C, aimed at code.</div>
+   <ul class="checklist">
+   <li>One feature per prompt.</li>
+   <li>Ask for small edits to named files, never "rebuild everything."</li>
+   <li>Let it run and read its own errors.</li>
+   <li>Start a fresh chat when it gets slow.</li></ul>
+   <img class="shot" src="../assets/img/s7/rctc-prompt.png"><div class="shotcap">A small R·C·T·C instruction typed at the Claude Code prompt in the terminal</div>`,
+ note:"How you talk to it decides your token bill and your speed. Same R·C·T·C: a role, your context, one precise task, and ask it to flag risks first. Then four rules. One feature per prompt. Ask for small edits to a named file, never 'rebuild everything.' Let it run the code and read its own errors. And when the conversation gets long and slow, start a fresh one and paste the current file. Small and iterative wins.",
+ vis:"Screenshot: a small R·C·T·C instruction typed at the Claude Code prompt in the terminal."},
+
+{sec:"BUILD STACK · checkpoint", title:`CHECKPOINT <span class="g">✓</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Your app opens in the browser and shows your title. Not working? Keep the common-fixes slide handy.</div>`,
+ note:"Checkpoint before the break. Everyone should have a page opening in the browser with their app's name on it. If you do, you're exactly on track. If not, don't panic, we have a fixes slide coming and mentors on the floor. Let's take eight.",
+ vis:"Divider, neon rule"},
+
+{sec:"BREAK", title:`<span class="g">8-MINUTE</span> BREAK`, center:true,
+ body:`<div class="rule"></div><div class="sub">Back in ~8 min. Leave your skeleton running. Don't close anything.</div>`,
+ note:"Eight minutes. Leave everything open and running, don't close anything. When we're back, we build your one feature for real. This is the fun part.",
+ vis:"Break card, neon rule + time"},
+
+{sec:"BUILD THE CORE", title:`BUILD THE <span class="g">CORE</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">describe → generate → run → fix → repeat</div>`,
+ note:"This is the heart of the day, about forty minutes of building. One loop, over and over. Describe, generate, run, fix. Let's build your magic moment.",
+ vis:"Divider, neon rule"},
+
+{sec:"BUILD THE CORE", title:`THE <span class="g">LOOP</span>, IN DETAIL`,
+ body:`<div class="blocks">
+   <div class="block"><div class="bl">1 · Describe</div><p>Tell Claude Code the ONE next small thing.</p></div>
+   <div class="block"><div class="bl">2 · Generate</div><p>It writes or edits the file.</p></div>
+   <div class="block"><div class="bl">3 · Run</div><p>Refresh the browser and actually look.</p></div>
+   <div class="block"><div class="bl">4 · Fix</div><p>Paste the error or say what's wrong, then loop.</p></div></div>
+   <div class="cap">Repeat until the magic moment works. One brick, place it, next brick.</div>`,
+ note:"The loop in detail. Describe one small next step. It generates. You refresh the browser and look with your eyes. If it's wrong or errors, tell it exactly what you see and loop again. Never describe the whole feature in one prompt. One brick, place it, next brick. That's how a page becomes a product without your tokens exploding.",
+ vis:"Four neon nodes in a tight circle joined by a flowing arrow, minimal"},
+
+{sec:"BUILD THE CORE", title:`FAKE IT BEFORE YOU <span class="g">MAKE IT</span>`,
+ body:`<div class="sub">Mock data = fake data hard-coded in the page. A small JSON array is enough to build the whole feature. Real data is a Session-8 problem.</div>
+   <img class="shot" src="../assets/img/s7/mock-data.png"><div class="shotcap">A small mock-data JSON array at the top of index.html in VS Code, about 8 fake items</div>`,
+ note:"The trick that keeps today small: mock data. Instead of connecting a database, paste a short fake list right into the page, five or ten example items. Your feature reads from that. It looks and behaves real, and you built it in minutes. Wiring real data comes later. Fake it convincingly today.",
+ vis:"Screenshot: a mock-data JSON array at the top of index.html."},
+
+{sec:"BUILD THE CORE · anatomy", title:`IF YOUR FEATURE USES AI, THAT'S AN <span class="g">API CALL</span>`,
+ body:`<div class="sub">The anatomy bit for today: when AI lives inside your product, you reach the model through an API. Same brain as this app, now a part you ship.</div>
+   <div class="rows">
+   <div class="row"><span class="a">You do NOT</span><span class="arw">→</span><span class="b">write the model. It already exists.</span></div>
+   <div class="row"><span class="a">You DO decide</span><span class="arw">→</span><span class="b">which model, the quality bar, the cost and speed budget, and the guardrail around it.</span></div></div>
+   <div class="cap">Today you can fake the AI part with mock data. If you wire a real call, keep it one small step, and treat its output as a draft until your judge checks it.</div>`,
+ note:"One anatomy idea for today, the last part of the map from Session 5: APIs. When your product itself uses AI, say a spend categorizer that labels transactions, or a tool that drafts a customer reply, that AI is not magic inside your page. It is an API call to a model that already exists. You do not write the model. As the PM you decide four things: which model, how good it must be, what it can cost and how fast, and what guardrail sits around it. Today you can mock that output so you keep moving. If you do wire a real call, do it in one small step, and treat what comes back as a draft your judge still has to approve.",
+ vis:"Anatomy slice: APIs. You do not build the model, you decide model, quality, cost, and guardrail."},
+
+{sec:"BUILD THE CORE · your turn", title:`TASK 3 · <span class="g">BUILD THE MAGIC MOMENT</span>`,
+ body:`<span class="turn">Your turn · 18 min</span>
+   <div class="mono">
+   <ol class="steps2">
+   <li>Prompt (R·C·T·C, small): "You are my front-end dev. This is a single-page app for [user + problem]. Add ONLY the core feature: [the one interaction]. Keep it all in <span class="c">index.html</span>. Flag anything risky before you build."</li>
+   <li>RUN it. Look in the browser.</li>
+   <li>Iterate in small prompts: "the button does nothing, wire it up," "show the result below the input."</li>
+   <li>Loop until the magic moment works once, end to end.</li>
+   </ol></div>`,
+ note:"Eighteen minutes, the main event. First prompt sets role and context, then asks for only the core interaction, in one file. Then run it and look. Then small fixes, one sentence each. Don't chase perfection, chase 'it works once.' The moment your magic moment fires one time, you've basically won the day. Mentors are circulating, grab one the second you're stuck for more than two minutes.",
+ vis:"Mono block, neon YOUR TURN label + 18:00 timebox"},
+
+{sec:"BUILD THE CORE · your turn", title:`TASK 4 · <span class="g">WIRE MOCK DATA + THE FLOW</span>`,
+ body:`<span class="turn">Your turn · 12 min</span>
+   <div class="mono">
+   <ol class="steps2">
+   <li>"Add a mock data array of about 8 realistic [items] at the top of the file."</li>
+   <li>"Make the feature read from that array instead of the hard-coded example."</li>
+   <li>Walk the ONE path a user takes, start to finish. Fix only what breaks on that path.</li>
+   </ol></div>`,
+ note:"Twelve minutes. Give it fake data and make the feature use it. Then do one thing: walk the single path a real user takes, from first click to the payoff, and fix only what breaks on that path. Ignore every bug that isn't on the happy path. We are protecting the magic moment and nothing else.",
+ vis:"Mono block, neon numerals + 12:00 timebox"},
+
+{sec:"BUILD THE CORE · troubleshooting", title:`STUCK? <span class="g">COMMON FIXES</span>`,
+ body:`<div class="rows">
+   <div class="row"><span class="a">Blank page</span><span class="arw">→</span><span class="b">open the console (F12), paste the <b>red error</b> to Claude Code</span></div>
+   <div class="row"><span class="a">Won't run</span><span class="arw">→</span><span class="b">give it the <b>exact</b> command + message</span></div>
+   <div class="row"><span class="a">It over-built</span><span class="arw">→</span><span class="b">"undo the extra, keep only [feature]"</span></div>
+   <div class="row"><span class="a">Slow / looping</span><span class="arw">→</span><span class="b"><b>fresh chat</b>, paste the current file</span></div>
+   <div class="row"><span class="a">Lost</span><span class="arw">→</span><span class="b">describe what you <b>SEE</b> vs what you <b>WANT</b></span></div></div>
+   <img class="shot" src="../assets/img/s7/console-error.png"><div class="shotcap">A browser console (F12) red error, ready to paste back into Claude Code</div>`,
+ note:"Keep this slide up. Blank screen, open the console with F12 and paste the red error back to Claude Code. Won't run, give it the exact command and message. If it went rogue and built too much, tell it to strip back to your one feature. If it's slow or going in circles, start a fresh chat and paste your current file in, cheaper and clearer. And the universal fix: describe what you SEE versus what you WANT. It fixes fast when you're specific.",
+ vis:"Screenshot: a browser console (F12) red error pasted into Claude Code."},
+
+{sec:"BUILD THE CORE · checkpoint", title:`CHECKPOINT <span class="g">✓</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Your ONE feature works end to end, on mock data. If yes, you have a prototype. Now make it hold up.</div>`,
+ note:"Big checkpoint. Your one feature should now work start to finish on fake data. If it does, pause and feel that, you just vibe-coded a working prototype. Hands up who's there. Everyone still fixing, keep going, mentors are with you. Next we make it not embarrassing in front of a real user.",
+ vis:"Divider, neon rule"},
+
+{sec:`POLISH & QA`, title:`POLISH & <span class="g">QA</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Make it safe to hand to a stranger. The last mile before live.</div>`,
+ note:`First block: we make it something you would not be embarrassed to send. Not perfect. Just solid enough that a stranger's first click works.`,
+ vis:`Divider`},
+
+{sec:`POLISH & QA · the gap`, title:`THE LAST-MILE <span class="g">GAP</span>`,
+ body:`<div class="sub">A demo survives <b style="color:#fff">you.</b> A live product must survive <b style="color:#fff">a customer</b> who taps the wrong thing, on a phone, at a branch, on bad wifi.</div>
+   <div class="lifecycle" style="margin-top:26px;font-size:clamp(14px,1.8vw,22px)"><span style="color:var(--green)">one happy path</span><span class="n">→</span><span>wrong button</span><span class="n">·</span><span>on a phone</span><span class="n">·</span><span>weird input</span><span class="n">·</span><span>bad wifi</span></div>`,
+ note:`Your prototype works because you know the happy path. Real users do not. Picture a customer at a branch, on their phone, tapping the wrong button and pasting a weird account number. The last mile is closing the gap between "works when I do it" and "works when they do it." Three checks get you most of the way.`,
+ vis:`Brand shape: one arrow branching into many diverging paths`},
+
+{sec:`POLISH & QA · framework`, title:`THE 8-POINT <span class="g">QA CHECKLIST</span>`,
+ body:`<div class="mono">Ship-ready in 8 checks:<ol class="steps2">
+   <li>First click works cold, no setup</li>
+   <li>Core action runs end-to-end</li>
+   <li>Empty and wrong input handled</li>
+   <li>Readable on a phone</li>
+   <li>No secrets or keys in the code</li>
+   <li>No dead buttons or links</li>
+   <li>A clear title, plus one line of "what is this"</li>
+   <li>Loads in a few seconds</li></ol></div>`,
+ note:`Here is the whole QA bar on one slide. Eight checks. Notice most are the unglamorous stuff: does the first click work with zero setup, does the core action complete, does it hold up on a phone and on bad input, and are there no API keys sitting in your code. In a banking room that last one matters most: never ship a key. You do not fix everything today. You clear these eight.`,
+ vis:`Mono checklist, neon green numerals`},
+
+{sec:`POLISH & QA · guardrails`, title:`APPLY THE GUARDRAILS <span class="g">FROM DAY 6</span>`,
+ body:`<div class="sub">If it uses AI, the "judge" ships too. Guardrails: validate input · handle the failure out loud · never show a raw error · keep it least-privilege.</div>
+   <div class="cards" style="margin-top:18px"><div class="card bad"><div class="tag">Raw crash</div><p>A stack trace or a red error dumped on the customer.</p></div>
+   <div class="card good"><div class="tag">Graceful</div><p>"Something went wrong. Please try again." Calm, plain, no internals.</p></div></div>`,
+ note:`If your product calls AI, remember Session 5: build the judge. Before you ship, make sure bad or empty input gets a graceful message, not a crash. A loan or credit tool must never dump a raw error at a customer. Make a model failure say "try again" instead of showing a stack trace. And keep any agent on least-privilege access. The guardrails are part of the product, not an extra.`,
+ vis:`Two cards: a raw crash versus a graceful "please try again" message`},
+
+{sec:`POLISH & QA · your turn`, title:`YOUR <span class="g">TURN</span>`, center:true,
+ body:`<span class="turn">Your turn</span><div class="rule" style="margin-left:auto;margin-right:auto"></div>
+   <div class="sub">Ship-ready in a few tasks, then deploy. This session is the workshop.</div>`,
+ note:`From here on, it is mostly you building. I teach for a minute, then you work, then we move. First task: make it ship-ready.`,
+ vis:`YOUR TURN label + rule`},
+
+{sec:`POLISH & QA · task 1`, title:`TASK 1 · QA PASS WITH <span class="g">CLAUDE CODE</span>`,
+ body:`<span class="turn">Task 1 · 12 min</span>
+   <div class="mono">In Claude Code, one tight prompt:<ol class="steps2">
+   <li>"Act as a QA engineer. Here is my app. Run this 8-point checklist and list what fails, most severe first."</li>
+   <li>Fix the top 3 failures. Ask Claude Code to patch them one at a time.</li>
+   <li>Confirm the core action works end-to-end, on a narrow phone-width window.</li></ol></div>`,
+ note:`Twelve minutes. Paste the 8 checks into Claude Code as a QA prompt, get a ranked list of what breaks, and fix the top three. Do not chase everything. Just get the first click and the core action rock-solid, including on a phone-width screen. Keep prompts short, we are watching tokens. Go. [circulate, unblock]`,
+ vis:`Mono task block, YOUR TURN label`},
+
+{sec:`DEPLOY · SHIP IT LIVE`, title:`SHIP <span class="g">IT</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">From localhost to a public URL. This is the part that makes it real.</div>`,
+ note:`This is the heart of today. In the next block every one of you gets a live link. We use Vercel: free for a demo, fast, and forgiving. I will deploy our demo live first, then you deploy yours.`,
+ vis:`Divider`},
+
+{sec:`DEPLOY · hosting`, title:`WHAT HOSTING <span class="g">ACTUALLY IS</span>`,
+ body:`<div class="cards"><div class="card bad"><div class="tag">localhost</div><p>Only you, only while your laptop is on. Close it and it is gone.</p></div>
+   <div class="card good"><div class="tag">Hosting</div><p>Your files on an always-on server, at a public address, for everyone.</p></div></div>`,
+ note:`Quick mental model. Right now your app lives on your machine at localhost. Close the laptop, it is gone, and nobody else could ever reach it. Hosting means your files sit on a computer that is always on, with a public address. Vercel is that computer, and for a demo it is free.`,
+ vis:`Brand shape: one dot expanding into a connected network`},
+
+{sec:`DEPLOY · why vercel`, title:`WHY <span class="g">VERCEL</span>`,
+ body:`<div class="sub">Free Hobby tier for demos · deploys in seconds · gives you <span style="font-family:var(--m);color:var(--green)">your-app.vercel.app</span> · HTTPS automatic · Claude Code drives it.</div>
+   <div style="display:flex;align-items:center;justify-content:center;gap:22px;margin-top:26px;padding:40px;border:1px solid var(--line);border-radius:12px;background:#0e0e10">
+     <img src="../assets/img/logos/vercel.svg" alt="Vercel" style="width:clamp(48px,7vw,76px);height:auto">
+     <span style="font-family:var(--h);font-weight:900;font-size:clamp(38px,6vw,72px);letter-spacing:-.02em;color:#fff">Vercel</span></div>
+   <div class="src"><b>Source:</b> Vercel pricing and docs, 2026 · internal deploy routing decision, 2026</div>`,
+ note:`Why Vercel. The free Hobby tier is enough for a demo or a personal project, it deploys in seconds, it gives you a real HTTPS link automatically, and Claude Code can run the whole thing for you. One honest note for this room: Hobby is for demos and personal use. A real bank product needs a paid plan and its own security review. Today we are shipping a demo, so free is right.`,
+ vis:`Vercel logo lockup, white mark on dark`},
+
+{sec:`DEPLOY · live block`, title:`LIVE: WATCH ME <span class="g">SHIP IT</span>`,
+ body:`<div class="sub">I open our demo idea-scorer in Claude Code and deploy it to Vercel, start to finish. Watch, then you do the same with yours.</div>
+   <div class="mono" style="margin-top:16px">I type into Claude Code, in plain English:<ol class="steps2">
+   <li>"Install the Vercel CLI and log me in."</li>
+   <li>"Deploy a preview of this app." I open the preview link, click the one action.</li>
+   <li>"Ship it to production." I copy the <span class="c">.vercel.app</span> URL. It is live.</li></ol></div>`,
+ note:`Watch me first, then you do it. I open our running demo, the idea-scorer we have used all course, in Claude Code. I tell it in plain English to install the Vercel CLI and log me in. It runs the commands, I authorize the login once in the browser. Then I say deploy a preview, and I get a private link to check before anyone sees it. I click the one action to prove it works. Then I say ship it to production, and it prints a public vercel.app URL. That is the whole flow. Now you do it with your capstone.`,
+ vis:`Live instructor demo: deploy the aca-demo idea-scorer to Vercel with Claude Code`},
+
+{sec:`DEPLOY · the flow`, title:`THE VERCEL <span class="g">FLOW</span>`,
+ body:`<div class="cards"><div class="card good"><div class="tag">Path A · Claude Code + CLI</div><p>Everyone. <span style="font-family:var(--m);color:var(--green)">npx vercel</span> for a preview, then <span style="font-family:var(--m);color:var(--green)">vercel --prod</span>. Static or a build step, Vercel detects it.</p></div>
+   <div class="card good"><div class="tag">Path B · Connect Git</div><p>If you used git in Session 1. Push to GitHub, import on vercel.com, every push redeploys.</p></div></div>
+   <div class="cap">Not sure? Path A works for every project in this room. Ask Claude Code: "Does my app need a build step?"</div>`,
+ note:`Two ways in. Path A is the one everyone can use: Claude Code and the Vercel CLI. It handles a plain HTML page and a React or Vite app the same way, Vercel figures out the build for you. Path B is for those who set up git last time: push to GitHub, connect the repo on vercel.com, and from then on every push deploys itself. If you have no idea which, use Path A, it fits every project here.`,
+ vis:`Two cards, neon labels A and B`},
+
+{sec:`DEPLOY · task 2`, title:`TASK 2 · DEPLOY <span class="g">YOUR CAPSTONE</span>`,
+ body:`<span class="turn">Task 2 · 12 min</span>
+   <div class="mono">Tell Claude Code, in plain English:<ol class="steps2">
+   <li>"Install the Vercel CLI and start login." → <span class="c">npm i -g vercel</span>, then <span class="c">vercel login</span> (authorize once in the browser).</li>
+   <li>"Deploy a preview of my app." → <span class="c">vercel</span> (zero config, it detects the setup).</li>
+   <li>Open the preview URL. Click your core action. Does it work live?</li>
+   <li>"Deploy to production." → <span class="c">vercel --prod</span>. Copy the URL it prints. It is live.</li></ol></div>`,
+ note:`Your turn, twelve minutes, and Claude Code drives it. Tell it in plain English: install the CLI, log me in, deploy a preview. You authorize the login once in the browser. Open the preview link and click your core action to check it before going public. Then say deploy to production. Same result for everyone: a public vercel.app URL. Start now, and shout if the build errors, mentors are on the floor.`,
+ vis:`Mono task block, the Vercel CLI steps`},
+
+{sec:`DEPLOY · the moment`, title:`YOU HAVE <span class="g">A URL</span>`, center:true,
+ body:`<div style="font-family:var(--h);font-weight:900;line-height:.92;letter-spacing:-.02em;margin:6px 0">
+   <span style="font-size:clamp(20px,3vw,34px);color:var(--muted)">https://</span><span class="g" style="font-size:clamp(34px,7vw,86px)">your-app.vercel.app</span></div>
+   <div class="sub">This is the moment. You own a public link. Send it to someone. Right now.</div>`,
+ note:`When Vercel prints that URL, stop and feel it. That link is your product, on the internet, for free. Text it to a friend this second. Watch the small rush when they open it. That rush is why we build.`,
+ vis:`Big neon vercel.app URL on black, the payoff`},
+
+{sec:`DEPLOY · task 3`, title:`TASK 3 · SMOKE-TEST <span class="g">ON YOUR PHONE</span>`,
+ body:`<span class="turn">Task 3 · 5 min</span>
+   <div class="mono">Prove it's really live:<ol class="steps2">
+   <li>Rename your site to something readable.</li>
+   <li>Open the URL on your phone, not your laptop.</li>
+   <li>Do the core action there, start to finish.</li>
+   <li>Anything broken → one tight Claude Code fix → redeploy with <span class="c">vercel --prod</span>.</li></ol></div>`,
+ note:`Five minutes. Rename it, then the real test: open it on your phone, on cellular if you can, and complete the core action like a first-time user. Phones surface everything. If something breaks, one small fix in Claude Code and redeploy, which is just vercel dash dash prod again. This is the loop you will use for the rest of your life: change, deploy, check.`,
+ vis:`Mono task block`},
+
+{sec:`LAUNCH & DEMO`, title:`<span class="g">LAUNCH</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Put it in front of people. A live thing nobody sees isn't launched.</div>`,
+ note:`Last build block was the product. This one is the launch. Shipping to a URL is not launching. Launching is when you put it in front of humans and say "here, try it." You do that right now, to this room.`,
+ vis:`Divider`},
+
+{sec:`LAUNCH & DEMO · 4 beats`, title:`THE 4-BEAT <span class="g">DEMO</span>`,
+ body:`<div class="blocks">
+   <div class="block"><div class="bl">1 · Problem</div><p>10 seconds</p></div>
+   <div class="block"><div class="bl">2 · Show it live</div><p>40 seconds</p></div>
+   <div class="block"><div class="bl">3 · The one wow</div><p>20 seconds</p></div>
+   <div class="block"><div class="bl">4 · The ask</div><p>20 seconds</p></div></div>
+   <div class="cap">90 seconds total. Show, don't narrate.</div>`,
+ note:`How to demo without rambling. Ninety seconds, four beats. Ten seconds on the real problem. Forty seconds showing the live thing doing its core action, not slides, the actual product. Twenty seconds on the one moment you are proud of. And twenty seconds on the ask: try it, and tell me one thing. Show, do not narrate. Momentum over completeness.`,
+ vis:`Brand shape: four ascending blocks (Problem · Show · Wow · Ask)`},
+
+{sec:`LAUNCH & DEMO · script`, title:`THE DEMO SCRIPT <span class="g">TEMPLATE</span>`,
+ body:`<div class="mono">Fill this in:<br><br>
+   "I built <span class="c">___</span> because <span class="c">___</span>."<br>
+   "Watch: I <span class="c">___</span> and it <span class="c">___</span>."<br>
+   "The part I'm proud of: <span class="c">___</span>."<br>
+   "It's live at <span class="c">[URL]</span>. Tell me the ONE thing to fix."</div>`,
+ note:`Here is the script, fill in the blanks. A finance example: "I built a loan pre-check because branch staff spend ten minutes per walk-in. Watch: I enter income and it returns a likely yes, no, or refer. The part I am proud of: it explains why. It is live at this URL, tell me the one thing to fix." Four sentences. If you can say these four, you can demo anything, in this room or to a VP on Monday.`,
+ vis:`Four stacked blocks: Problem · Show · Wow · Ask`},
+
+{sec:`LAUNCH & DEMO · task 6`, title:`TASK 6 · WRITE YOUR <span class="g">DEMO</span>`,
+ body:`<span class="turn">Task 6 · 8 min</span>
+   <div class="mono"><ol class="steps2">
+   <li>Fill the 4 blanks from the template (Problem · Show · Wow · Ask).</li>
+   <li>Have your live URL open in a tab, on the core screen.</li>
+   <li>Say it out loud once, to yourself. Cut anything past 90 seconds.</li></ol></div>`,
+ note:`Eight minutes. Write your four sentences, get your live product open on the right screen ready to go, and rehearse it once quietly. Time it. If it runs long, cut, do not add. The discipline of ninety seconds is the gift. When we come back, you are up.`,
+ vis:`Mono task block`},
+
+{sec:`LAUNCH & DEMO · task 7`, title:`TASK 7 · SHIP IT <span class="g">TO THE ROOM</span>`,
+ body:`<span class="turn">Task 7 · round-robin · 15 min</span>
+   <div class="sub">Each person: 90 seconds · your live URL on screen · the 4 beats · then drop your link out loud for everyone to try.</div>
+   <div style="margin-top:20px;display:flex;align-items:center;justify-content:center;gap:52px;border:1px solid var(--line);border-radius:16px;padding:34px 44px;background:linear-gradient(180deg,rgba(208,245,57,.03),transparent)">
+     <div style="display:flex;flex-direction:column;align-items:center">
+       <div style="width:56px;height:56px;border-radius:50%;border:3px solid var(--green);box-shadow:0 0 22px rgba(208,245,57,.5)"></div>
+       <div style="width:98px;height:70px;border:3px solid var(--green);border-bottom:none;border-radius:44px 44px 12px 12px;margin-top:11px;box-shadow:0 0 22px rgba(208,245,57,.3)"></div>
+     </div>
+     <div style="font-family:var(--h);font-weight:900;color:var(--green);font-size:clamp(36px,5vw,60px);line-height:1">&rsaquo;</div>
+     <div style="text-align:center">
+       <div style="width:clamp(260px,30vw,330px);border:2px solid var(--green);border-radius:12px;background:#0e0e10;box-shadow:0 0 34px rgba(208,245,57,.26);padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+         <div style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)"></span><span style="font-family:var(--m);font-size:12px;color:var(--muted)">your-app.vercel.app</span><span style="margin-left:auto;font-family:var(--m);font-size:10px;letter-spacing:.16em;color:var(--green)">LIVE</span></div>
+         <div style="height:13px;width:72%;background:#242426;border-radius:3px"></div>
+         <div style="height:13px;width:92%;background:#242426;border-radius:3px"></div>
+         <div style="height:34px;width:128px;background:var(--green);border-radius:8px;margin-top:6px"></div>
+       </div>
+       <div style="display:inline-flex;flex-direction:column;width:78px;height:17px;margin-top:16px;border-radius:3px;overflow:hidden;border:1px solid var(--line)"><span style="flex:1;background:#d90012"></span><span style="flex:1;background:#0033a0"></span><span style="flex:1;background:#f2a800"></span></div>
+       <div style="font-family:var(--h);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:7px">Live from Yerevan</div>
+     </div>
+   </div>
+   <div class="shotcap">On-brand illustration: a student presenting their live product to the room</div>`,
+ note:`This is the moment the whole course was building to. One by one, ninety seconds each, live product on screen, four beats, then paste your link out loud so the room can open it right now. [run round-robin] We clap for every single one, no exceptions. You did the thing almost nobody does. You shipped, and you showed it.`,
+ vis:`On-brand illustration standing in for a photo: a student presenting a live product, Armenian flag accent`},
+
+{sec:`COURSE WRAP`, title:`LOOK HOW <span class="g">FAR YOU CAME</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">6 sessions ago you were AI-curious. Today you shipped.</div>`,
+ note:`Take a breath and zoom out. Eight sessions ago most of you had never really directed AI. Look at what is on your screen now. Let me walk the whole road we just travelled, so you can see the system you built.`,
+ vis:`Divider`},
+
+{sec:`COURSE WRAP · the arc`, title:`THE 6-SESSION <span class="g">ARC</span>`,
+ body:`<ul class="recaplist" style="font-size:clamp(15px,1.5vw,20px);line-height:1.5">
+   <li><span class="n">1</span><span>Mental model + red-lines</span></li>
+   <li><span class="n">2</span><span>Your AI workspace (Claude Code + VS Code)</span></li>
+   <li><span class="n">3</span><span>Research → spec (PRDs, stories)</span></li>
+   <li><span class="n">4</span><span>Data decisions, verified</span></li>
+   <li><span class="n">5</span><span>Communication + visual design</span></li>
+   <li><span class="n">6</span><span>Build the judge (evals + agents)</span></li>
+   <li><span class="n">7</span><span>Vibe-code a prototype</span></li>
+   <li><span class="n">8</span><span class="g">Ship it live on Vercel</span></li></ul>`,
+ note:`The arc. One: the mental model of AI and your data red-lines. Two: your own AI workspace and first automation. Three: raw research into a real PRD and stories. Four: a data question answered and verified without SQL. Five: communicating to stakeholders and designing clean visuals. Six: building the judge, evals and guardrails and a safe agent. Seven: vibe-coding a prototype. Eight, today: shipping it live on Vercel. That is not eight lessons. That is a system, and it is yours now.`,
+ vis:`Brand shape: 8 nodes in a path, the 8th largest and fully lit`},
+
+{sec:`COURSE WRAP · payoff`, title:`THE CUBE, <span class="g">LIT</span>`, center:true,
+ body:`<div class="cubebox"><div class="cube lit"><div class="f top"></div><div class="f left"></div><div class="f front"></div></div></div>
+   <div class="sub" style="color:#fff">Same mind. Plugged in. <span class="g">Shipped.</span></div>`,
+ note:`Remember the cube. Session one it was dark, holding potential. Today it opened about to ignite. Here it is now: fully lit, and powering things beyond itself. That is you. Same mind you walked in with, plugged in, and now shipping real products into the world. That was never hype. You are looking at the proof on your own screens.`,
+ vis:`The cube, now fully radiant, powering a network of light`},
+
+{sec:`COURSE WRAP · reframe`, title:`WHAT YOU <span class="g">ARE NOW</span>`,
+ body:`<div class="sub" style="font-size:clamp(20px,2.2vw,28px)">You are not "a PM who uses ChatGPT." You are an <span class="g">AI-native PM</span>: a personal AI system · sharp judgment · and the ability to <span class="g">build and ship</span>.</div>`,
+ note:`So who walked out of session eight. Not someone who occasionally asks a chatbot a question. Someone with a personal AI system, the judgment to trust it in the right places and never the wrong ones, and, proven today, the ability to build and ship a real thing. That is a different professional than the one who sat down in session one. Carry yourself like it on Monday.`,
+ vis:`Bold type, neon on "AI-native PM" and "build and ship"`},
+
+{sec:`MILESTONE`, title:`ONE THING TO <span class="g">LEAVE WITH</span>`, center:true,
+ body:`<div class="num" style="font-size:clamp(38px,7vw,88px)">A LIVE URL</div>
+   <div class="cap">A working product on the internet, at an address you can send anyone. That is today's milestone. You have it now.</div>`,
+ note:`Everything today pointed at one artifact, and one only. A live product at a public URL. Not a slide, not a repo, a link a stranger can open. If you leave with that, today did its job. Most of you already have it. Hold it up.`,
+ vis:`The single milestone: a live public URL`},
+
+{sec:`AFTER THE COURSE · what next`, title:`KEEP THE <span class="g">MUSCLE ALIVE</span>`,
+ body:`<div class="sub">Not homework, a habit:</div>
+   <div class="blocks" style="margin-top:16px">
+   <div class="block"><div class="bl">Build</div><p>Ship v1.1 from the feedback, then the next idea.</p></div>
+   <div class="block"><div class="bl">System</div><p>Add one prompt, automation, or agent a week. It compounds.</p></div>
+   <div class="block"><div class="bl">Current</div><p>One AI newsletter, 5 minutes a day.</p></div>
+   <div class="block"><div class="bl">Community</div><p>Stay in the cohort. Share what you ship.</p></div></div>`,
+ note:`Beyond the one homework, here is how the skill stays. Keep building, ship the next version from the feedback you gathered, then the next idea. Grow the system, one prompt or automation or agent a week, it compounds faster than you think. Stay current, five minutes a day with one newsletter. And stay in community, this cohort is now your network, share what you ship and help the next person. The skill only stays if you use it.`,
+ vis:`Brand shape: an ascending arrow continuing up off the frame`},
+
+{sec:`AFTER THE COURSE · close`, title:`GO <span class="g">BUILD</span>`, center:true,
+ body:`<div class="cubebox"><div class="cube lit"><div class="f top"></div><div class="f left"></div><div class="f front"></div></div></div>
+   <div class="sub" style="color:#fff">You shipped. Now go do it again, <span class="g">bigger.</span></div>
+   <div class="sub" style="font-size:16px">Thank you.</div>`,
+ note:`You came in curious. You leave having shipped a live product to the world, which most people who talk about AI never do. I am proud of this room. The far cube in the distance is your next one, already starting to glow. Go build it. Thank you, and congratulations.`,
+ vis:`The radiant cube, with a faint second cube igniting in the distance`}
+];
+</script>
+<script src="../assets/deck.js"></script></body></html>

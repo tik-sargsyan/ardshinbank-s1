@@ -1,0 +1,389 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ardshinbank &times; ACA X &middot; Session 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/deck.css"><style>.lockup{position:fixed;top:20px;left:26px;z-index:5;display:flex;align-items:center;gap:14px}.lk-bank{height:26px;width:auto;display:block}.lk-div{width:1px;height:20px;background:#3a3a40}.lk-aca{font-family:var(--h);font-weight:800;font-size:22px;letter-spacing:.02em;text-decoration:none;color:#fff;line-height:1}.lk-aca sup{color:var(--green);font-size:.6em;margin-left:1px}.title-logo{height:46px;width:auto;display:block;margin:0 auto 26px}.fig{margin-top:22px;border:1px solid var(--line);background:#000;padding:18px 16px}.fig svg{display:block;width:100%;height:auto;max-height:52vh}@keyframes fillw{from{transform:scaleX(.03)}to{transform:scaleX(1)}}.mv-grow{transform-origin:left center;animation:fillw 4.6s cubic-bezier(.77,0,.175,1) infinite alternate}@media(prefers-reduced-motion:reduce){.mv-grow{animation:none;transform:scaleX(1)}}@media print{.lockup{position:absolute}}@media (max-width:640px){.lk-bank{height:20px}.lk-aca{font-size:17px}}</style></head><body>
+<div class="lockup"><img src="../assets/ardshinbank-logo-dark.svg" alt="Ardshinbank" class="lk-bank"><span class="lk-div"></span><a class="lk-aca" href="#1">ACA<sup>x</sup></a></div>
+<div class="progress" id="prog"></div><div class="deck" id="deck"></div>
+<div class="nav"><button id="prev">‹</button><button id="next">›</button></div>
+<div class="counter"><b id="cur">1</b> / <span id="tot">42</span></div>
+<div class="hint">← → navigate · N notes · F fullscreen</div>
+<div class="notes" id="notes"><div class="nk">Speaker note</div><div class="nt" id="noteText"></div><div class="vis" id="visText"></div></div>
+<script>
+const AST = `<svg class="aster" viewBox="0 0 100 100" fill="currentColor"><path d="M45 5h10v28l20-20 7 7-20 20h28v10H62l20 20-7 7-20-20v28H45V62L25 82l-7-7 20-20H10V45h28L18 25l7-7 20 20z"/></svg>`;
+const SEG = `background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:8px;padding:11px 18px;font-family:var(--h);font-weight:800;letter-spacing:.02em`;
+const FLOWBOX = `border:1px solid var(--line);border-left:4px solid var(--green);border-radius:10px;padding:14px 20px;background:var(--surface);font-family:var(--h);font-weight:800;text-transform:uppercase;letter-spacing:.02em;font-size:clamp(14px,1.5vw,18px)`;
+const FLOWARR = `color:var(--green);font-family:var(--h);font-weight:800;font-size:24px`;
+const STRIKE = `text-decoration:line-through;text-decoration-color:var(--green);text-decoration-thickness:2px`;
+
+window.SLIDES = [
+{sec:`ARDSHINBANK &times; ACA<sup>x</sup> &middot; SESSION 4 OF 6`, title:`COMMUNICATING & <span class="g">PRESENTING</span>`, center:true,
+ body:`<div class="sub">Session 4 · Communicating & Presenting: Stakeholders + Visual Design</div>
+   <div class="tbar" style="margin-left:auto;margin-right:auto"></div>
+   <div class="sub" style="font-size:clamp(18px,2.2vw,28px);color:#fff">Great work that no one understands did not happen.</div>`,
+ note:"Welcome back. You've done research, PRDs, and data. Today is the day that decides whether any of it lands. We turn your work into messages people act on, and into visuals that look like you meant it. Today's one milestone: a real exec update in your voice, plus the designed one-pager you present it with. One page, two channels: a link and a PDF.",
+ vis:"Neon title bar (bottom-left accent) + big type on black"},
+
+{sec:"RECAP · SESSION 3", title:`LAST TIME: A DECISION <span class="g">FROM DATA</span>`,
+ body:`<div class="sub">Session 3: you pointed Claude at a read-only data source, asked a real question, verified the answer, then made the call. No SQL.</div>
+   <div class="rows" style="margin-top:20px">
+     <div class="row"><span class="a">Session 3</span><span class="arw">→</span><span class="b">You found the answer and decided.</span></div>
+     <div class="row"><span class="a">Today</span><span class="arw">→</span><span class="b">You make people act on it.</span></div></div>`,
+ note:"Quick bridge from last time. Session 3 was the decision: you pointed Claude at a read-only data source, asked a real question, verified the numbers, and made the call. But a decision no one reads changes nothing. Today is the other half of the job: turning that call into an update people act on, and a page that looks like you meant it.",
+ vis:"Two-row bridge: Session 3 decided, today you communicate it"},
+
+{sec:"OPEN & FRAME · the stakes", title:`WHERE GOOD <span class="g">WORK DIES</span>`, center:true,
+ body:`<div class="sub" style="font-size:clamp(20px,2.4vw,30px);color:#fff">Most good PM work dies in the inbox. Not because it was wrong. Because it was <span class="g">unread, unclear, or off-key.</span></div>`,
+ note:"Here's the uncomfortable truth. Most solid analysis dies not because it was wrong, but because the update was too long, buried the point, or spoke to the wrong person. Communication is not the wrapper on the work. For a stakeholder, the message IS the work. That's what we fix today.",
+ vis:"Pure type on black"},
+
+{sec:"OPEN & FRAME · calibrate", title:`CALIBRATE <span class="g">THE ROOM</span>`,
+ body:`<div class="sub">One word in chat: the last time an update of yours got ignored, why?</div>`,
+ note:"Quick one before I talk. Think of the last time your update, message, or deck got ignored or misread. One word: why? [collect 5-6] Hold those. Most of them are audience problems or tone problems, and both are solvable today.",
+ vis:"Pure type, chat prompt"},
+
+{sec:"OPEN & FRAME · the belief", title:`THE <span class="g">THROUGH-LINE</span>`,
+ body:`<div class="sub" style="color:#fff">AI makes everyone fast. <span class="g">Taste and your own voice</span> are what still stand out. Don't let it flatten you into generic.</div>
+   <div style="display:flex;gap:16px;align-items:center;margin-top:28px">
+     <span style="width:14px;height:14px;border-radius:50%;background:#2c2c2e;display:inline-block"></span>
+     <span style="width:14px;height:14px;border-radius:50%;background:#2c2c2e;display:inline-block"></span>
+     <span style="width:14px;height:14px;border-radius:50%;background:#2c2c2e;display:inline-block"></span>
+     <span style="width:24px;height:24px;border-radius:50%;background:var(--green);display:inline-block;box-shadow:0 0 20px rgba(208,245,57,.7)"></span>
+     <span style="width:14px;height:14px;border-radius:50%;background:#2c2c2e;display:inline-block"></span>
+     <span style="width:14px;height:14px;border-radius:50%;background:#2c2c2e;display:inline-block"></span>
+     <span style="width:14px;height:14px;border-radius:50%;background:#2c2c2e;display:inline-block"></span></div>`,
+ note:"One belief for today. AI now lets everyone produce a lot, fast. So volume is no longer the edge. The edge is judgment, taste, and sounding like you and not like every other AI-drafted memo. We'll use AI hard today, and the whole time we'll fight to keep it sounding like YOU.",
+ vis:"Grey dot cluster with one neon dot standing apart"},
+
+{sec:"ONE TRUTH, THREE AUDIENCES", title:`SAME TRUTH, <span class="g">THREE AUDIENCES</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Tailor the message, keep the facts.</div>`,
+ note:"First skill: same underlying truth, told three ways. Tailoring is not spin. The facts stay identical. What changes is what you lead with and what you cut.",
+ vis:"Divider"},
+
+{sec:"ONE TRUTH, THREE AUDIENCES", title:`WHAT EACH AUDIENCE <span class="g">ACTUALLY WANTS</span>`,
+ body:`<div class="cards" style="grid-template-columns:repeat(3,1fr)">
+   <div class="card"><div class="tag" style="color:var(--green)">Exec</div><p>The decision, the impact, the risk. Lead with the answer.</p></div>
+   <div class="card"><div class="tag" style="color:var(--green)">Team</div><p>The priority, the why, what's next for them.</p></div>
+   <div class="card"><div class="tag" style="color:var(--green)">Cross-functional</div><p>Dependencies, timeline, what you need from them.</p></div></div>`,
+ note:"Three audiences, three appetites. An exec wants the decision, the business impact, and the risk, in that order, and they want it first. Your team wants the priority and the reasoning so they can act. A cross-functional partner wants dependencies, timing, and the one thing you need from them. Write the same update three times and you'll see how different they are.",
+ vis:"Three audience columns: Exec / Team / Cross-functional"},
+
+{sec:"ONE TRUTH, THREE AUDIENCES", title:`BLUF: LEAD WITH <span class="g">THE ANSWER</span>`,
+ body:`<div class="sub">BLUF, Bottom Line Up Front. Execs read the first two lines, then decide whether to read more. Put the verdict there.</div>
+   <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px;max-width:660px">
+     <div style="height:48px;background:var(--green);border-radius:6px;display:flex;align-items:center;padding-left:18px;color:var(--ink);font-family:var(--h);font-weight:900;letter-spacing:.02em">THE ANSWER</div>
+     <div style="height:42px;width:76%;background:var(--surface);border:1px solid var(--line);border-radius:6px;display:flex;align-items:center;padding-left:18px;color:var(--muted)">Why, in 3 lines</div>
+     <div style="height:38px;width:54%;background:var(--surface);border:1px solid var(--line);border-radius:6px;display:flex;align-items:center;padding-left:18px;color:var(--muted)">Detail for whoever wants it</div>
+     <div style="height:34px;width:32%;background:var(--surface);border:1px solid var(--line);border-radius:6px"></div></div>`,
+ note:"The single most useful rule for senior audiences: bottom line up front. Don't build up to your conclusion. Open with it. 'We should ship X. Here's why in three lines.' They may read only those lines and move on, and that's a success. The pyramid is upside down: answer first, detail below for whoever wants it.",
+ vis:"Inverted pyramid, answer bar on top"},
+
+{sec:"ONE TRUTH, THREE AUDIENCES", title:`THE GENERIC-AI TONE <span class="g">(THE TELLS)</span>`,
+ body:`<div class="sub">AI has a smell. Strip it.</div>
+   <ul style="list-style:none;margin-top:18px;font-size:clamp(17px,1.8vw,23px);line-height:1.85;color:var(--muted)">
+   <li style="${STRIKE}">"In today's fast-paced world"</li>
+   <li style="${STRIKE}">"delve"</li>
+   <li style="${STRIKE}">"moreover / furthermore"</li>
+   <li style="${STRIKE}">"leverage / utilize"</li>
+   <li style="${STRIKE}">endless hedging</li>
+   <li style="${STRIKE}">bullet soup with no verdict</li>
+   <li style="${STRIKE}">fake enthusiasm</li></ul>`,
+ note:"You can smell an unedited AI draft from across the room. Certain openers, certain filler words, hedging on everything, bullets with no actual conclusion, and that peppy 'Let me know if you need anything else!' close. The moment a stakeholder smells it, they trust it less, because it reads like you didn't think, you just prompted. We're going to systematically strip that out. Side note: no em dashes, they're a classic tell. Periods and commas do the job.",
+ vis:"Struck-through list of AI tells"},
+
+{sec:"ONE TRUTH, THREE AUDIENCES", title:`KEEP <span class="g">YOUR VOICE</span>`,
+ body:`<div style="position:absolute;top:11vh;right:8vw;opacity:.85">${AST}</div>
+   <div class="blocks" style="max-width:940px">
+   <div class="block"><div class="bl">1 · Sample</div><p>Feed it a sample of your real writing.</p></div>
+   <div class="block"><div class="bl">2 · Anti-patterns</div><p>Name the words you never use.</p></div>
+   <div class="block"><div class="bl">3 · Own the ends</div><p>Let it draft, then you rewrite the first and last line by hand.</p></div>
+   <div class="block"><div class="bl">4 · Critique</div><p>"Flag anything that sounds like generic AI."</p></div></div>`,
+ note:"Here's the method, and it's pure R·C·T·C from Session 1. Role: a sharp comms partner. Context: this is the part that keeps your voice. Give it three to five sentences of your actual past writing as a style sample, plus a short list of words and phrases you'd never use. Task: the tailored message in a set format. Critique: tell it to flag any sentence that sounds like generic AI. Then the human move that matters most: rewrite the opening and closing line yourself, because those are the lines people actually read.",
+ vis:"Four-step voice method + neon asterisk"},
+
+{sec:"ONE TRUTH, THREE AUDIENCES · your turn", title:`DE-SLOP, <span class="g">IN YOUR VOICE</span>`,
+ body:`<span class="turn">Warm-up · 4 min</span>
+   <div class="mono"><ol class="steps2">
+   <li>Paste this AI-generic line: <span class="c">"In today's fast-paced environment, we are excited to leverage our learnings to delve into next steps and drive impactful outcomes moving forward."</span></li>
+   <li>Prompt: "Rewrite in plain, direct English. No filler, no hype, one clear point. Sound like a busy senior PM."</li>
+   <li>Now edit ONE word by hand so it sounds like you.</li></ol></div>`,
+ note:"Sixty-second warm-up so your hands are moving. Paste that horror sentence, ask Claude to strip it to plain direct English, and then change one word yourself so it's yours. This is the whole loop in miniature: AI drafts, you own the last edit. Go. [4 min] Read one out.",
+ vis:"Mono warm-up block"},
+
+{sec:"ONE TRUTH, THREE AUDIENCES", title:`SAME DATA, <span class="g">THREE LAYERS</span>`,
+ body:`<div class="sub">One data set becomes a 4-line exec email and a full designed PDF. The exec never opens the PDF. The analyst never reads only 4 lines.</div>
+   <img class="shot" src="../assets/img/s5/report-email.png"><div class="shotcap">A monthly social report PDF next to its 4-line delivery email.</div>`,
+ note:"A real example from my own work. Every month I ship a social performance report. The same numbers go out two ways: a four-line plain-text email that says what moved and what I'd do about it, and an attached designed PDF with all the detail. Leadership reads the four lines. Whoever wants the detail opens the PDF. One truth, two layers, zero repetition of effort, because AI builds both from the same source. That's what you're learning to do today.",
+ vis:"[SCREENSHOT] report PDF next to its 4-line email"},
+
+{sec:"UPDATE → NARRATIVE → EXEC DOC", title:`MAKE THEM CARE IN <span class="g">30 SECONDS</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Structure beats length.</div>`,
+ note:"A tailored tone gets you read. Structure gets you understood. Two simple structures will carry almost every update you ever write.",
+ vis:"Divider"},
+
+{sec:"UPDATE → NARRATIVE → EXEC DOC", title:`THE NARRATIVE <span class="g">SPINE</span>`,
+ body:`<div class="sub">Two spines that always work.</div>
+   <div style="display:flex;gap:36px;flex-wrap:wrap;margin-top:18px;align-items:flex-start">
+   <div style="display:flex;flex-direction:column;gap:8px;min-width:280px">
+     <div style="${SEG}">S · Situation</div>
+     <div style="${SEG}">C · Complication</div>
+     <div style="${SEG}">Q · Question</div>
+     <div style="${SEG}">A · Answer</div></div>
+   <div class="block" style="align-self:flex-start;max-width:360px"><div class="bl">What · So what · Now what</div><p>The fact, why it matters, the action. Both spines end on the action.</p></div></div>`,
+ note:"A narrative spine is just the skeleton. SCQA: here's the situation, here's what changed, here's the question that raises, here's my answer. Or even simpler, three beats: what happened, so what does it mean, now what do we do. Notice both END on the action. A finding with no 'now what' is homework you handed to your reader. Never do that to an exec.",
+ vis:"Vertical S·C·Q·A spine + What / So what / Now what"},
+
+{sec:"UPDATE → NARRATIVE → EXEC DOC", title:`THE EXEC UPDATE <span class="g">TEMPLATE</span>`,
+ body:`<div class="card good" style="max-width:860px">
+   <div class="tag">Exec update · under 150 words</div>
+   <div style="display:flex;flex-direction:column">
+   <div style="display:flex;gap:16px;padding:11px 0;border-top:1px solid var(--line)"><b style="color:var(--green);min-width:160px;font-family:var(--h);text-transform:uppercase;letter-spacing:.04em">Status</b><span>On track / At risk / Off track.</span></div>
+   <div style="display:flex;gap:16px;padding:11px 0;border-top:1px solid var(--line)"><b style="color:var(--green);min-width:160px;font-family:var(--h);text-transform:uppercase;letter-spacing:.04em">TL;DR</b><span>The answer, 2 sentences.</span></div>
+   <div style="display:flex;gap:16px;padding:11px 0;border-top:1px solid var(--line)"><b style="color:var(--green);min-width:160px;font-family:var(--h);text-transform:uppercase;letter-spacing:.04em">Decision needed</b><span>Or "FYI, no action."</span></div>
+   <div style="display:flex;gap:16px;padding:11px 0;border-top:1px solid var(--line)"><b style="color:var(--green);min-width:160px;font-family:var(--h);text-transform:uppercase;letter-spacing:.04em">Risk</b><span>One, plus what you're doing about it.</span></div>
+   <div style="display:flex;gap:16px;padding:11px 0;border-top:1px solid var(--line)"><b style="color:var(--green);min-width:160px;font-family:var(--h);text-transform:uppercase;letter-spacing:.04em">The ask</b><span>One clear thing.</span></div></div></div>`,
+ note:"Here's a template you can reuse forever. One-word status so they triage in a glance. A two-sentence TL;DR that leads with the answer. Whether a decision is needed, stated plainly, or explicitly 'no action, just FYI,' which execs love. One real risk with your mitigation, because naming risk builds trust. And one ask. If everything is an ask, nothing is. Under 150 words total.",
+ vis:"Five-row exec update card"},
+
+{sec:"UPDATE → NARRATIVE → EXEC DOC", title:`HEADLINE = <span class="g">THE TAKEAWAY</span>`,
+ body:`<div class="sub">If you present it: one idea per slide. The headline IS the takeaway, not the topic.</div>
+   <div class="cards">
+   <div class="card good"><div class="tag">✓ Takeaway</div><p>"Card activation up 6 pts after the new mobile KYC flow (illustrative)."</p></div>
+   <div class="card bad"><div class="tag">✕ Topic</div><p>"Activation Metrics."</p></div></div>`,
+ note:"If this becomes a deck, same discipline as our own slides here: one idea per slide, and the headline is the conclusion, not the category. 'Activation Metrics' is a topic, it makes people wait for your point. 'Card activation up six points after the new mobile KYC flow' is a takeaway. Someone can read only your headlines and get the whole story. That's the test of a good deck.",
+ vis:"Two slide thumbnails: takeaway vs topic"},
+
+{sec:"UPDATE → NARRATIVE → EXEC DOC", title:`YOUR <span class="g">TURN</span>`, center:true,
+ body:`<span class="turn">Part 1</span>
+   <div class="rule" style="margin-left:auto;margin-right:auto"></div>
+   <div class="sub">Turn a real update into an exec message, in your voice.</div>`,
+ note:"Now you build artifact A. Use a real thing: this week on your capstone, or a real update from your job. All in the Claude chat, no Code yet, keep it tight.",
+ vis:"YOUR TURN divider (Part 1)"},
+
+{sec:"UPDATE → NARRATIVE → EXEC DOC · your turn", title:`YOUR TAILORED <span class="g">EXEC UPDATE</span>`,
+ body:`<span class="turn">Task 1 · 8 min</span>
+   <div class="mono"><ol class="steps2">
+   <li>Paste your <span class="c">raw update</span> (messy is fine: what happened, what's stuck, what's next).</li>
+   <li>Add a <span class="c">voice sample</span> (3-5 sentences you actually wrote before) + 3 words you never use.</li>
+   <li>Prompt <span class="c">R·C·T·C:</span> Role = sharp comms partner · Context = audience is my bank's leadership team + my voice sample + raw update · Task = the exec template, under 150 words · Critique = "flag any sentence that sounds like generic AI."</li>
+   <li>Rewrite the <span class="c">first and last line yourself.</span> That's your artifact.</li></ol></div>`,
+ note:"Eight minutes. Paste the messy version, hand it your voice sample and your never-use words, run the R·C·T·C prompt against the exec template, and then do the human move: rewrite the opening and closing lines by hand. Don't polish the middle to death. I'm walking around. [8 min]",
+ vis:"Mono task block, R·C·T·C prompt"},
+
+{sec:"UPDATE → NARRATIVE → EXEC DOC", title:`READ THE <span class="g">TL;DR</span>`,
+ body:`<div class="sub">Share one: read your status line and TL;DR only.</div>`,
+ note:"Let's hear four of you, just the status word and the two-sentence TL;DR. [collect] Listen for whether you'd act on it in two lines. If yes, it works. That's the bar.",
+ vis:"Pure type, share prompt"},
+
+{sec:"BREAK", title:`<span class="g">BREAK</span>`, center:true,
+ body:`<div class="rule" style="margin-left:auto;margin-right:auto"></div>
+   <div class="sub">8 minutes. Back at <b style="color:#fff">[time]</b>.</div>`,
+ note:"Eight minutes. When we're back, the fun half: we make it look good. Design taste, on-brand visuals with AI, and you'll build a real one-pager and export it to PDF.",
+ vis:"Divider, mid-session break"},
+
+{sec:"DESIGN POLISHED VISUALS WITH AI", title:`NOW MAKE IT <span class="g">LOOK GOOD</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Taste is a skill, and it's learnable.</div>`,
+ note:"Second half. The message is right. Now the look. And no, you don't need to be a designer. You need a small amount of taste and the discipline to hold a system. AI does the rest.",
+ vis:"Divider"},
+
+{sec:"DESIGN POLISHED VISUALS WITH AI · the belief", title:`TASTE IS THE <span class="g">DIFFERENTIATOR</span>`,
+ body:`<div class="sub" style="color:#fff">Everyone can now generate a slide. Almost no one edits it down to something that looks <span class="g">decided</span>. That gap is your advantage.</div>
+   <div style="position:relative;height:22vh;max-width:760px;margin-top:14px">
+     <span style="position:absolute;left:5%;top:22%;width:16px;height:16px;background:#2a2a2c;border-radius:3px"></span>
+     <span style="position:absolute;left:28%;top:72%;width:12px;height:12px;background:#2a2a2c;border-radius:3px"></span>
+     <span style="position:absolute;left:54%;top:14%;width:18px;height:18px;background:#2a2a2c;border-radius:3px"></span>
+     <span style="position:absolute;left:82%;top:58%;width:14px;height:14px;background:#2a2a2c;border-radius:3px"></span>
+     <span style="position:absolute;left:44%;top:44%;width:44px;height:44px;background:var(--green);border-radius:7px;box-shadow:0 0 28px rgba(208,245,57,.6)"></span></div>`,
+ note:"Since AI can generate any layout instantly, the market is flooded with busy, generic-looking output. The rare thing is restraint: work that looks decided, not decorated. When your one-pager looks calm and intentional in a sea of clip-art and rainbow charts, people assume the thinking behind it is sharper too. Taste is your edge.",
+ vis:"One bold neon shape among scattered grey shapes"},
+
+{sec:"DESIGN POLISHED VISUALS WITH AI", title:`THE DESIGN DNA <span class="g">(STEAL MINE)</span>`,
+ body:`<div class="lifecycle" style="font-size:clamp(15px,2vw,26px)"><span>Minimal</span><span class="n">·</span><span>Bold</span><span class="n">·</span><span>High-contrast</span><span class="n">·</span><span>ONE accent</span><span class="n">·</span><span>Tech + premium</span></div>
+   <div class="cap">System fonts. White cards. Generous whitespace. One idea per view.</div>
+   <img class="shot" src="../assets/img/resource-pack-preview.png" style="max-height:40vh"><div class="shotcap">A designed one-pager PDF: black + neon header, white cards, one accent. Same DNA as this deck.</div>`,
+ note:"Here's a design DNA you can just adopt: minimal, bold, high-contrast, and crucially ONE accent color, not five. Every deck in this course uses black and neon green, one accent. My reports use white cards and one accent. Same DNA, different skin. When you brief AI, hand it these five words and it will stop giving you the default rainbow soup. Contrast is the design. You almost never need a second color, you need more white space.",
+ vis:"A designed one-pager PDF, same DNA as this deck"},
+
+{sec:"DESIGN POLISHED VISUALS WITH AI", title:`THE AI-VISUAL <span class="g">SLOP TO AVOID</span>`,
+ body:`<div class="sub">Reflex-reject list:</div>
+   <ul style="list-style:none;margin-top:18px;font-size:clamp(17px,1.8vw,23px);line-height:1.85;color:var(--muted)">
+   <li style="${STRIKE}">rainbow palettes</li>
+   <li style="${STRIKE}">purple-cyan gradients</li>
+   <li style="${STRIKE}">everything centered</li>
+   <li style="${STRIKE}">drop shadows everywhere</li>
+   <li style="${STRIKE}">clip-art icons</li>
+   <li style="${STRIKE}">emoji bullets</li>
+   <li style="${STRIKE}">cramped, uneven spacing</li></ul>`,
+ note:"The visual equivalent of the tone tells. Default AI design reaches for a rainbow of colors, purple-to-cyan gradients, centers everything, drops shadows on every box, and sprinkles clip-art. Reflex-reject all of it. Pick one accent, left-align your content, kill the shadows, and give things room to breathe. Ninety percent of 'making it look good' is removing things.",
+ vis:"Struck-through slop list"},
+
+{sec:"DESIGN POLISHED VISUALS WITH AI", title:`ON-BRAND IMAGERY <span class="g">WITH AI</span>`,
+ body:`<ul class="checklist">
+   <li>Picsart or nanobanana: prepend one house-style line to every prompt so all images match.</li>
+   <li>Keep it abstract, not clip-art.</li>
+   <li>For exec one-pagers: usually no image. Restraint reads as premium.</li></ul>
+   <img class="shot" src="../assets/img/s5/image-gallery.png"><div class="shotcap">On-brand images from Picsart / nanobanana: one prepended house-style line keeps the whole set consistent. Abstract, not clip-art.</div>`,
+ note:"When you do need imagery, AI generates it on-brand. Picsart, home of vibe design, or nanobanana for imagery. The pro move: write one house-style sentence, your palette and mood, and prepend it to every single image prompt, so ten images look like one set instead of ten random stock photos. Keep subjects abstract and conceptual, not literal clip-art. And honestly, for an exec one-pager, the classiest choice is usually no image at all. Type and space are enough.",
+ vis:"[SCREENSHOT] on-brand AI image (house-style prompt)"},
+
+{sec:"DESIGN POLISHED VISUALS WITH AI", title:`DIAGRAMS + INFOGRAPHICS <span class="g">ON DEMAND</span>`,
+ body:`<div class="sub">AI draws the boring stuff. Flows and architecture as Mermaid or SVG. A visual summary as an infographic. All describe-it-in-words, no design tool.</div>
+   <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:20px">
+   <div style="${FLOWBOX}">Describe in words</div>
+   <span style="${FLOWARR}">→</span>
+   <div style="${FLOWBOX}">Mermaid / SVG</div>
+   <span style="${FLOWARR}">→</span>
+   <div style="${FLOWBOX}">Drop into doc or HTML</div></div>`,
+ note:"Diagrams and infographics used to mean fighting a drawing tool. Now you describe the flow in words and AI gives you a clean diagram, as Mermaid or SVG you can drop straight into a doc or an HTML page. Same for a one-glance infographic summary of a report. You direct, it draws. We'll use exactly this in a second.",
+ vis:"Neon node-and-arrow flow, three boxes"},
+
+{sec:"DESIGN POLISHED VISUALS WITH AI", title:`ONE SYSTEM, <span class="g">EVERYTHING ON-BRAND</span>`,
+ body:`<div class="sub">This course's decks, the report PDFs, the dashboards. Different outputs, one design DNA, all AI-built. Consistency looks expensive. It's mostly just discipline.</div>
+   <img class="shot" src="../assets/img/command-center.png" style="max-height:44vh"><div class="shotcap">The Agent Command Center. My decks, report PDFs, and this dashboard all share one design DNA (Picsart work kept high-level).</div>`,
+ note:"Everything I ship runs on one design DNA. The decks you're looking at, my monthly report PDFs, my dashboards. They look like one brand because I brief AI with the same five words every time, not because I hired a design team. That consistency reads as premium and expensive. It's really just one reused system plus the discipline to say no to the extra color. You're about to build your own piece of it.",
+ vis:"The Agent Command Center (one node of the unified system)"},
+
+{sec:"ANATOMY SLICE · SKILLS", title:`MAKE THESE <span class="g">TWO SKILLS</span>`,
+ body:`<div class="sub">Session 1 taught the skill: a reusable recipe in <span style="font-family:var(--m);color:var(--green)">.claude/skills/</span>. Today gives you two worth saving, so you never retype them.</div>
+   <div class="cards" style="margin-top:18px">
+     <div class="card good"><div class="tag">my-voice</div><p>Your writing sample, your never-use words, the exec template. Triggers on "draft an update".</p></div>
+     <div class="card good"><div class="tag">house-design</div><p>Your five design words and the @page print rule. Triggers on "make a one-pager".</p></div></div>
+   <div class="cap">Comms and design, each packaged once, reused forever. That is what a skill is for.</div>`,
+ note:"One anatomy callback before the build. In Session 1 you learned a skill is a reusable recipe in a folder, no code. Today hands you two skills worth keeping. First, a my-voice skill: your writing sample, your never-use words, and the exec template in one file, so every update starts in your voice. Second, a house-design skill: your five design words and the print rule, so every one-pager comes out on-brand. You do the two moves by hand today. This week you package them, and then it's one command each. That is the whole point of skills: package it once, reuse it forever.",
+ vis:"Two skill cards: my-voice and house-design"},
+
+{sec:"SHAREABLE HTML + CLEAN PDF", title:`ONE FILE, SHAREABLE + <span class="g">PRINTABLE</span>`, center:true,
+ body:`<div class="rule"></div><div class="sub">Send as a link. Print to PDF. The most useful format a PM can produce.</div>`,
+ note:"Now the build. We make one small self-contained HTML file. It opens in any browser, you can send it as a link, and it prints to a clean PDF for the people who want an attachment. One artifact, every channel. Let's go.",
+ vis:"Divider"},
+
+{sec:"SHAREABLE HTML + CLEAN PDF", title:`WHY A SINGLE <span class="g">HTML FILE WINS</span>`,
+ body:`<ul class="checklist">
+   <li>No software needed to open</li>
+   <li>Looks identical everywhere</li>
+   <li>One file, no assets to lose</li>
+   <li>Becomes a PDF in two clicks</li>
+   <li>Trivially editable with AI later</li></ul>
+   <div style="display:flex;align-items:center;gap:16px;margin-top:20px;flex-wrap:wrap">
+   <div style="border:1px solid var(--green);border-radius:10px;padding:12px 20px;color:var(--green);font-family:var(--m);font-weight:600">one-pager.html</div>
+   <span style="${FLOWARR}">→</span>
+   <div class="lifecycle" style="margin-top:0;font-size:clamp(14px,1.8vw,22px)"><span>Browser</span><span class="n">·</span><span>Phone</span><span class="n">·</span><span>PDF</span></div></div>`,
+ note:"Why HTML and not a slide file or a Word doc. It opens anywhere with zero software, it looks the same on every machine, it's a single file with nothing to lose, it prints straight to PDF, and you can ask AI to tweak it in seconds later. For a PM one-pager, it's the highest-value format there is.",
+ vis:"One file node branching to browser / phone / PDF"},
+
+{sec:"SHAREABLE HTML + CLEAN PDF", title:`PRINT TO PDF, <span class="g">THE CLEAN WAY</span>`,
+ body:`<ul class="checklist">
+   <li>Browser: Cmd/Ctrl+P, then Save as PDF. Uncheck "Headers and footers."</li>
+   <li>In the file: <span style="font-family:var(--m);color:var(--green)">@page</span> CSS sets size and margins.</li>
+   <li>Automatable later: headless Chrome <span style="font-family:var(--m);color:var(--green)">--headless=new --no-pdf-header-footer</span>.</li></ul>
+   <img class="shot" src="../assets/img/s5/print-dialog.png"><div class="shotcap">The browser print dialog: destination "Save as PDF", "Headers and footers" unchecked so no URLs or page numbers get stamped on.</div>`,
+ note:"Turning it into a clean PDF is two clicks: print, save as PDF, and uncheck the headers-and-footers box so you don't get ugly URLs and page numbers stamped on it. In the file itself, one line of @page CSS controls the paper size and margins. And when you want it automated, the same thing runs from the command line with headless Chrome and the no-header-footer flag. Today, two clicks is all you need.",
+ vis:"[SCREENSHOT] print dialog, headers/footers unchecked"},
+
+{sec:"LIVE · WATCH ME", title:`LIVE: BACKLOG TO EXEC UPDATE TO <span class="g">ONE-PAGER</span>`,
+ body:`<div class="sub" style="color:#fff">Watch me build both artifacts in Claude Code, on the demo project. You do the same next, on your real work.</div>
+   <div class="mono" style="max-width:840px;margin:14px auto 0;text-align:left">In <span class="c">aca-demo</span> I reset the scores, then type:<ol class="steps2">
+     <li>"Run the <span class="c">pm-reviewer</span> agent to rank the backlog." It reads the agent and returns the top item.</li>
+     <li>"Write a <span class="c">150-word exec update</span> on that item for a bank leadership team. Use the exec template. Plain, direct, no filler."</li>
+     <li>"Now build <span class="c">one-pager.html</span> from that update: minimal, bold, one accent, white cards, @page for A4, no images." Then I print it to PDF.</li></ol></div>
+   <div class="cap" style="max-width:780px;margin:12px auto 0">Same operator loop from Session 1: read the context, act, check. One project, one exec message, one designed page.</div>`,
+ note:"Enough theory, let me build it in front of you. This is Claude Code on the demo project, aca-demo. First I reset the scores so we start clean. Then three prompts. One: run the pm-reviewer agent to rank the backlog, and it hands me the top item. Two: write a 150-word exec update on that item for a bank leadership team, using the exec template we just learned. Three: build a one-pager.html from that update with our design DNA, minimal, one accent, no images, and set the print rule for A4. Then I print it to PDF. That is the whole day in two minutes, on the demo. Now you do the same thing on your real work.",
+ vis:"Live: reset aca-demo, run pm-reviewer, generate an exec update, then a one-pager.html, print PDF"},
+
+{sec:"SHAREABLE HTML + CLEAN PDF", title:`YOUR <span class="g">TURN</span>`, center:true,
+ body:`<span class="turn">Part 2</span>
+   <div class="rule" style="margin-left:auto;margin-right:auto"></div>
+   <div class="sub">Build a designed one-pager, then export a PDF.</div>`,
+ note:"Now your turn, on your real work. This is the biggest hands-on block of the course so far. Claude Code, one small file, one iteration, then a PDF. Token-light: keep the prompt tight and don't spiral. Tie it to your capstone if you can, because this is the page you'll show when you demo.",
+ vis:"YOUR TURN divider (Part 2)"},
+
+{sec:"SHAREABLE HTML + CLEAN PDF · your turn", title:`BRIEF YOUR <span class="g">ONE-PAGER</span>`,
+ body:`<span class="turn">Task 2 · 3 min</span>
+   <div class="mono">Write down 5 fields:<ol class="steps2">
+   <li><span class="c">Title</span> (project / capstone name).</li>
+   <li><span class="c">One-line status</span> (on track / at risk).</li>
+   <li><span class="c">3 numbers</span> that matter.</li>
+   <li>The <span class="c">decision or ask.</span></li>
+   <li><span class="c">Next 3 steps.</span></li></ol></div>`,
+ note:"Three minutes, no computer needed yet. Just decide what goes on the page: title, one status line, three numbers, the ask, and the next three steps. If you can't name three numbers, use your capstone targets. A clear brief is why the build takes ten minutes and not an hour. [3 min]",
+ vis:"Mono brief, five fields"},
+
+{sec:"SHAREABLE HTML + CLEAN PDF · your turn", title:`BUILD IT IN <span class="g">CLAUDE CODE</span>`,
+ body:`<span class="turn">Task 3 · 12 min</span>
+   <div class="mono">In Claude Code, ONE prompt:<ol class="steps2">
+   <li>"Create one self-contained file <span class="c">one-pager.html</span>. Inline CSS, system fonts, no external assets."</li>
+   <li>Paste your <span class="c">5 fields</span> from Task 2.</li>
+   <li>Design brief: "<span class="c">Minimal, bold, high-contrast, ONE accent color, white cards, generous whitespace. Fits one screen. No images.</span>"</li>
+   <li>"Add <span class="c">@page</span> CSS so it prints clean to A4."</li>
+   <li>Open the file in your browser.</li></ol></div>`,
+ note:"Twelve minutes. One prompt, five fields, five design words, and the print line. Notice how the design DNA from earlier goes straight into the prompt. Do not ask for a huge site. One screen, one file, no images. That's what keeps it token-light and fast. Open it when it's done. I'm walking the room. [12 min]",
+ vis:"Mono build task, one prompt"},
+
+{sec:"SHAREABLE HTML + CLEAN PDF · your turn", title:`POLISH <span class="g">WITH TASTE</span>`,
+ body:`<span class="turn">Task 4 · 7 min</span>
+   <div class="mono">Iterate ONCE:<ol class="steps2">
+   <li>Look with taste: anything centered that shouldn't be? more than one color? cramped?</li>
+   <li>One follow-up: "<span class="c">Tighten spacing, make the status the boldest thing, keep one accent color.</span>"</li>
+   <li>Check the words are in <span class="c">your voice</span>, not generic.</li></ol></div>`,
+ note:"Seven minutes to make it look decided. Run the reflex-reject list in your head: kill any second color, un-center the body, add breathing room. One follow-up prompt only, we're staying token-light, so make it count. Then read the actual words on the page and make sure they sound like you. [7 min]",
+ vis:"Mono polish task, iterate once"},
+
+{sec:"SHAREABLE HTML + CLEAN PDF · your turn", title:`EXPORT A <span class="g">CLEAN PDF</span>`,
+ body:`<span class="turn">Task 5 · 5 min</span>
+   <div class="mono"><ol class="steps2">
+   <li>Cmd/Ctrl+P in the browser.</li>
+   <li>Destination: <span class="c">Save as PDF.</span></li>
+   <li><span class="c">Uncheck "Headers and footers."</span> Margins: default or none.</li>
+   <li>Save. That's <span class="c">artifact B.</span></li></ol></div>`,
+ note:"Five minutes. Print, save as PDF, uncheck headers and footers, save. You now have the exact same content as a shareable HTML file and a clean attachable PDF, both built and designed with AI, both in your voice. That's the whole superpower of today in one artifact. [5 min]",
+ vis:"Mono PDF export steps"},
+
+{sec:"SHAREABLE HTML + CLEAN PDF", title:`THE ONE-PAGER <span class="g">GALLERY</span>`,
+ body:`<div class="sub">Turn your screen around. One sentence: who is this for, what's the ask?</div>`,
+ note:"Everyone turn your screen so a neighbor can see it. Five of you show the room: one sentence, who it's for and what the ask is. [collect] Look how different they are, and how none of them look like default AI. That's taste plus your voice. Well done.",
+ vis:"Pure type, gallery share"},
+
+{sec:"RECAP, HOMEWORK & CAPSTONE", title:`THE THREE <span class="g">THAT MATTER</span>`,
+ body:`<ul class="recaplist">
+   <li><span class="n">1</span><span>Tailor the message, keep the facts. BLUF for execs.</span></li>
+   <li><span class="n">2</span><span>Keep your voice: sample in, generic out, you edit the ends.</span></li>
+   <li><span class="n">3</span><span>One design DNA plus one file equals shareable and printable, on-brand.</span></li></ul>`,
+ note:"Three to keep. One: same truth, tailored per audience, answer first for execs. Two: keep your voice by feeding AI a sample and owning the first and last line. Three: one design DNA and one HTML file gives you a shareable link and a clean PDF that looks like you meant it. That's a PM who communicates like a leader.",
+ vis:"Big neon 1-2-3 recap"},
+
+{sec:"RECAP, HOMEWORK & CAPSTONE", title:`THIS IS YOUR <span class="g">DEMO KIT</span>`,
+ body:`<div class="sub">This one-pager IS your capstone pitch. In Session 6 you demo live. Today you built the page and the exec message you'll present with.</div>
+   <div style="position:relative;border:1px solid var(--line);border-radius:12px;background:#0e0e10;display:flex;align-items:center;justify-content:center;min-height:34vh;max-height:44vh;margin-top:8px;overflow:hidden">
+     <span style="position:absolute;top:14px;right:14px;font-family:var(--h);font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:11px;color:var(--ink);background:var(--green);padding:6px 11px;border-radius:6px">On-brand illustration</span>
+     <svg viewBox="0 0 220 200" style="width:min(260px,38vw);height:auto" fill="none">
+       <defs><radialGradient id="glow" cx="50%" cy="50%" r="50%">
+         <stop offset="0%" stop-color="#d0f539" stop-opacity=".18"/><stop offset="100%" stop-color="#d0f539" stop-opacity="0"/></radialGradient></defs>
+       <circle cx="120" cy="96" r="86" fill="url(#glow)"/>
+       <line x1="74" y1="176" x2="146" y2="176" stroke="#d0f539" stroke-width="4" stroke-linecap="round" opacity=".55"/>
+       <path d="M110 176 C 108 150 112 120 110 92" stroke="#d0f539" stroke-width="5" stroke-linecap="round"/>
+       <path d="M110 98 C 132 74 168 70 188 54 C 170 90 142 102 112 100 Z" fill="#d0f539"/>
+       <path d="M116 96 C 140 82 164 70 183 55" stroke="#0e0e10" stroke-width="2.5" stroke-linecap="round"/>
+     </svg></div>
+   <div class="shotcap">On-brand illustration, not stock. One clean leaf, dark canvas, single neon accent. Growth as the capstone metaphor.</div>`,
+ note:"Connect it to the finish line. In Sessions 7 and 8 you build and ship your capstone live. When you demo it, you'll need exactly what you built today: a crisp exec message and a clean one-pager. So keep both files. Point them at your capstone. You just built your demo kit five sessions early.",
+ vis:"[PHOTO] green seedling, one clean leaf"},
+
+{sec:"RECAP, HOMEWORK & CAPSTONE", title:`HOMEWORK BEFORE <span class="g">SESSION 5</span>`,
+ body:`<span class="turn">Homework · one task · token-light</span>
+   <div class="mono"><ol class="steps2">
+   <li>Take <span class="c">one real update</span> you sent at work recently.</li>
+   <li>Redo it with AI: tailor it to its audience, strip the generic tone, keep <span class="c">your voice.</span></li>
+   <li>Put the two side by side. Send the better one if it fits.</li></ol></div>
+   <div class="cap" style="max-width:760px;margin:12px auto 0;text-align:center">One update, in the Claude chat, ten minutes. Bring your one-pager to Session 5.</div>`,
+ note:"Homework is one thing, on purpose, and it's light. Take one real update you actually sent at work recently. Redo it with AI: tailor it to the audience, strip the generic tone, keep your voice. Put the old one and the new one side by side and feel the difference. Send the better one if it fits. That's it, ten minutes out loud. And bring your one-pager next time, because Session 5 is where we start building real AI features and the judge that keeps them honest.",
+ vis:"Mono homework: redo one real update with AI"},
+
+{sec:"CLOSE", title:`NEXT: AI FEATURES <span class="g">& AGENTS</span>`, center:true,
+ body:`<div class="rule" style="margin-left:auto;margin-right:auto"></div>
+   <div style="display:flex;justify-content:center;margin:8px 0;opacity:.5">${AST}</div>
+   <div class="sub" style="color:#fff">"Build the Judge." You'll ship a working eval and a simple custom agent.</div>`,
+ note:"Today you learned to make your work land and look like you meant it. Next time we go from using AI to building with it: how to spec an AI feature, and how to build the judge that measures whether it's any good before you ship. Bring your one-pager. See you then.",
+ vis:"Divider + faint neon asterisk motif"}
+];
+</script>
+<script src="../assets/deck.js"></script></body></html>

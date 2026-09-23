@@ -1,0 +1,517 @@
+<title>Anatomy Plates</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;800;900&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+:root{
+  --ink:#000; --surface:#0b0b0c; --line:#242426; --line2:#3a3a40; --line3:#56565e;
+  --green:#d0f539; --white:#fff; --muted:#8a8a90;
+  --h:'Barlow',system-ui,'Arial Narrow',sans-serif;
+  --b:'Inter',system-ui,sans-serif;
+  --m:'JetBrains Mono',ui-monospace,monospace;
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-io:cubic-bezier(.77,0,.175,1);
+}
+*{box-sizing:border-box}
+body{background:var(--ink);color:var(--white);font-family:var(--b);margin:0;
+  background-image:linear-gradient(var(--surface) 1px,transparent 1px),linear-gradient(90deg,var(--surface) 1px,transparent 1px);
+  background-size:48px 48px}
+.page{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:52px 96px}
+
+.masthead{border-bottom:1px solid var(--line2);padding-bottom:30px}
+.eyebrow{font-family:var(--m);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--h);font-weight:900;text-transform:uppercase;font-size:clamp(32px,6vw,62px);
+  line-height:.92;letter-spacing:-.02em;margin:16px 0 0;text-wrap:balance}
+h1 em{font-style:normal;color:var(--green)}
+.lede{color:var(--muted);font-size:16px;line-height:1.55;max-width:60ch;margin-top:18px}
+.meta{display:flex;flex-wrap:wrap;gap:0;margin-top:26px;border:1px solid var(--line2)}
+.meta div{font-family:var(--m);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);padding:9px 14px;border-right:1px solid var(--line2);flex:1 1 auto}
+.meta div:last-child{border-right:0}
+.meta b{color:var(--green);font-weight:500}
+
+figure{margin:0}
+.plate{border-bottom:1px solid var(--line);padding-block:48px}
+.phead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.pnum{font-family:var(--m);font-weight:700;font-size:11px;color:var(--green);letter-spacing:.2em}
+.pname{font-family:var(--h);font-weight:800;text-transform:uppercase;font-size:clamp(22px,3vw,32px);
+  letter-spacing:-.005em;line-height:1;margin:0}
+.pslug{font-family:var(--m);font-size:10px;color:var(--line3);letter-spacing:.1em;margin-left:auto}
+.pmotion{font-family:var(--m);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--line2);padding:3px 7px;color:var(--muted)}
+.pmotion.on{color:var(--green);border-color:var(--green)}
+.stage{margin-top:24px;border:1px solid var(--line2);background:var(--ink);padding:26px 22px;overflow-x:auto}
+.stage svg{display:block;width:100%;height:auto;max-width:100%}
+figcaption{margin-top:16px;color:var(--muted);font-size:15px;line-height:1.55;max-width:62ch}
+figcaption b{color:var(--white);font-weight:500}
+.say{margin-top:14px;font-family:var(--m);font-size:11px;color:var(--line3);letter-spacing:.05em;line-height:1.7}
+.say b{color:var(--muted);font-weight:400}
+
+.t-lab{font-family:'Barlow',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+.t-m{font-family:'JetBrains Mono',monospace}
+.t-b{font-family:'Inter',sans-serif}
+
+/* motion: only where motion IS the idea */
+@keyframes travel{to{stroke-dashoffset:-1000}}
+@keyframes fill-w{from{transform:scaleX(.03)}to{transform:scaleX(1)}}
+@keyframes hold{0%,8%{opacity:0}16%,100%{opacity:1}}
+@keyframes waitpulse{0%,100%{opacity:.35}50%{opacity:1}}
+@keyframes stepin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.mv-travel{stroke-dasharray:14 986;animation:travel 5.2s linear infinite}
+.mv-grow{transform-origin:left center;animation:fill-w 4.6s var(--ease-io) infinite alternate}
+.mv-compact{animation:waitpulse 4.6s var(--ease-io) infinite}
+.mv-wait{animation:waitpulse 2s ease-in-out infinite}
+.mv-step{animation:stepin .5s var(--ease-out) backwards}
+.mv-step:nth-of-type(1){animation-delay:.02s}
+.mv-step:nth-of-type(2){animation-delay:.07s}
+.mv-step:nth-of-type(3){animation-delay:.12s}
+.mv-hold-a{animation:hold 3.4s var(--ease-out) infinite}
+.mv-hold-b{animation:hold 3.4s var(--ease-out) infinite .35s}
+.mv-hold-c{animation:hold 3.4s var(--ease-out) infinite .7s}
+.mv-hold-d{animation:hold 3.4s var(--ease-out) infinite 1.05s}
+
+/* model table */
+.tbl{display:grid;grid-template-columns:minmax(96px,.9fr) minmax(136px,1.2fr) minmax(150px,2fr) minmax(88px,.8fr);
+  gap:0;border:1px solid var(--line2);font-variant-numeric:tabular-nums}
+.tbl>*{padding:13px 14px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+.tbl>*:nth-child(4n){border-right:0}
+.th{font-family:var(--m);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--line3);
+  background:var(--surface)}
+.mn{font-family:var(--h);font-weight:800;text-transform:uppercase;font-size:17px;letter-spacing:.01em}
+.mi{font-family:var(--m);font-size:11px;color:var(--muted);overflow-wrap:anywhere}
+.mp{font-family:var(--m);font-size:12px;text-align:right;color:var(--white)}
+.mp span{color:var(--line3)}
+.bar{height:7px;background:var(--surface);border:1px solid var(--line);position:relative}
+.bar i{position:absolute;inset:-1px auto -1px -1px;background:var(--line3);transform-origin:left center;
+  animation:fill-w .7s var(--ease-out) backwards}
+.bar i.hot{background:var(--green)}
+.mc{font-family:var(--m);font-size:10px;color:var(--line3);margin-top:7px;letter-spacing:.06em}
+@media(max-width:640px){
+  .tbl{grid-template-columns:1fr 1fr}
+  .th{display:none}
+  .tbl>*{border-right:0}
+  .mi{grid-column:1/3;padding-top:0}
+  .tbl>div:nth-child(4n+3){grid-column:1/3;padding-top:0}
+}
+.note{margin-top:20px;border:1px solid var(--green);padding:14px 16px;color:var(--muted);
+  font-size:14px;line-height:1.55;max-width:64ch}
+.note b{color:var(--green);font-weight:600;font-family:var(--m);font-size:12px;
+  letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:6px}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important}
+  .mv-grow,.bar i{transform:scaleX(1)!important}
+  .mv-step,.mv-hold-a,.mv-hold-b,.mv-hold-c,.mv-hold-d{opacity:1!important;transform:none!important}
+}
+</style>
+
+<div class="page">
+
+<div class="masthead">
+  <div class="eyebrow">ACA X · plates 01–08 · drop-in deck figures</div>
+  <h1>Where the work <em>actually</em> happens</h1>
+  <p class="lede">Eight schematics for the AI-for-PMs decks. Each one draws a mechanism to scale with real numbers, so a room can point at the thing being decided instead of reading a label.</p>
+  <div class="meta">
+    <div>Palette from <b>deck.css</b></div>
+    <div>No library, no network</div>
+    <div>Motion on <b>3 of 8</b></div>
+    <div>Honours <b>reduced-motion</b></div>
+  </div>
+</div>
+
+<!-- 01 -->
+<figure class="plate">
+  <div class="phead"><span class="pnum">01</span><h2 class="pname">The harness</h2>
+    <span class="pmotion on">animated</span><span class="pslug">fig-harness</span></div>
+  <div class="stage">
+    <svg viewBox="0 0 660 250" role="img" aria-label="A request pipeline in which the model is one small stage; the harness assembles context before it and gates the tool call after it.">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--line3)"/></marker>
+        <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--green)"/></marker>
+      </defs>
+
+      <text class="t-m" x="16" y="26" fill="var(--line3)" font-size="10" letter-spacing="2">REQUEST PATH, LEFT TO RIGHT</text>
+
+      <rect x="16" y="76" width="82" height="48" fill="none" stroke="var(--line3)"/>
+      <text class="t-lab" x="57" y="105" text-anchor="middle" fill="var(--white)" font-size="12">YOUR ASK</text>
+
+      <line x1="98" y1="100" x2="146" y2="100" stroke="var(--line3)" marker-end="url(#ar)"/>
+
+      <rect x="146" y="76" width="118" height="48" fill="none" stroke="var(--line3)"/>
+      <text class="t-lab" x="205" y="97" text-anchor="middle" fill="var(--white)" font-size="11">ASSEMBLE</text>
+      <text class="t-m" x="205" y="113" text-anchor="middle" fill="var(--muted)" font-size="9">prompt · files · tools</text>
+
+      <line x1="264" y1="100" x2="312" y2="100" stroke="var(--line3)" marker-end="url(#ar)"/>
+
+      <rect x="312" y="70" width="86" height="60" fill="none" stroke="var(--green)" stroke-width="1.5"/>
+      <text class="t-lab" x="355" y="96" text-anchor="middle" fill="var(--green)" font-size="13">MODEL</text>
+      <text class="t-m" x="355" y="114" text-anchor="middle" fill="var(--muted)" font-size="9">stateless</text>
+
+      <line x1="398" y1="100" x2="446" y2="100" stroke="var(--line3)" marker-end="url(#ar)"/>
+      <text class="t-m" x="422" y="92" text-anchor="middle" fill="var(--muted)" font-size="9">text out</text>
+
+      <rect x="446" y="76" width="96" height="48" fill="none" stroke="var(--line3)"/>
+      <text class="t-lab" x="494" y="97" text-anchor="middle" fill="var(--white)" font-size="11">GATE</text>
+      <text class="t-m" x="494" y="113" text-anchor="middle" fill="var(--muted)" font-size="9">allow / ask</text>
+
+      <line x1="542" y1="100" x2="590" y2="100" stroke="var(--green)" marker-end="url(#arg)"/>
+      <rect x="590" y="76" width="56" height="48" fill="none" stroke="var(--line3)"/>
+      <text class="t-lab" x="618" y="105" text-anchor="middle" fill="var(--white)" font-size="11">EFFECT</text>
+
+      <path class="mv-travel" d="M57 100 H355 H494 H618" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round"/>
+
+      <line x1="146" y1="162" x2="646" y2="162" stroke="var(--line2)"/>
+      <line x1="146" y1="156" x2="146" y2="168" stroke="var(--line2)"/>
+      <line x1="646" y1="156" x2="646" y2="168" stroke="var(--line2)"/>
+      <line x1="312" y1="156" x2="312" y2="168" stroke="var(--green)"/>
+      <line x1="398" y1="156" x2="398" y2="168" stroke="var(--green)"/>
+      <text class="t-m" x="240" y="182" text-anchor="middle" fill="var(--muted)" font-size="10">harness</text>
+      <text class="t-m" x="355" y="182" text-anchor="middle" fill="var(--green)" font-size="10">model</text>
+      <text class="t-m" x="520" y="182" text-anchor="middle" fill="var(--muted)" font-size="10">harness</text>
+
+      <text class="t-b" x="16" y="222" fill="var(--muted)" font-size="12">Buying a better model improves one stage. Every other stage is a decision someone on your side made.</text>
+    </svg>
+  </div>
+  <figcaption>The model is one stage in a longer path. <b>What it sees, what it may touch, and what needs a signature are all built around it</b>, by people, not by the vendor.</figcaption>
+  <p class="say"><b>Say it like this:</b> the engine is bought in. The brakes, the mirrors and the driver are yours.</p>
+</figure>
+
+<!-- 02 -->
+<figure class="plate">
+  <div class="phead"><span class="pnum">02</span><h2 class="pname">The agent loop</h2>
+    <span class="pmotion on">animated</span><span class="pslug">fig-loop</span></div>
+  <div class="stage">
+    <svg viewBox="0 0 660 260" role="img" aria-label="A cycle of read, decide, act and observe, with a test that exits the loop when no tool is needed.">
+      <defs>
+        <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--line3)"/></marker>
+      </defs>
+
+      <rect x="40" y="60" width="104" height="44" fill="none" stroke="var(--line3)"/>
+      <text class="t-lab" x="92" y="87" text-anchor="middle" fill="var(--white)" font-size="12">READ</text>
+      <rect x="248" y="60" width="104" height="44" fill="none" stroke="var(--line3)"/>
+      <text class="t-lab" x="300" y="87" text-anchor="middle" fill="var(--white)" font-size="12">DECIDE</text>
+      <rect x="248" y="166" width="104" height="44" fill="none" stroke="var(--line3)"/>
+      <text class="t-lab" x="300" y="193" text-anchor="middle" fill="var(--white)" font-size="12">ACT</text>
+      <rect x="40" y="166" width="104" height="44" fill="none" stroke="var(--line3)"/>
+      <text class="t-lab" x="92" y="193" text-anchor="middle" fill="var(--white)" font-size="12">OBSERVE</text>
+
+      <line x1="144" y1="82" x2="242" y2="82" stroke="var(--line3)" marker-end="url(#ar2)"/>
+      <text class="t-m" x="193" y="74" text-anchor="middle" fill="var(--muted)" font-size="9">whole window</text>
+      <line x1="300" y1="104" x2="300" y2="160" stroke="var(--line3)" marker-end="url(#ar2)"/>
+      <text class="t-m" x="310" y="136" fill="var(--muted)" font-size="9">tool call</text>
+      <line x1="248" y1="188" x2="150" y2="188" stroke="var(--line3)" marker-end="url(#ar2)"/>
+      <text class="t-m" x="199" y="206" text-anchor="middle" fill="var(--muted)" font-size="9">result appended</text>
+      <line x1="92" y1="166" x2="92" y2="110" stroke="var(--line3)" marker-end="url(#ar2)"/>
+      <text class="t-m" x="82" y="140" text-anchor="end" fill="var(--muted)" font-size="9">next pass</text>
+
+      <path class="mv-travel" d="M92 82 H300 V188 H92 V82" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round"/>
+
+      <path d="M420 82 L462 60 L504 82 L462 104 Z" fill="none" stroke="var(--line3)"/>
+      <text class="t-m" x="462" y="86" text-anchor="middle" fill="var(--white)" font-size="10">tool?</text>
+      <line x1="352" y1="82" x2="414" y2="82" stroke="var(--line3)" marker-end="url(#ar2)"/>
+      <line x1="504" y1="82" x2="566" y2="82" stroke="var(--green)" stroke-width="1.5" marker-end="url(#ar2)"/>
+      <text class="t-m" x="535" y="74" text-anchor="middle" fill="var(--green)" font-size="9">no</text>
+      <text class="t-lab" x="576" y="87" fill="var(--green)" font-size="12">STOP</text>
+      <line x1="462" y1="104" x2="462" y2="140" stroke="var(--line3)"/>
+      <line x1="462" y1="140" x2="356" y2="140" stroke="var(--line3)" marker-end="url(#ar2)"/>
+      <text class="t-m" x="472" y="126" fill="var(--muted)" font-size="9">yes</text>
+
+      <text class="t-b" x="40" y="246" fill="var(--muted)" font-size="12">Nobody writes the number of passes. The model chooses, and every pass bills the whole window again.</text>
+    </svg>
+  </div>
+  <figcaption>An agent is a loop, not an answer. The exit test is the only thing standing between a useful run and a runaway one, so <b>the first question about any agent is what makes it stop.</b></figcaption>
+  <p class="say"><b>Say it like this:</b> you are not buying an answer. You are authorising a number of attempts you cannot see in advance.</p>
+</figure>
+
+<!-- 03 -->
+<figure class="plate">
+  <div class="phead"><span class="pnum">03</span><h2 class="pname">The context window</h2>
+    <span class="pmotion on">animated</span><span class="pslug">fig-context</span></div>
+  <div class="stage">
+    <svg viewBox="0 0 660 260" role="img" aria-label="A context window drawn to scale: fixed overhead occupies a small fraction, conversation grows until it reaches a compaction threshold.">
+      <text class="t-m" x="20" y="26" fill="var(--line3)" font-size="10" letter-spacing="2">DRAWN TO SCALE · 1,000,000 TOKENS END TO END</text>
+
+      <line x1="20" y1="48" x2="640" y2="48" stroke="var(--line2)"/>
+      <g stroke="var(--line2)">
+        <line x1="20" y1="44" x2="20" y2="54"/><line x1="144" y1="44" x2="144" y2="54"/>
+        <line x1="268" y1="44" x2="268" y2="54"/><line x1="392" y1="44" x2="392" y2="54"/>
+        <line x1="516" y1="44" x2="516" y2="54"/><line x1="640" y1="44" x2="640" y2="54"/>
+      </g>
+      <g class="t-m" font-size="9" fill="var(--line3)">
+        <text x="20" y="40">0</text><text x="144" y="40" text-anchor="middle">200K</text>
+        <text x="268" y="40" text-anchor="middle">400K</text><text x="392" y="40" text-anchor="middle">600K</text>
+        <text x="516" y="40" text-anchor="middle">800K</text><text x="640" y="40" text-anchor="end">1M</text>
+      </g>
+
+      <rect x="20" y="72" width="620" height="44" fill="none" stroke="var(--line2)"/>
+      <rect x="21" y="73" width="12" height="42" fill="var(--line3)"/>
+      <rect x="33" y="73" width="7" height="42" fill="var(--line2)"/>
+      <rect x="40" y="73" width="10" height="42" fill="var(--line3)"/>
+      <g class="mv-grow"><rect x="50" y="73" width="480" height="42" fill="var(--green)" opacity=".26"/></g>
+
+      <line x1="530" y1="64" x2="530" y2="124" stroke="var(--green)" stroke-width="1.5"/>
+      <text class="t-m mv-compact" x="536" y="70" fill="var(--green)" font-size="9">COMPACTION ~150K OF NEW WORK</text>
+
+      <g stroke="var(--line2)">
+        <line x1="27" y1="116" x2="27" y2="142"/><line x1="36" y1="116" x2="36" y2="150"/>
+        <line x1="45" y1="116" x2="45" y2="158"/><line x1="200" y1="116" x2="200" y2="142"/>
+      </g>
+      <g class="t-m" font-size="9">
+        <text x="33" y="140" fill="var(--muted)">system prompt · fixed</text>
+        <text x="42" y="156" fill="var(--muted)">CLAUDE.md · fixed</text>
+        <text x="51" y="172" fill="var(--muted)">tool definitions · fixed</text>
+        <text x="206" y="140" fill="var(--green)">conversation and files · grows every turn</text>
+      </g>
+
+      <text class="t-b" x="20" y="206" fill="var(--white)" font-size="12">The fixed block is small but you pay for it on every single turn.</text>
+      <text class="t-b" x="20" y="226" fill="var(--muted)" font-size="12">Nothing survives outside the bar. What is not in the window did not happen.</text>
+    </svg>
+  </div>
+  <figcaption>Working memory, billed per turn, not a filing cabinet. <b>A long thread is not a relationship, it is a cost curve</b>, and compaction is the tool quietly deciding what to forget.</figcaption>
+  <p class="say"><b>Say it like this:</b> every morning it wakes with amnesia and you re-brief it. The brief is the product.</p>
+</figure>
+
+<!-- 04 -->
+<figure class="plate">
+  <div class="phead"><span class="pnum">04</span><h2 class="pname">CLAUDE.md</h2>
+    <span class="pmotion">static</span><span class="pslug">fig-claudemd</span></div>
+  <div class="stage">
+    <svg viewBox="0 0 660 250" role="img" aria-label="Three layers of instruction files where the most specific layer overrides the more general ones, resolving a conflicting rule.">
+      <defs>
+        <marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--line3)"/></marker>
+      </defs>
+
+      <text class="t-m" x="20" y="26" fill="var(--line3)" font-size="10" letter-spacing="2">GENERAL → SPECIFIC · LAST ONE WINS</text>
+
+      <g class="mv-step">
+        <rect x="20" y="46" width="300" height="46" fill="none" stroke="var(--line2)"/>
+        <text class="t-m" x="34" y="66" fill="var(--muted)" font-size="11">~/.claude/CLAUDE.md</text>
+        <text class="t-m" x="34" y="82" fill="var(--line3)" font-size="10">"never send without approval"</text>
+      </g>
+      <g class="mv-step">
+        <rect x="20" y="102" width="300" height="46" fill="none" stroke="var(--line2)"/>
+        <text class="t-m" x="34" y="122" fill="var(--muted)" font-size="11">repo/CLAUDE.md</text>
+        <text class="t-m" x="34" y="138" fill="var(--line3)" font-size="10">"synthetic data only"</text>
+      </g>
+      <g class="mv-step">
+        <rect x="20" y="158" width="300" height="46" fill="none" stroke="var(--green)" stroke-width="1.5"/>
+        <text class="t-m" x="34" y="178" fill="var(--green)" font-size="11">repo/reports/CLAUDE.md</text>
+        <text class="t-m" x="34" y="194" fill="var(--muted)" font-size="10">"weekly report may send itself"</text>
+      </g>
+
+      <line x1="320" y1="125" x2="380" y2="125" stroke="var(--line3)" marker-end="url(#ar4)"/>
+      <text class="t-m" x="350" y="117" text-anchor="middle" fill="var(--muted)" font-size="9">merge</text>
+
+      <rect x="392" y="46" width="248" height="158" fill="none" stroke="var(--line3)"/>
+      <text class="t-lab" x="406" y="70" fill="var(--white)" font-size="12">IN EFFECT HERE</text>
+      <g class="t-m" font-size="10">
+        <text x="406" y="98" fill="var(--muted)">synthetic data only</text>
+        <text x="406" y="122" fill="var(--muted)">approval before sending</text>
+        <text x="406" y="146" fill="var(--green)">…except the weekly report</text>
+      </g>
+      <line x1="406" y1="112" x2="560" y2="112" stroke="var(--line2)"/>
+      <line x1="406" y1="136" x2="560" y2="136" stroke="var(--line2)"/>
+      <text class="t-m" x="406" y="180" fill="var(--line3)" font-size="9">a rule you cannot find is a rule you cannot audit</text>
+
+      <text class="t-b" x="20" y="238" fill="var(--muted)" font-size="12">These guide behaviour. The thing that actually blocks an action is the permission setting, not the sentence.</text>
+    </svg>
+  </div>
+  <figcaption>Standing instructions, loaded before you type. They layer general to specific and the narrowest file wins, which is <b>exactly how a well-meant local exception quietly cancels a bank-wide rule.</b></figcaption>
+  <p class="say"><b>Say it like this:</b> it is the onboarding note you never repeat. It is not the door badge.</p>
+</figure>
+
+<!-- 05 -->
+<figure class="plate">
+  <div class="phead"><span class="pnum">05</span><h2 class="pname">Subagents</h2>
+    <span class="pmotion on">animated</span><span class="pslug">fig-subagents</span></div>
+  <div class="stage">
+    <svg viewBox="0 0 660 280" role="img" aria-label="One orchestrator delegating to four subagents, each burning its own large context, returning only short answers so the main thread stays small.">
+      <defs>
+        <marker id="ar5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--line3)"/></marker>
+        <marker id="ar5g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--green)"/></marker>
+      </defs>
+
+      <rect x="258" y="20" width="144" height="42" fill="none" stroke="var(--green)" stroke-width="1.5"/>
+      <text class="t-lab" x="330" y="39" text-anchor="middle" fill="var(--green)" font-size="12">MAIN THREAD</text>
+      <text class="t-m" x="330" y="54" text-anchor="middle" fill="var(--muted)" font-size="9">holds ~8K</text>
+
+      <g stroke="var(--line3)" fill="none">
+        <path d="M330 62 V82 H68 V104" marker-end="url(#ar5)"/>
+        <path d="M330 62 V82 H243 V104" marker-end="url(#ar5)"/>
+        <path d="M330 62 V82 H417 V104" marker-end="url(#ar5)"/>
+        <path d="M330 62 V82 H592 V104" marker-end="url(#ar5)"/>
+      </g>
+      <text class="t-m" x="330" y="78" text-anchor="middle" fill="var(--muted)" font-size="9">one instruction each</text>
+
+      <g class="mv-hold-a"><rect x="12" y="104" width="112" height="58" fill="none" stroke="var(--line2)"/>
+        <text class="t-m" x="68" y="124" text-anchor="middle" fill="var(--white)" font-size="10">reads 60K</text>
+        <rect x="26" y="134" width="84" height="6" fill="var(--line2)"/>
+        <rect x="26" y="134" width="76" height="6" fill="var(--green)" opacity=".7"/>
+        <text class="t-m" x="68" y="156" text-anchor="middle" fill="var(--line3)" font-size="9">own window</text></g>
+      <g class="mv-hold-b"><rect x="187" y="104" width="112" height="58" fill="none" stroke="var(--line2)"/>
+        <text class="t-m" x="243" y="124" text-anchor="middle" fill="var(--white)" font-size="10">reads 45K</text>
+        <rect x="201" y="134" width="84" height="6" fill="var(--line2)"/>
+        <rect x="201" y="134" width="58" height="6" fill="var(--green)" opacity=".7"/>
+        <text class="t-m" x="243" y="156" text-anchor="middle" fill="var(--line3)" font-size="9">own window</text></g>
+      <g class="mv-hold-c"><rect x="361" y="104" width="112" height="58" fill="none" stroke="var(--line2)"/>
+        <text class="t-m" x="417" y="124" text-anchor="middle" fill="var(--white)" font-size="10">reads 72K</text>
+        <rect x="375" y="134" width="84" height="6" fill="var(--line2)"/>
+        <rect x="375" y="134" width="84" height="6" fill="var(--green)" opacity=".7"/>
+        <text class="t-m" x="417" y="156" text-anchor="middle" fill="var(--line3)" font-size="9">own window</text></g>
+      <g class="mv-hold-d"><rect x="536" y="104" width="112" height="58" fill="none" stroke="var(--line2)"/>
+        <text class="t-m" x="592" y="124" text-anchor="middle" fill="var(--white)" font-size="10">reads 31K</text>
+        <rect x="550" y="134" width="84" height="6" fill="var(--line2)"/>
+        <rect x="550" y="134" width="40" height="6" fill="var(--green)" opacity=".7"/>
+        <text class="t-m" x="592" y="156" text-anchor="middle" fill="var(--line3)" font-size="9">own window</text></g>
+
+      <g stroke="var(--green)" fill="none" opacity=".85">
+        <path d="M68 162 V190 H330 V212" marker-end="url(#ar5g)"/>
+        <path d="M243 162 V190"/><path d="M417 162 V190"/><path d="M592 162 V190 H330"/>
+      </g>
+      <text class="t-m" x="330" y="184" text-anchor="middle" fill="var(--green)" font-size="9">~400 words back, each</text>
+
+      <rect x="234" y="212" width="192" height="40" fill="none" stroke="var(--green)" stroke-width="1.5"/>
+      <text class="t-lab" x="330" y="237" text-anchor="middle" fill="var(--green)" font-size="12">FOUR MEMOS</text>
+
+      <text class="t-b" x="12" y="272" fill="var(--muted)" font-size="12">208K of reading happened. The thread you review never held more than about 10K of it.</text>
+    </svg>
+  </div>
+  <figcaption>Fan work out when one job would fill the window with reading. Each subagent burns its own context and returns a conclusion, so <b>the reviewable thread stays short, and so does what you can actually check.</b></figcaption>
+  <p class="say"><b>Say it like this:</b> four researchers, four libraries, four memos. You never see the libraries, which is the point and the risk.</p>
+</figure>
+
+<!-- 06 -->
+<figure class="plate">
+  <div class="phead"><span class="pnum">06</span><h2 class="pname">Picking a model</h2>
+    <span class="pmotion">static</span><span class="pslug">fig-models</span></div>
+  <div class="stage">
+    <div class="tbl">
+      <div class="th">Model</div><div class="th">Model ID</div><div class="th">Context, to scale</div><div class="th">In / out per 1M</div>
+
+      <div class="mn">Fable 5.1</div>
+      <div class="mi">claude-fable-5-1</div>
+      <div><div class="bar"><i style="width:100%;animation-delay:.02s"></i></div><div class="mc">1M · hardest reasoning</div></div>
+      <div class="mp">$10<span> / </span>$50</div>
+
+      <div class="mn">Opus 5</div>
+      <div class="mi">claude-opus-5</div>
+      <div><div class="bar"><i class="hot" style="width:100%;animation-delay:.09s"></i></div><div class="mc">1M · the default</div></div>
+      <div class="mp">$5<span> / </span>$25</div>
+
+      <div class="mn">Sonnet 5</div>
+      <div class="mi">claude-sonnet-5</div>
+      <div><div class="bar"><i style="width:100%;animation-delay:.16s"></i></div><div class="mc">1M · volume work</div></div>
+      <div class="mp">$2<span> / </span>$10</div>
+
+      <div class="mn">Haiku 4.5</div>
+      <div class="mi">claude-haiku-4-5</div>
+      <div><div class="bar"><i style="width:20%;animation-delay:.23s"></i></div><div class="mc">200K · fast and cheap</div></div>
+      <div class="mp">$1<span> / </span>$5</div>
+    </div>
+    <p class="note"><b>Two names to drop</b>There is no Opus 5.5, and Astra is not a Claude model. If either appears in a slide or a brief, it came from somewhere else and needs a source before it goes in front of a room.</p>
+  </div>
+  <figcaption>Four current models, context drawn to scale and price shown per million tokens. The top of the range costs ten times the bottom, so <b>model choice is a budget decision that quietly repeats on every call.</b></figcaption>
+  <p class="say"><b>Say it like this:</b> you do not send a partner to take the meeting notes. Same logic, same bill.</p>
+</figure>
+
+<!-- 07 -->
+<figure class="plate">
+  <div class="phead"><span class="pnum">07</span><h2 class="pname">Skills load late</h2>
+    <span class="pmotion">static</span><span class="pslug">fig-skills</span></div>
+  <div class="stage">
+    <svg viewBox="0 0 660 240" role="img" aria-label="Forty skill descriptions stay loaded at low cost while only the matching skill's full body is pulled into the context.">
+      <defs>
+        <marker id="ar7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--green)"/></marker>
+      </defs>
+
+      <text class="t-m" x="20" y="24" fill="var(--line3)" font-size="10" letter-spacing="2">ALWAYS LOADED · 40 SKILLS × ~1 LINE = ~4K TOKENS</text>
+
+      <g stroke="var(--line2)" fill="none">
+        <rect x="20" y="40" width="150" height="26"/><rect x="20" y="72" width="150" height="26"/>
+        <rect x="20" y="136" width="150" height="26"/><rect x="20" y="168" width="150" height="26"/>
+      </g>
+      <rect x="20" y="104" width="150" height="26" fill="none" stroke="var(--green)" stroke-width="1.5"/>
+      <g class="t-m" font-size="10">
+        <text x="32" y="58" fill="var(--line3)">brand-voice</text>
+        <text x="32" y="90" fill="var(--line3)">data-brief</text>
+        <text x="32" y="122" fill="var(--green)">prd-writer</text>
+        <text x="32" y="154" fill="var(--line3)">judge-rubric</text>
+        <text x="32" y="186" fill="var(--line3)">…36 more</text>
+      </g>
+
+      <line x1="176" y1="117" x2="244" y2="117" stroke="var(--green)" stroke-width="1.5" marker-end="url(#ar7)"/>
+      <text class="t-m" x="210" y="109" text-anchor="middle" fill="var(--green)" font-size="9">matched</text>
+      <text class="t-m" x="210" y="133" text-anchor="middle" fill="var(--line3)" font-size="9">by its one line</text>
+
+      <rect x="256" y="40" width="384" height="154" fill="none" stroke="var(--green)" stroke-width="1.5"/>
+      <text class="t-lab" x="272" y="64" fill="var(--green)" font-size="12">PULLED IN ON MATCH · ~8K TOKENS</text>
+      <g class="t-m" font-size="10" fill="var(--muted)">
+        <text x="272" y="92">the full instructions</text>
+        <text x="272" y="116">the templates it must follow</text>
+        <text x="272" y="140">the checks it must pass</text>
+      </g>
+      <line x1="272" y1="102" x2="616" y2="102" stroke="var(--line2)"/>
+      <line x1="272" y1="126" x2="616" y2="126" stroke="var(--line2)"/>
+      <text class="t-m" x="272" y="172" fill="var(--line3)" font-size="9">the other 39 bodies are never read, never billed</text>
+
+      <text class="t-b" x="20" y="226" fill="var(--muted)" font-size="12">The description is the whole matching surface. Write it for the moment of need, not for the filing cabinet.</text>
+    </svg>
+  </div>
+  <figcaption>A skill keeps its body on the shelf and only its one-line description in the window. <b>That one line is the entire reason it ever gets used</b>, which is why a badly written description is a skill nobody's assistant ever opens.</figcaption>
+  <p class="say"><b>Say it like this:</b> the description is the job advert. The body is the training manual, opened on day one only.</p>
+</figure>
+
+<!-- 08 -->
+<figure class="plate">
+  <div class="phead"><span class="pnum">08</span><h2 class="pname">The permission gate</h2>
+    <span class="pmotion on">animated</span><span class="pslug">fig-permissions</span></div>
+  <div class="stage">
+    <svg viewBox="0 0 660 250" role="img" aria-label="Tool calls sorted by reversibility into allowed, paused for a human, and refused outright.">
+      <defs>
+        <marker id="ar8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--line3)"/></marker>
+      </defs>
+
+      <text class="t-m" x="20" y="24" fill="var(--line3)" font-size="10" letter-spacing="2">SORTED BY WHAT IT COSTS TO UNDO</text>
+
+      <text class="t-lab" x="20" y="52" fill="var(--white)" font-size="11">TOOL CALL</text>
+      <line x1="20" y1="120" x2="176" y2="120" stroke="var(--line3)" marker-end="url(#ar8)"/>
+
+      <rect x="188" y="44" width="70" height="158" fill="none" stroke="var(--line3)"/>
+      <text class="t-lab" x="223" y="128" text-anchor="middle" fill="var(--muted)" font-size="11"
+            transform="rotate(-90 223 128)">GATE</text>
+
+      <line x1="258" y1="72" x2="382" y2="72" stroke="var(--line3)" marker-end="url(#ar8)"/>
+      <text class="t-lab" x="396" y="68" fill="var(--white)" font-size="13">ALLOW</text>
+      <text class="t-m" x="396" y="86" fill="var(--muted)" font-size="10">read a file · search · draft</text>
+      <text class="t-m" x="640" y="68" text-anchor="end" fill="var(--line3)" font-size="9">free to undo</text>
+
+      <g class="mv-wait">
+        <line x1="258" y1="124" x2="382" y2="124" stroke="var(--green)" stroke-width="1.5" marker-end="url(#ar8)"/>
+        <circle cx="320" cy="124" r="6" fill="none" stroke="var(--green)" stroke-width="1.5"/>
+      </g>
+      <text class="t-lab" x="396" y="120" fill="var(--green)" font-size="13">ASK</text>
+      <text class="t-m" x="396" y="138" fill="var(--muted)" font-size="10">send · commit · change a record</text>
+      <text class="t-m" x="640" y="120" text-anchor="end" fill="var(--green)" font-size="9">a person signs</text>
+
+      <line x1="258" y1="176" x2="368" y2="176" stroke="var(--line2)"/>
+      <line x1="374" y1="170" x2="386" y2="182" stroke="var(--line2)" stroke-width="2"/>
+      <line x1="386" y1="170" x2="374" y2="182" stroke="var(--line2)" stroke-width="2"/>
+      <text class="t-lab" x="396" y="172" fill="var(--line3)" font-size="13">NEVER</text>
+      <text class="t-m" x="396" y="190" fill="var(--line3)" font-size="10">customer data · payments · production</text>
+      <text class="t-m" x="640" y="172" text-anchor="end" fill="var(--line3)" font-size="9">cannot be undone</text>
+
+      <text class="t-b" x="20" y="232" fill="var(--muted)" font-size="12">Written rules ask nicely. This is the layer that actually refuses. Set it before the demo, not after the incident.</text>
+    </svg>
+  </div>
+  <figcaption>Sort every action by what it costs to reverse, not by how clever it is. <b>Reading is free to undo; sending, paying and writing to production are not</b>, and a bank's real AI policy is this table, filled in.</figcaption>
+  <p class="say"><b>Say it like this:</b> the instruction file asks nicely. The gate is the thing that says no.</p>
+</figure>
+
+</div>

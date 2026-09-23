@@ -51,7 +51,7 @@ window.SLIDES = [
 
 {sec:"RUTHLESS SCOPING", title:`EVERY PRODUCT HAS ONE <span class="g">MAGIC MOMENT</span>`,
  body:`<div class="sub">The single action where the user goes "oh, nice." Build only that. Everything else is later.</div>
-   <img class="shot" src="../assets/img/s7/magic-moment.png"><div class="shotcap">A running local prototype at its magic moment: an idea pasted in, a score + verdict appearing below</div>`,
+   <img class="shot" src="../assets/img/s7/magic-moment.png" alt="A running local prototype at its magic moment: an idea pasted in, a score + verdict appearing below"><div class="shotcap">A running local prototype at its magic moment: an idea pasted in, a score + verdict appearing below</div>`,
  note:"Find your magic moment. The one action where the user feels the value. A loan pre-check: paste an applicant's income and loan amount, see approve, refer, or decline with a reason. A spend categorizer: paste a month of transactions, watch them sort into buckets. An idea scorer: paste an idea, see a score. That one moment is your feature today. Login, settings, dashboards, accounts, all of it is later. Later is Session 6 and beyond.",
  vis:"Screenshot: a running prototype at its magic moment, an input in and a verdict out."},
 
@@ -129,7 +129,7 @@ window.SLIDES = [
    <li>Ask for small edits to named files, never "rebuild everything."</li>
    <li>Let it run and read its own errors.</li>
    <li>Start a fresh chat when it gets slow.</li></ul>
-   <img class="shot" src="../assets/img/s7/rctc-prompt.png"><div class="shotcap">A small R·C·T·C instruction typed at the Claude Code prompt in the terminal</div>`,
+   <img class="shot" src="../assets/img/s7/rctc-prompt.png" alt="A small R·C·T·C instruction typed at the Claude Code prompt in the terminal"><div class="shotcap">A small R·C·T·C instruction typed at the Claude Code prompt in the terminal</div>`,
  note:"How you talk to it decides your token bill and your speed. Same R·C·T·C: a role, your context, one precise task, and ask it to flag risks first. Then four rules. One feature per prompt. Ask for small edits to a named file, never 'rebuild everything.' Let it run the code and read its own errors. And when the conversation gets long and slow, start a fresh one and paste the current file. Small and iterative wins.",
  vis:"Screenshot: a small R·C·T·C instruction typed at the Claude Code prompt in the terminal."},
 
@@ -160,7 +160,7 @@ window.SLIDES = [
 
 {sec:"BUILD THE CORE", title:`FAKE IT BEFORE YOU <span class="g">MAKE IT</span>`,
  body:`<div class="sub">Mock data = fake data hard-coded in the page. A small JSON array is enough to build the whole feature. Real data is a Session-8 problem.</div>
-   <img class="shot" src="../assets/img/s7/mock-data.png"><div class="shotcap">A small mock-data JSON array at the top of index.html in VS Code, about 8 fake items</div>`,
+   <img class="shot" src="../assets/img/s7/mock-data.png" alt="A small mock-data JSON array at the top of index.html in VS Code, about 8 fake items"><div class="shotcap">A small mock-data JSON array at the top of index.html in VS Code, about 8 fake items</div>`,
  note:"The trick that keeps today small: mock data. Instead of connecting a database, paste a short fake list right into the page, five or ten example items. Your feature reads from that. It looks and behaves real, and you built it in minutes. Wiring real data comes later. Fake it convincingly today.",
  vis:"Screenshot: a mock-data JSON array at the top of index.html."},
 
@@ -203,7 +203,7 @@ window.SLIDES = [
    <div class="row"><span class="a">It over-built</span><span class="arw">→</span><span class="b">"undo the extra, keep only [feature]"</span></div>
    <div class="row"><span class="a">Slow / looping</span><span class="arw">→</span><span class="b"><b>fresh chat</b>, paste the current file</span></div>
    <div class="row"><span class="a">Lost</span><span class="arw">→</span><span class="b">describe what you <b>SEE</b> vs what you <b>WANT</b></span></div></div>
-   <img class="shot" src="../assets/img/s7/console-error.png"><div class="shotcap">A browser console (F12) red error, ready to paste back into Claude Code</div>`,
+   <img class="shot" src="../assets/img/s7/console-error.png" alt="A browser console (F12) red error, ready to paste back into Claude Code"><div class="shotcap">A browser console (F12) red error, ready to paste back into Claude Code</div>`,
  note:"Keep this slide up. Blank screen, open the console with F12 and paste the red error back to Claude Code. Won't run, give it the exact command and message. If it went rogue and built too much, tell it to strip back to your one feature. If it's slow or going in circles, start a fresh chat and paste your current file in, cheaper and clearer. And the universal fix: describe what you SEE versus what you WANT. It fixes fast when you're specific.",
  vis:"Screenshot: a browser console (F12) red error pasted into Claude Code."},
 

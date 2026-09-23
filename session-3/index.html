@@ -56,13 +56,13 @@ window.SLIDES = [
 
 {sec:`BRING DATA TO AI`, title:`WHAT SQL WAS FOR, <span class="g">& WHY YOU CAN SKIP IT</span>`,
  body:`<div class="sub" style="margin-top:0">SQL is a language for asking a database questions. AI removes the syntax tax: you ask in plain English, it writes and runs the query for you.</div>
-   <img class="shot" src="../assets/img/s4/plain-english-answer.png"><div class="shotcap">A plain-English question typed into Claude with its answer. The user wrote no SQL.</div>`,
+   <img class="shot" src="../assets/img/s4/plain-english-answer.png" alt="A plain-English question typed into Claude with its answer. The user wrote no SQL"><div class="shotcap">A plain-English question typed into Claude with its answer. The user wrote no SQL.</div>`,
  note:`SQL is just a strict language for asking a table questions like, how many customers churned last month. The barrier was never the thinking. It was the punctuation. AI collapses that. You describe the question in plain English, and the AI does the mechanical part. Your skill moves up to asking the right question and checking the answer, which is where a PM belongs anyway.`,
  vis:`[SCREENSHOT] plain-English question and answer, no SQL`},
 
 {sec:`BRING DATA TO AI`, title:`THREE WAYS TO <span class="g">GET DATA TO AI</span>`,
  body:`<ul class="checklist"><li><b style="color:#fff">Upload a file</b> (CSV / Excel) into the chat</li><li><b style="color:#fff">Connect a source</b> (a live connector, where your tool allows it)</li><li><b style="color:#fff">Analysis mode</b>: AI writes and runs code on your file and shows the result</li></ul>
-   <img class="shot" src="../assets/img/s4/csv-drag.png"><div class="shotcap">A CSV file being dragged into the Claude chat (door one: upload a file)</div>`,
+   <img class="shot" src="../assets/img/s4/csv-drag.png" alt="A CSV file being dragged into the Claude chat (door one: upload a file)"><div class="shotcap">A CSV file being dragged into the Claude chat (door one: upload a file)</div>`,
  note:`Three doors, no SQL behind any of them. Drag a CSV straight into the chat. Or connect a live source if your tool allows it. Or use an analysis mode where the AI writes and runs real code on your file and hands you the result. For a quick test we use door one, a tiny CSV. Small file, tight prompt, cheap. But door two, a connector, is worth understanding, so let me name it properly.`,
  vis:`[SCREENSHOT] CSV dragged into Claude chat`},
 
@@ -103,7 +103,7 @@ window.SLIDES = [
 
 {sec:`BRING DATA TO AI · Picsart`, title:`DATA TO ANSWERS, <span class="g">NO QUERIES</span>`,
  body:`<div class="sub" style="margin-top:0">I run marketing reports across five platforms and a lifecycle dashboard. I ask questions in plain English. I never hand-write the queries.</div>
-   <img class="shot" src="../assets/img/s4/marketing-dashboard.png"><div class="shotcap">Marketing dashboard or monthly report, high-level, no confidential figures</div>`,
+   <img class="shot" src="../assets/img/s4/marketing-dashboard.png" alt="Marketing dashboard or monthly report, high-level, no confidential figures"><div class="shotcap">Marketing dashboard or monthly report, high-level, no confidential figures</div>`,
  note:`My own example, kept high-level. I run monthly reports pulling numbers across five platforms, plus a dashboard for messaging experiments. I am not writing database queries. I describe what I want, the system pulls and shapes it, and I spend my time on the part that matters: is this right, and what do we do about it. In your world it is the same picture, a churn report or transaction volumes instead of social posts. Same shift.`,
  vis:`[SCREENSHOT] marketing dashboard, high-level`},
 
@@ -147,7 +147,7 @@ window.SLIDES = [
 
 {sec:`VERIFY WITHOUT SQL`, title:`EXPLAIN THE LOGIC, <span class="g">NOT THE CODE</span>`,
  body:`<div class="sub" style="margin-top:0">Do not ask to see the code. Ask: "Explain, in plain English, exactly how you got this number." You verify the logic, not the syntax.</div>
-   <img class="shot" src="../assets/img/s4/explain-rate.png"><div class="shotcap">Claude explaining, in plain English step by step, how it calculated a number</div>`,
+   <img class="shot" src="../assets/img/s4/explain-rate.png" alt="Claude explaining, in plain English step by step, how it calculated a number"><div class="shotcap">Claude explaining, in plain English step by step, how it calculated a number</div>`,
  note:`You do not need to read code to verify data. Ask it to explain its reasoning in plain English: what did you use, what did you leave out, what did you count. If the logic is wrong, the number is wrong, and now you can see it without being technical. This is how a non-SQL PM out-verifies an engineer who only checks that the query runs.`,
  vis:`[SCREENSHOT] Claude explaining the calculation in plain English`},
 
@@ -173,7 +173,7 @@ window.SLIDES = [
 
 {sec:`VERIFY WITHOUT SQL · Picsart`, title:`THE SILENT WRONG NUMBER, <span class="g">FOR REAL</span>`,
  body:`<ul class="checklist"><li>A viral post was <b style="color:#fff">missing</b> from one report (paid posts were not in that source)</li><li>One platform reported <b style="color:#fff">impressions</b>, another <b style="color:#fff">views</b>. Off by ~20x</li><li>"Reach" counted differently everywhere</li></ul>
-   <img class="shot" src="../assets/img/s4/views-vs-impressions.png"><div class="shotcap">A monthly report missing a high-performing post, plus two platforms labeling the same metric "views" vs "impressions". High-level, no confidential figures.</div>`,
+   <img class="shot" src="../assets/img/s4/views-vs-impressions.png" alt="A monthly report missing a high-performing post, plus two platforms labeling the same metric &quot;views&quot; vs &quot;impressions&quot;. High-level, no confidential"><div class="shotcap">A monthly report missing a high-performing post, plus two platforms labeling the same metric "views" vs "impressions". High-level, no confidential figures.</div>`,
  note:`This is not theory for me. One of our biggest posts simply did not appear in a report, because that data source never included paid posts. Another time, two platforms both said views, but one meant impressions and one meant real views, off by about twenty times. Same word, different meaning. If I had trusted the raw number I would have made a real, wrong call. In your world it is two teams that both say active customer but count it differently, one at sign-up, one at first transaction. The three checks are what catch it.`,
  vis:`[SCREENSHOT] report missing a top post, views vs impressions`},
 
@@ -190,13 +190,13 @@ window.SLIDES = [
 {sec:`READ EXPERIMENTS`, title:`SIGNIFICANCE, <span class="g">IN PLAIN ENGLISH</span>`,
  body:`<div class="sub" style="margin-top:0">Significance = "is this difference real, or could it be luck?" Small sample plus small difference = probably luck.</div>
    <div class="mono" style="margin-top:14px"><span class="c">"Is this difference statistically significant? Explain like I am not a statistician."</span></div>
-   <img class="shot" src="../assets/img/s4/significance.png"><div class="shotcap">Claude answering "is this difference statistically significant?" in plain English</div>`,
+   <img class="shot" src="../assets/img/s4/significance.png" alt="Claude answering &quot;is this difference statistically significant?&quot; in plain English"><div class="shotcap">Claude answering "is this difference statistically significant?" in plain English</div>`,
  note:`Significance sounds scary. It just asks: is this gap real, or could random luck explain it. Flip a coin ten times, you might get seven heads. That does not mean the coin is rigged. Same with B beating A by a little on twelve customers. Make the AI tell you, in plain words, whether the difference is real or could just be luck.`,
  vis:`[SCREENSHOT] Claude answering significance in plain English`},
 
 {sec:`READ EXPERIMENTS`, title:`CONFIDENCE, <span class="g">IN PLAIN ENGLISH</span>`,
  body:`<div class="sub" style="margin-top:0">Do not trust a single point ("B is 75%"). Trust the range ("B is somewhere between 55% and 90%"). A wide range on a small sample = you do not know yet.</div>
-   <img class="shot" src="../assets/img/s4/confidence-chart.png"><div class="shotcap">A chart Claude made showing a point estimate with its wide confidence range / error bar</div>`,
+   <img class="shot" src="../assets/img/s4/confidence-chart.png" alt="A chart Claude made showing a point estimate with its wide confidence range / error bar"><div class="shotcap">A chart Claude made showing a point estimate with its wide confidence range / error bar</div>`,
  note:`Second idea: confidence. A single number like seventy-five percent pretends to a precision you do not have. The honest version is a range. If the range is huge, say fifty-five to ninety percent, you do not know the real answer yet, you have a guess wearing a suit. Ask AI for the range, not just the point. The width of that range is your honesty meter.`,
  vis:`[SCREENSHOT] point estimate with a wide confidence range`},
 
@@ -216,7 +216,7 @@ window.SLIDES = [
 
 {sec:`READ EXPERIMENTS · Picsart`, title:`READ RESULTS, <span class="g">THEN DECIDE</span>`,
  body:`<div class="sub" style="margin-top:0">We run a weekly loop: ~30 experiment ideas &rarr; leadership picks ~10 &rarr; launch &rarr; measure &rarr; learn. The AI drafts the read. A human makes the call.</div>
-   <img class="shot" src="../assets/img/s4/experiment-ideas.png"><div class="shotcap">Experiment report or ideas sheet, high-level, no confidential figures</div>`,
+   <img class="shot" src="../assets/img/s4/experiment-ideas.png" alt="Experiment report or ideas sheet, high-level, no confidential figures"><div class="shotcap">Experiment report or ideas sheet, high-level, no confidential figures</div>`,
  note:`How this looks in real life. We have a weekly experiment loop: the system proposes around thirty test ideas, leadership picks about ten, they launch, and the next week we read what happened. AI drafts the read of the results fast. But the decision, what won, what to keep, what to test next, is always a human call. AI accelerates the loop. It does not close it. A growth or lifecycle team in a bank runs the exact same loop.`,
  vis:`[SCREENSHOT] experiment report, high-level`},
 

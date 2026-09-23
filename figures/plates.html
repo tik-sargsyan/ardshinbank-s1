@@ -34,7 +34,7 @@ figure{margin:0}
 .pnum{font-family:var(--m);font-weight:700;font-size:11px;color:var(--green);letter-spacing:.2em}
 .pname{font-family:var(--h);font-weight:800;text-transform:uppercase;font-size:clamp(22px,3vw,32px);
   letter-spacing:-.005em;line-height:1;margin:0}
-.pslug{font-family:var(--m);font-size:10px;color:var(--line3);letter-spacing:.1em;margin-left:auto}
+.pslug{font-family:var(--m);font-size:10px;color:var(--muted);letter-spacing:.1em;margin-left:auto}
 .pmotion{font-family:var(--m);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
   border:1px solid var(--line2);padding:3px 7px;color:var(--muted)}
 .pmotion.on{color:var(--green);border-color:var(--green)}
@@ -42,7 +42,7 @@ figure{margin:0}
 .stage svg{display:block;width:100%;height:auto;max-width:100%}
 figcaption{margin-top:16px;color:var(--muted);font-size:15px;line-height:1.55;max-width:62ch}
 figcaption b{color:var(--white);font-weight:500}
-.say{margin-top:14px;font-family:var(--m);font-size:11px;color:var(--line3);letter-spacing:.05em;line-height:1.7}
+.say{margin-top:14px;font-family:var(--m);font-size:11px;color:var(--muted);letter-spacing:.05em;line-height:1.7}
 .say b{color:var(--muted);font-weight:400}
 
 .t-lab{font-family:'Barlow',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
@@ -74,17 +74,17 @@ figcaption b{color:var(--white);font-weight:500}
   gap:0;border:1px solid var(--line2);font-variant-numeric:tabular-nums}
 .tbl>*{padding:13px 14px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
 .tbl>*:nth-child(4n){border-right:0}
-.th{font-family:var(--m);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--line3);
+.th{font-family:var(--m);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
   background:var(--surface)}
 .mn{font-family:var(--h);font-weight:800;text-transform:uppercase;font-size:17px;letter-spacing:.01em}
 .mi{font-family:var(--m);font-size:11px;color:var(--muted);overflow-wrap:anywhere}
 .mp{font-family:var(--m);font-size:12px;text-align:right;color:var(--white)}
-.mp span{color:var(--line3)}
+.mp span{color:var(--muted)}
 .bar{height:7px;background:var(--surface);border:1px solid var(--line);position:relative}
 .bar i{position:absolute;inset:-1px auto -1px -1px;background:var(--line3);transform-origin:left center;
   animation:fill-w .7s var(--ease-out) backwards}
 .bar i.hot{background:var(--green)}
-.mc{font-family:var(--m);font-size:10px;color:var(--line3);margin-top:7px;letter-spacing:.06em}
+.mc{font-family:var(--m);font-size:10px;color:var(--muted);margin-top:7px;letter-spacing:.06em}
 @media(max-width:640px){
   .tbl{grid-template-columns:1fr 1fr}
   .th{display:none}
@@ -107,7 +107,7 @@ figcaption b{color:var(--white);font-weight:500}
 <div class="page">
 
 <div class="masthead">
-  <div class="eyebrow">ACA X · plates 01–08 · drop-in deck figures</div>
+  <div class="eyebrow">ACA X · plates 01-08 · drop-in deck figures</div>
   <h1>Where the work <em>actually</em> happens</h1>
   <p class="lede">Eight schematics for the AI-for-PMs decks. Each one draws a mechanism to scale with real numbers, so a room can point at the thing being decided instead of reading a label.</p>
   <div class="meta">
@@ -126,12 +126,12 @@ figcaption b{color:var(--white);font-weight:500}
     <svg viewBox="0 0 660 250" role="img" aria-label="A request pipeline in which the model is one small stage; the harness assembles context before it and gates the tool call after it.">
       <defs>
         <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0 0 L10 5 L0 10 z" fill="var(--line3)"/></marker>
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker>
         <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0 0 L10 5 L0 10 z" fill="var(--green)"/></marker>
       </defs>
 
-      <text class="t-m" x="16" y="26" fill="var(--line3)" font-size="10" letter-spacing="2">REQUEST PATH, LEFT TO RIGHT</text>
+      <text class="t-m" x="16" y="26" fill="var(--muted)" font-size="10" letter-spacing="2">REQUEST PATH, LEFT TO RIGHT</text>
 
       <rect x="16" y="76" width="82" height="48" fill="none" stroke="var(--line3)"/>
       <text class="t-lab" x="57" y="105" text-anchor="middle" fill="var(--white)" font-size="12">YOUR ASK</text>
@@ -185,7 +185,7 @@ figcaption b{color:var(--white);font-weight:500}
     <svg viewBox="0 0 660 260" role="img" aria-label="A cycle of read, decide, act and observe, with a test that exits the loop when no tool is needed.">
       <defs>
         <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0 0 L10 5 L0 10 z" fill="var(--line3)"/></marker>
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker>
       </defs>
 
       <rect x="40" y="60" width="104" height="44" fill="none" stroke="var(--line3)"/>
@@ -231,7 +231,7 @@ figcaption b{color:var(--white);font-weight:500}
     <span class="pmotion on">animated</span><span class="pslug">fig-context</span></div>
   <div class="stage">
     <svg viewBox="0 0 660 260" role="img" aria-label="A context window drawn to scale: fixed overhead occupies a small fraction, conversation grows until it reaches a compaction threshold.">
-      <text class="t-m" x="20" y="26" fill="var(--line3)" font-size="10" letter-spacing="2">DRAWN TO SCALE · 1,000,000 TOKENS END TO END</text>
+      <text class="t-m" x="20" y="26" fill="var(--muted)" font-size="10" letter-spacing="2">DRAWN TO SCALE · 1,000,000 TOKENS END TO END</text>
 
       <line x1="20" y1="48" x2="640" y2="48" stroke="var(--line2)"/>
       <g stroke="var(--line2)">
@@ -239,16 +239,16 @@ figcaption b{color:var(--white);font-weight:500}
         <line x1="268" y1="44" x2="268" y2="54"/><line x1="392" y1="44" x2="392" y2="54"/>
         <line x1="516" y1="44" x2="516" y2="54"/><line x1="640" y1="44" x2="640" y2="54"/>
       </g>
-      <g class="t-m" font-size="9" fill="var(--line3)">
+      <g class="t-m" font-size="9" fill="var(--muted)">
         <text x="20" y="40">0</text><text x="144" y="40" text-anchor="middle">200K</text>
         <text x="268" y="40" text-anchor="middle">400K</text><text x="392" y="40" text-anchor="middle">600K</text>
         <text x="516" y="40" text-anchor="middle">800K</text><text x="640" y="40" text-anchor="end">1M</text>
       </g>
 
       <rect x="20" y="72" width="620" height="44" fill="none" stroke="var(--line2)"/>
-      <rect x="21" y="73" width="12" height="42" fill="var(--line3)"/>
+      <rect x="21" y="73" width="12" height="42" fill="var(--muted)"/>
       <rect x="33" y="73" width="7" height="42" fill="var(--line2)"/>
-      <rect x="40" y="73" width="10" height="42" fill="var(--line3)"/>
+      <rect x="40" y="73" width="10" height="42" fill="var(--muted)"/>
       <g class="mv-grow"><rect x="50" y="73" width="480" height="42" fill="var(--green)" opacity=".26"/></g>
 
       <line x1="530" y1="64" x2="530" y2="124" stroke="var(--green)" stroke-width="1.5"/>
@@ -281,20 +281,20 @@ figcaption b{color:var(--white);font-weight:500}
     <svg viewBox="0 0 660 250" role="img" aria-label="Three layers of instruction files where the most specific layer overrides the more general ones, resolving a conflicting rule.">
       <defs>
         <marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0 0 L10 5 L0 10 z" fill="var(--line3)"/></marker>
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker>
       </defs>
 
-      <text class="t-m" x="20" y="26" fill="var(--line3)" font-size="10" letter-spacing="2">GENERAL → SPECIFIC · LAST ONE WINS</text>
+      <text class="t-m" x="20" y="26" fill="var(--muted)" font-size="10" letter-spacing="2">GENERAL → SPECIFIC · LAST ONE WINS</text>
 
       <g class="mv-step">
         <rect x="20" y="46" width="300" height="46" fill="none" stroke="var(--line2)"/>
         <text class="t-m" x="34" y="66" fill="var(--muted)" font-size="11">~/.claude/CLAUDE.md</text>
-        <text class="t-m" x="34" y="82" fill="var(--line3)" font-size="10">"never send without approval"</text>
+        <text class="t-m" x="34" y="82" fill="var(--muted)" font-size="10">"never send without approval"</text>
       </g>
       <g class="mv-step">
         <rect x="20" y="102" width="300" height="46" fill="none" stroke="var(--line2)"/>
         <text class="t-m" x="34" y="122" fill="var(--muted)" font-size="11">repo/CLAUDE.md</text>
-        <text class="t-m" x="34" y="138" fill="var(--line3)" font-size="10">"synthetic data only"</text>
+        <text class="t-m" x="34" y="138" fill="var(--muted)" font-size="10">"synthetic data only"</text>
       </g>
       <g class="mv-step">
         <rect x="20" y="158" width="300" height="46" fill="none" stroke="var(--green)" stroke-width="1.5"/>
@@ -314,7 +314,7 @@ figcaption b{color:var(--white);font-weight:500}
       </g>
       <line x1="406" y1="112" x2="560" y2="112" stroke="var(--line2)"/>
       <line x1="406" y1="136" x2="560" y2="136" stroke="var(--line2)"/>
-      <text class="t-m" x="406" y="180" fill="var(--line3)" font-size="9">a rule you cannot find is a rule you cannot audit</text>
+      <text class="t-m" x="406" y="180" fill="var(--muted)" font-size="9">a rule you cannot find is a rule you cannot audit</text>
 
       <text class="t-b" x="20" y="238" fill="var(--muted)" font-size="12">These guide behaviour. The thing that actually blocks an action is the permission setting, not the sentence.</text>
     </svg>
@@ -331,7 +331,7 @@ figcaption b{color:var(--white);font-weight:500}
     <svg viewBox="0 0 660 280" role="img" aria-label="One orchestrator delegating to four subagents, each burning its own large context, returning only short answers so the main thread stays small.">
       <defs>
         <marker id="ar5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M0 0 L10 5 L0 10 z" fill="var(--line3)"/></marker>
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker>
         <marker id="ar5g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M0 0 L10 5 L0 10 z" fill="var(--green)"/></marker>
       </defs>
@@ -352,22 +352,22 @@ figcaption b{color:var(--white);font-weight:500}
         <text class="t-m" x="68" y="124" text-anchor="middle" fill="var(--white)" font-size="10">reads 60K</text>
         <rect x="26" y="134" width="84" height="6" fill="var(--line2)"/>
         <rect x="26" y="134" width="76" height="6" fill="var(--green)" opacity=".7"/>
-        <text class="t-m" x="68" y="156" text-anchor="middle" fill="var(--line3)" font-size="9">own window</text></g>
+        <text class="t-m" x="68" y="156" text-anchor="middle" fill="var(--muted)" font-size="9">own window</text></g>
       <g class="mv-hold-b"><rect x="187" y="104" width="112" height="58" fill="none" stroke="var(--line2)"/>
         <text class="t-m" x="243" y="124" text-anchor="middle" fill="var(--white)" font-size="10">reads 45K</text>
         <rect x="201" y="134" width="84" height="6" fill="var(--line2)"/>
         <rect x="201" y="134" width="58" height="6" fill="var(--green)" opacity=".7"/>
-        <text class="t-m" x="243" y="156" text-anchor="middle" fill="var(--line3)" font-size="9">own window</text></g>
+        <text class="t-m" x="243" y="156" text-anchor="middle" fill="var(--muted)" font-size="9">own window</text></g>
       <g class="mv-hold-c"><rect x="361" y="104" width="112" height="58" fill="none" stroke="var(--line2)"/>
         <text class="t-m" x="417" y="124" text-anchor="middle" fill="var(--white)" font-size="10">reads 72K</text>
         <rect x="375" y="134" width="84" height="6" fill="var(--line2)"/>
         <rect x="375" y="134" width="84" height="6" fill="var(--green)" opacity=".7"/>
-        <text class="t-m" x="417" y="156" text-anchor="middle" fill="var(--line3)" font-size="9">own window</text></g>
+        <text class="t-m" x="417" y="156" text-anchor="middle" fill="var(--muted)" font-size="9">own window</text></g>
       <g class="mv-hold-d"><rect x="536" y="104" width="112" height="58" fill="none" stroke="var(--line2)"/>
         <text class="t-m" x="592" y="124" text-anchor="middle" fill="var(--white)" font-size="10">reads 31K</text>
         <rect x="550" y="134" width="84" height="6" fill="var(--line2)"/>
         <rect x="550" y="134" width="40" height="6" fill="var(--green)" opacity=".7"/>
-        <text class="t-m" x="592" y="156" text-anchor="middle" fill="var(--line3)" font-size="9">own window</text></g>
+        <text class="t-m" x="592" y="156" text-anchor="middle" fill="var(--muted)" font-size="9">own window</text></g>
 
       <g stroke="var(--green)" fill="none" opacity=".85">
         <path d="M68 162 V190 H330 V212" marker-end="url(#ar5g)"/>
@@ -430,7 +430,7 @@ figcaption b{color:var(--white);font-weight:500}
           <path d="M0 0 L10 5 L0 10 z" fill="var(--green)"/></marker>
       </defs>
 
-      <text class="t-m" x="20" y="24" fill="var(--line3)" font-size="10" letter-spacing="2">ALWAYS LOADED · 40 SKILLS × ~1 LINE = ~4K TOKENS</text>
+      <text class="t-m" x="20" y="24" fill="var(--muted)" font-size="10" letter-spacing="2">ALWAYS LOADED · 40 SKILLS × ~1 LINE = ~4K TOKENS</text>
 
       <g stroke="var(--line2)" fill="none">
         <rect x="20" y="40" width="150" height="26"/><rect x="20" y="72" width="150" height="26"/>
@@ -438,16 +438,16 @@ figcaption b{color:var(--white);font-weight:500}
       </g>
       <rect x="20" y="104" width="150" height="26" fill="none" stroke="var(--green)" stroke-width="1.5"/>
       <g class="t-m" font-size="10">
-        <text x="32" y="58" fill="var(--line3)">brand-voice</text>
-        <text x="32" y="90" fill="var(--line3)">data-brief</text>
+        <text x="32" y="58" fill="var(--muted)">brand-voice</text>
+        <text x="32" y="90" fill="var(--muted)">data-brief</text>
         <text x="32" y="122" fill="var(--green)">prd-writer</text>
-        <text x="32" y="154" fill="var(--line3)">judge-rubric</text>
-        <text x="32" y="186" fill="var(--line3)">…36 more</text>
+        <text x="32" y="154" fill="var(--muted)">judge-rubric</text>
+        <text x="32" y="186" fill="var(--muted)">…36 more</text>
       </g>
 
       <line x1="176" y1="117" x2="244" y2="117" stroke="var(--green)" stroke-width="1.5" marker-end="url(#ar7)"/>
       <text class="t-m" x="210" y="109" text-anchor="middle" fill="var(--green)" font-size="9">matched</text>
-      <text class="t-m" x="210" y="133" text-anchor="middle" fill="var(--line3)" font-size="9">by its one line</text>
+      <text class="t-m" x="210" y="133" text-anchor="middle" fill="var(--muted)" font-size="9">by its one line</text>
 
       <rect x="256" y="40" width="384" height="154" fill="none" stroke="var(--green)" stroke-width="1.5"/>
       <text class="t-lab" x="272" y="64" fill="var(--green)" font-size="12">PULLED IN ON MATCH · ~8K TOKENS</text>
@@ -458,7 +458,7 @@ figcaption b{color:var(--white);font-weight:500}
       </g>
       <line x1="272" y1="102" x2="616" y2="102" stroke="var(--line2)"/>
       <line x1="272" y1="126" x2="616" y2="126" stroke="var(--line2)"/>
-      <text class="t-m" x="272" y="172" fill="var(--line3)" font-size="9">the other 39 bodies are never read, never billed</text>
+      <text class="t-m" x="272" y="172" fill="var(--muted)" font-size="9">the other 39 bodies are never read, never billed</text>
 
       <text class="t-b" x="20" y="226" fill="var(--muted)" font-size="12">The description is the whole matching surface. Write it for the moment of need, not for the filing cabinet.</text>
     </svg>
@@ -475,10 +475,10 @@ figcaption b{color:var(--white);font-weight:500}
     <svg viewBox="0 0 660 250" role="img" aria-label="Tool calls sorted by reversibility into allowed, paused for a human, and refused outright.">
       <defs>
         <marker id="ar8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0 0 L10 5 L0 10 z" fill="var(--line3)"/></marker>
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker>
       </defs>
 
-      <text class="t-m" x="20" y="24" fill="var(--line3)" font-size="10" letter-spacing="2">SORTED BY WHAT IT COSTS TO UNDO</text>
+      <text class="t-m" x="20" y="24" fill="var(--muted)" font-size="10" letter-spacing="2">SORTED BY WHAT IT COSTS TO UNDO</text>
 
       <text class="t-lab" x="20" y="52" fill="var(--white)" font-size="11">TOOL CALL</text>
       <line x1="20" y1="120" x2="176" y2="120" stroke="var(--line3)" marker-end="url(#ar8)"/>
@@ -490,7 +490,7 @@ figcaption b{color:var(--white);font-weight:500}
       <line x1="258" y1="72" x2="382" y2="72" stroke="var(--line3)" marker-end="url(#ar8)"/>
       <text class="t-lab" x="396" y="68" fill="var(--white)" font-size="13">ALLOW</text>
       <text class="t-m" x="396" y="86" fill="var(--muted)" font-size="10">read a file · search · draft</text>
-      <text class="t-m" x="640" y="68" text-anchor="end" fill="var(--line3)" font-size="9">free to undo</text>
+      <text class="t-m" x="640" y="68" text-anchor="end" fill="var(--muted)" font-size="9">free to undo</text>
 
       <g class="mv-wait">
         <line x1="258" y1="124" x2="382" y2="124" stroke="var(--green)" stroke-width="1.5" marker-end="url(#ar8)"/>
@@ -503,9 +503,9 @@ figcaption b{color:var(--white);font-weight:500}
       <line x1="258" y1="176" x2="368" y2="176" stroke="var(--line2)"/>
       <line x1="374" y1="170" x2="386" y2="182" stroke="var(--line2)" stroke-width="2"/>
       <line x1="386" y1="170" x2="374" y2="182" stroke="var(--line2)" stroke-width="2"/>
-      <text class="t-lab" x="396" y="172" fill="var(--line3)" font-size="13">NEVER</text>
-      <text class="t-m" x="396" y="190" fill="var(--line3)" font-size="10">customer data · payments · production</text>
-      <text class="t-m" x="640" y="172" text-anchor="end" fill="var(--line3)" font-size="9">cannot be undone</text>
+      <text class="t-lab" x="396" y="172" fill="var(--muted)" font-size="13">NEVER</text>
+      <text class="t-m" x="396" y="190" fill="var(--muted)" font-size="10">customer data · payments · production</text>
+      <text class="t-m" x="640" y="172" text-anchor="end" fill="var(--muted)" font-size="9">cannot be undone</text>
 
       <text class="t-b" x="20" y="232" fill="var(--muted)" font-size="12">Written rules ask nicely. This is the layer that actually refuses. Set it before the demo, not after the incident.</text>
     </svg>
